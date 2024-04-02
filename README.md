@@ -6,6 +6,7 @@ Ante todo, se resguardara la seguridad e integridad de los datos aun finalizado 
 # Contiene 
 PDF y pbix de los siguientes tableros:
 
-1. Informe Estadístico de Rendimiento Deportivo con datos provenientes de WyScout:
-3. Tablero Selección Argentina Femenina con datos provenientes desde LongoMatch.
-4. Tablero de La Liga Española con datos provenientes de una Api de DB Sports.
+1. Tablero de La Liga Española con datos provenientes de una Api de DB Sports.
+2. Tablero de Seguimiento Personal con datos provenientes desde LongoMatch.
+3. Informe Estadístico de Rendimiento Deportivo con datos provenientes de WyScout:
+4. Tablero Selección Argentina Femenina con datos provenientes desde LongoMatch.
