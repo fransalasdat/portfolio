@@ -10,3 +10,5 @@ PDF y pbix de los siguientes tableros:
 2. Tablero de Seguimiento Personal con datos provenientes desde LongoMatch.
 3. Informe Estadístico de Rendimiento Deportivo con datos provenientes de WyScout:
 4. Tablero Selección Argentina Femenina con datos provenientes desde LongoMatch.
+
+Link a Tableros para su visualización.
