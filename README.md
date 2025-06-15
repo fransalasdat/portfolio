@@ -4,7 +4,7 @@ Este repositorio contiene muestras del portfolio profesional en Power BI de Fran
 *Ante todo, se resguardará la seguridad e integridad de los datos aun finalizado el vínculo laboral.*
 
 ## Contiene 
-### 1. Modelo Semantico y Tablero de La Liga Española con datos obtenidos de una Api de DB Sports:
+### 1. Modelo Semantico y Tablero de [La Liga Española](https://github.com/fransalasdat/portfolio/blob/main/1_Solucion_La_Liga_Espaniola/1.%20Solucion%20La%20Liga%20Espa%C3%B1ola.pdf) con datos obtenidos de una Api de DB Sports:
 ![alt text](3.png)
 ![alt text](4.png)
 ### 2. Tablero de Seguimiento Personal con datos provenientes desde LongoMatch.
