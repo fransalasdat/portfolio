@@ -1,5 +1,6 @@
 # 📊 Tablero Selección Femenina Argentina - Power BI Report
-El propósito de este proyecto fue realizar un desarrollo enfocado a seguir a jugadoras puntuales usuarias de mi cliente a traves de un marcador.
+El propósito de este proyecto fue realizar un desarrollo enfocado a seguir a jugadoras puntuales usuarias de mi cliente a traves de un software de marcador.   
+
 Podrás visualizar e interactuar directamente con el Dashboard [aquí](https://app.powerbi.com/view?r=eyJrIjoiMGZmNjcyNjItOGE4NS00ZWZiLTg5MzItNzQyM2JiOWEwZGNiIiwidCI6Ijg1MjI2NjJhLTVkYTctNGE1Zi05ZDM0LWFmNzAzNTM3NzIyZCIsImMiOjR9)👁️ 
 
 ## 🗂 Estructura del repositorio 
