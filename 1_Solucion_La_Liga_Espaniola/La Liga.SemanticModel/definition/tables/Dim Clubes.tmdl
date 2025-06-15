@@ -1,0 +1,166 @@
+table 'Dim Clubes'
+	lineageTag: ae4b1aaa-423f-4b59-9967-16b689d88ccd
+
+	column 'ID Club'
+		dataType: int64
+		formatString: 0
+		lineageTag: 50517b50-3f41-4c41-98e3-9618178ca57a
+		summarizeBy: none
+		sourceColumn: ID Club
+
+		annotation SummarizationSetBy = Automatic
+
+	column Club
+		dataType: string
+		lineageTag: c7050708-475e-4550-8328-3f10908fd9c9
+		summarizeBy: none
+		sourceColumn: Club
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Anio Fundación'
+		dataType: int64
+		formatString: 0
+		lineageTag: a1c1bd63-3229-4012-842b-6b85205bfece
+		summarizeBy: sum
+		sourceColumn: Anio Fundación
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Liga'
+		dataType: int64
+		formatString: 0
+		lineageTag: 87f21129-87de-4b68-976a-35f6be779666
+		summarizeBy: none
+		sourceColumn: ID Liga
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre Estadio'
+		dataType: string
+		lineageTag: b6751323-b2da-43c3-abed-0a4ad96a6b84
+		summarizeBy: none
+		sourceColumn: Nombre Estadio
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Imagen Estadio'
+		dataType: string
+		lineageTag: 5fa7aacf-8d3c-4fde-abea-fd912c6aa0bf
+		summarizeBy: none
+		sourceColumn: Imagen Estadio
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ciudad
+		dataType: string
+		lineageTag: 234eef62-a9cd-4dc2-873d-1077edb5da46
+		summarizeBy: none
+		sourceColumn: Ciudad
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Capacidad Estadio'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9f0726f2-e19e-479c-bfd5-31de83470466
+		summarizeBy: sum
+		sourceColumn: Capacidad Estadio
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Descripcion en espanol'
+		dataType: string
+		lineageTag: 48036e0f-ca3b-4627-9c35-1f358e06d261
+		summarizeBy: none
+		sourceColumn: Descripcion en espanol
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Color 1'
+		dataType: string
+		lineageTag: 2b2714b5-2c52-4027-988c-542067c32777
+		summarizeBy: none
+		sourceColumn: Color 1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Color 2'
+		dataType: string
+		lineageTag: a2df1ca3-d264-4e9e-972a-bb8f70a2f42e
+		summarizeBy: none
+		sourceColumn: Color 2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Color 3'
+		dataType: string
+		lineageTag: 5e7458f9-a88e-48e6-a0fc-a856146585cf
+		summarizeBy: none
+		sourceColumn: Color 3
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Imagen Escudo'
+		dataType: string
+		lineageTag: a43285c3-88a9-449f-96c1-60236bc60e58
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Imagen Escudo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Imagen Camiseta'
+		dataType: string
+		lineageTag: f04806d1-92c9-4981-ba8c-7fdc90376dcd
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Imagen Camiseta
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre Instagram'
+		dataType: string
+		lineageTag: 36a8cae6-2593-4910-9c48-d421c8c449de
+		summarizeBy: none
+		sourceColumn: Nombre Instagram
+
+		annotation SummarizationSetBy = Automatic
+
+	column Instagram = if(NOT(('Dim Clubes'[Nombre Instagram])=""),("@" & 'Dim Clubes'[Nombre Instagram]),BLANK())
+		lineageTag: 1e1b29bd-0624-48f0-937b-03471d5712b4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Clubes-fc173695-ea6b-43f0-8b52-d25bfa6ee715' = m
+		mode: import
+		source =
+				let
+				    Origen = Json.Document(Web.Contents("https://www.thesportsdb.com/api/v1/json/60130162/search_all_teams.php?s=Soccer&c=Spain")),
+				    #"Convertida en tabla" = Table.FromRecords({Origen}),
+				    #"Se expandió teams" = Table.ExpandListColumn(#"Convertida en tabla", "teams"),
+				    #"Se expandió teams1" = Table.ExpandRecordColumn(#"Se expandió teams", "teams", {"idTeam", "idSoccerXML", "idAPIfootball", "intLoved", "strTeam", "strTeamShort", "strAlternate", "intFormedYear", "strSport", "strLeague", "idLeague", "strLeague2", "idLeague2", "strLeague3", "idLeague3", "strLeague4", "idLeague4", "strLeague5", "idLeague5", "strLeague6", "idLeague6", "strLeague7", "idLeague7", "strDivision", "strManager", "strStadium", "strKeywords", "strRSS", "strStadiumThumb", "strStadiumDescription", "strStadiumLocation", "intStadiumCapacity", "strWebsite", "strFacebook", "strTwitter", "strInstagram", "strDescriptionEN", "strDescriptionDE", "strDescriptionFR", "strDescriptionCN", "strDescriptionIT", "strDescriptionJP", "strDescriptionRU", "strDescriptionES", "strDescriptionPT", "strDescriptionSE", "strDescriptionNL", "strDescriptionHU", "strDescriptionNO", "strDescriptionIL", "strDescriptionPL", "strKitColour1", "strKitColour2", "strKitColour3", "strGender", "strCountry", "strTeamBadge", "strTeamJersey", "strTeamLogo", "strTeamFanart1", "strTeamFanart2", "strTeamFanart3", "strTeamFanart4", "strTeamBanner", "strYoutube", "strLocked"}, {"teams.idTeam", "teams.idSoccerXML", "teams.idAPIfootball", "teams.intLoved", "teams.strTeam", "teams.strTeamShort", "teams.strAlternate", "teams.intFormedYear", "teams.strSport", "teams.strLeague", "teams.idLeague", "teams.strLeague2", "teams.idLeague2", "teams.strLeague3", "teams.idLeague3", "teams.strLeague4", "teams.idLeague4", "teams.strLeague5", "teams.idLeague5", "teams.strLeague6", "teams.idLeague6", "teams.strLeague7", "teams.idLeague7", "teams.strDivision", "teams.strManager", "teams.strStadium", "teams.strKeywords", "teams.strRSS", "teams.strStadiumThumb", "teams.strStadiumDescription", "teams.strStadiumLocation", "teams.intStadiumCapacity", "teams.strWebsite", "teams.strFacebook", "teams.strTwitter", "teams.strInstagram", "teams.strDescriptionEN", "teams.strDescriptionDE", "teams.strDescriptionFR", "teams.strDescriptionCN", "teams.strDescriptionIT", "teams.strDescriptionJP", "teams.strDescriptionRU", "teams.strDescriptionES", "teams.strDescriptionPT", "teams.strDescriptionSE", "teams.strDescriptionNL", "teams.strDescriptionHU", "teams.strDescriptionNO", "teams.strDescriptionIL", "teams.strDescriptionPL", "teams.strKitColour1", "teams.strKitColour2", "teams.strKitColour3", "teams.strGender", "teams.strCountry", "teams.strTeamBadge", "teams.strTeamJersey", "teams.strTeamLogo", "teams.strTeamFanart1", "teams.strTeamFanart2", "teams.strTeamFanart3", "teams.strTeamFanart4", "teams.strTeamBanner", "teams.strYoutube", "teams.strLocked"}),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Se expandió teams1",{{"teams.idTeam", Int64.Type}, {"teams.idSoccerXML", Int64.Type}, {"teams.idAPIfootball", Int64.Type}, {"teams.intLoved", Int64.Type}, {"teams.strTeam", type text}, {"teams.strTeamShort", type text}, {"teams.strAlternate", type text}, {"teams.intFormedYear", Int64.Type}, {"teams.strSport", type text}, {"teams.strLeague", type text}, {"teams.idLeague", Int64.Type}, {"teams.strLeague2", type text}, {"teams.idLeague2", Int64.Type}, {"teams.strLeague3", type text}, {"teams.idLeague3", Int64.Type}, {"teams.strLeague4", type text}, {"teams.idLeague4", Int64.Type}, {"teams.strLeague5", type text}, {"teams.idLeague5", Int64.Type}, {"teams.strLeague6", type text}, {"teams.idLeague6", Int64.Type}, {"teams.strLeague7", type any}, {"teams.idLeague7", type any}, {"teams.strDivision", type any}, {"teams.strManager", type any}, {"teams.strStadium", type text}, {"teams.strKeywords", type text}, {"teams.strRSS", type text}, {"teams.strStadiumThumb", type text}, {"teams.strStadiumDescription", type text}, {"teams.strStadiumLocation", type text}, {"teams.intStadiumCapacity", Int64.Type}, {"teams.strWebsite", type text}, {"teams.strFacebook", type text}, {"teams.strTwitter", type text}, {"teams.strInstagram", type text}, {"teams.strDescriptionEN", type text}, {"teams.strDescriptionDE", type any}, {"teams.strDescriptionFR", type any}, {"teams.strDescriptionCN", type any}, {"teams.strDescriptionIT", type text}, {"teams.strDescriptionJP", type any}, {"teams.strDescriptionRU", type any}, {"teams.strDescriptionES", type text}, {"teams.strDescriptionPT", type any}, {"teams.strDescriptionSE", type any}, {"teams.strDescriptionNL", type any}, {"teams.strDescriptionHU", type any}, {"teams.strDescriptionNO", type any}, {"teams.strDescriptionIL", type any}, {"teams.strDescriptionPL", type any}, {"teams.strKitColour1", type text}, {"teams.strKitColour2", type text}, {"teams.strKitColour3", type text}, {"teams.strGender", type text}, {"teams.strCountry", type text}, {"teams.strTeamBadge", type text}, {"teams.strTeamJersey", type text}, {"teams.strTeamLogo", type text}, {"teams.strTeamFanart1", type text}, {"teams.strTeamFanart2", type text}, {"teams.strTeamFanart3", type text}, {"teams.strTeamFanart4", type text}, {"teams.strTeamBanner", type text}, {"teams.strYoutube", type text}, {"teams.strLocked", type text}}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado",{"teams.strDescriptionDE", "teams.strDescriptionFR", "teams.strDescriptionCN", "teams.strDescriptionIT", "teams.strDescriptionJP", "teams.strDescriptionRU", "teams.strDescriptionPT", "teams.strDescriptionSE", "teams.strDescriptionNL", "teams.strDescriptionHU", "teams.strDescriptionNO", "teams.strDescriptionIL", "teams.strDescriptionPL"}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Columnas quitadas",{{"teams.strTeam", "Club"}, {"teams.idTeam", "ID Club"}, {"teams.strTeamLogo", "Imagen Logotipo"}, {"teams.strTeamBadge", "Imagen Escudo"}, {"teams.strTeamJersey", "Imagen Camiseta"}, {"teams.intFormedYear", "Anio Fundación"}, {"teams.strKeywords", "Apodo"}, {"teams.strStadium", "Nombre Estadio"}, {"teams.strStadiumThumb", "Imagen Estadio"}, {"teams.idLeague", "ID Liga"}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Columnas con nombre cambiado",{"teams.idSoccerXML", "teams.idAPIfootball", "teams.intLoved"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"teams.strTeamFanart4", "Imagen Fanart 4"}, {"teams.strTeamFanart3", "Imagen Fanart 3"}, {"teams.strTeamFanart2", "Imagen Fanart 2"}, {"teams.strTeamFanart1", "Imagen Fanart1"}, {"teams.strTeamBanner", "Imagen Banner"}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Renamed Columns",{"teams.strTeamShort", "teams.strAlternate", "teams.strSport", "teams.strLeague", "teams.strDivision", "teams.strManager", "teams.strRSS"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns1",{{"teams.strStadiumLocation", "Ciudad"}, {"teams.intStadiumCapacity", "Capacidad Estadio"}, {"teams.strWebsite", "Sitio Web"}}),
+				    #"Removed Columns2" = Table.RemoveColumns(#"Renamed Columns1",{"teams.strFacebook", "teams.strTwitter"}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Removed Columns2",{{"teams.strDescriptionEN", "Descripcion en Ingles"}, {"teams.strDescriptionES", "Descripcion en espanol"}, {"teams.strKitColour1", "Color 1"}, {"teams.strKitColour2", "Color 2"}, {"teams.strKitColour3", "Color 3"}}),
+				    #"Removed Columns3" = Table.RemoveColumns(#"Renamed Columns2",{"teams.strGender", "teams.strCountry", "teams.strLocked"}),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Removed Columns3",{{"teams.strYoutube", "Youtube"}, {"teams.strStadiumDescription", "Descripcion Estadio"}, {"teams.strInstagram", "Instagram Page"}}),
+				    #"Inserted Text After Delimiter" = Table.AddColumn(#"Renamed Columns3", "Text After Delimiter", each Text.AfterDelimiter([Instagram Page], "/"), type text),
+				    #"Removed Columns4" = Table.RemoveColumns(#"Inserted Text After Delimiter",{"Descripcion en Ingles", "Descripcion Estadio", "teams.strLeague2", "teams.idLeague2", "teams.strLeague3", "teams.idLeague3", "teams.strLeague4", "teams.idLeague4", "teams.strLeague5", "teams.idLeague5", "teams.strLeague6", "teams.idLeague6", "teams.strLeague7", "teams.idLeague7", "Apodo", "Sitio Web", "Imagen Logotipo", "Imagen Fanart1", "Imagen Fanart 2", "Imagen Fanart 3", "Imagen Fanart 4", "Imagen Banner", "Youtube", "Instagram Page"}),
+				    #"Renamed Columns4" = Table.RenameColumns(#"Removed Columns4",{{"Text After Delimiter", "Nombre Instagram"}})
+				in
+				    #"Renamed Columns4"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

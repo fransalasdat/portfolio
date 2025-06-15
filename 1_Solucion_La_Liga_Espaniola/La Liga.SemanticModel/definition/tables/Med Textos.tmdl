@@ -1,0 +1,78 @@
+table 'Med Textos'
+	lineageTag: 765619a2-646d-43ec-9f99-644293c67848
+
+	measure Club =
+			
+			SELECTEDVALUE ( 'Dim Clubes'[Club] )
+		lineageTag: 95e8b0c1-5013-4aba-b3ba-465fbe69a2c3
+
+	measure 'Anio Fundacion' =
+			
+			SELECTEDVALUE ( 'Dim Clubes'[Anio Fundación] )
+		formatString: 0
+		lineageTag: a6cd94af-5504-4275-8acf-369a75ad977d
+
+	measure 'Descripcion Club' =
+			
+			SELECTEDVALUE ( 'Dim Clubes'[Descripcion en espanol] )
+		lineageTag: d8b9b807-2b33-49d9-a194-620a5dbf8dde
+
+	measure 'Titulo Hoja Club' =
+			
+			"Ficha Técnica de Clubes"
+		lineageTag: 9a9e40d5-caa1-48d3-b0e1-866210bcf39a
+
+	measure 'Titulo Tabla General' = "Tabla General"
+		lineageTag: 3c6c756d-30fc-4638-af8c-e14c71caa006
+
+	measure 'Titulo Puntos' = "Análisis de Resultados"
+		lineageTag: d737a1a8-81e6-491c-bd70-386b0ea73e61
+
+	measure 'Titulo Hoja Visitante' = "Análisis Detallado de Visitante"
+		lineageTag: d1b21fd5-68ed-4322-9aa6-2b9a467d7bf6
+
+	measure Plantilla = "Plantilla"
+		lineageTag: 198bd31b-51a5-4883-9355-ae3ba15c8257
+
+	measure 'Director Técnico' = "Director Técnico"
+		lineageTag: 83374c69-d7d3-4d89-9d02-9b5995f65d3f
+
+	measure 'Titulo Remates' = "Análisis de Remates"
+		lineageTag: 60611270-5827-49e3-afeb-0979cb820fbe
+
+	measure 'Titulo Detalle' = "Tabla General"
+		lineageTag: e8dfa593-8716-4a66-9a03-75d5982cd001
+
+	measure 'Titulo Pases y Posesion' = "Análisis de Pases y Posesión"
+		lineageTag: ed4790e3-a8d7-4afe-871a-2d9531b7510b
+
+	measure 'Titulo Goles' = "Análisis de Goles"
+		lineageTag: 5fa45ef4-7879-4bd5-8fc3-43ee0b775468
+
+	measure 'Titulo COF' = "Corners, Offsides y Faltas"
+		lineageTag: 526fcd4b-25e8-465d-aa65-fc7417b67c2c
+
+	measure 'Titulo Portada' = "Tablero de Datos de La Liga"
+		lineageTag: d6cc6ffe-ace5-4030-bc6f-a9ba433c9699
+
+	measure 'Titulo Temporadas' = "Temporadas 20-21, 21-22, 22-23"
+		lineageTag: 21817377-c331-4997-88d3-f97fbcfd5c6c
+
+	measure 'Titulo como Local' = SELECTEDVALUE('Dim Clubes'[Club]) & " de Local"
+		lineageTag: c661d417-088d-4826-a2c1-1816fb5bea6a
+
+	measure 'Titulo como Visitante' = SELECTEDVALUE('Dim Clubes'[Club]) & " de Visitante"
+		lineageTag: 0ddcb9da-a93b-4b23-85e5-22540d6afbe2
+
+	partition 'Med Textos-f851f8ed-543a-4755-a66a-6af5ee7c01c7' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

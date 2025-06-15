@@ -1,0 +1,128 @@
+relationship 7b365f6b-085b-4f71-adba-9d8352fe1a6c
+	fromColumn: 'Fact Encuentros Local'.'ID Club'
+	toColumn: 'Dim Clubes'.'ID Club'
+
+relationship 115e645a-27b1-4fa7-a3b0-603842b89e89
+	fromColumn: 'Fact Encuentros Visitante'.'ID Club'
+	toColumn: 'Dim Clubes'.'ID Club'
+
+relationship b201dbc8-7a05-4cdf-922d-3ecb679d2acf
+	fromColumn: 'Fact Encuentros Local'.strSeason
+	toColumn: 'Dim Temporadas'.Temporada
+
+relationship a6795bfe-0c6e-4ae9-813b-dfc0d1ebc396
+	fromColumn: 'Fact Encuentros Visitante'.strSeason
+	toColumn: 'Dim Temporadas'.Temporada
+
+relationship 6a804e8b-9e2a-4234-9876-d2f732e4b204
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Encuentros Local'.'Fecha Partido'
+	toColumn: LocalDateTable_117917ac-6c7b-45ac-b55e-500a79249ae3.Date
+
+relationship a2c440a0-5adb-409d-b053-8d8496eb4274
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Fact Encuentros Visitante'.'Fecha Partido'
+	toColumn: LocalDateTable_0a8c722d-0ede-4f3e-909d-68a352a74171.Date
+
+relationship fa82ca0c-243a-4435-9d48-d76dbeabe2a7
+	fromColumn: 'Dim Clubes'.'ID Liga'
+	toColumn: 'Dim Torneos'.'ID Liga'
+
+relationship d37829f8-796e-4dff-a758-498da073a59d
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Fact Estadisticas Local'.'ID Partido'
+	toColumn: 'Fact Encuentros Local'.'ID Partido'
+
+relationship 7c39e5ea-c75d-4740-8398-476a82946760
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Fact Estadisticas Visitante'.'ID Partido'
+	toColumn: 'Fact Encuentros Visitante'.'ID Partido'
+
+relationship 5fac1a92-dc32-4223-ac78-5e46f7da0f32
+	fromColumn: 'Dim Jugadores'.'ID Club'
+	toColumn: 'Dim Clubes'.'ID Club'
+
+relationship f00730be-148c-4726-889f-ed5b8f4afd19
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Dim Jugadores'.'Fecha Nacimiento'
+	toColumn: LocalDateTable_f42861e9-dd22-4aea-a05a-3471cc4cefcd.Date
+
+relationship 8309126d-bb26-43e4-80bf-bacbbe2ba8df
+	fromColumn: 'Dim Jugadores'.Nacionality
+	toColumn: Dim_Paises.Ingles
+
+relationship 5c4721a4-8eea-4df3-a20a-ea5664265449
+	fromColumn: 'Fact Encuentros Local'.Localidad
+	toColumn: 'Dim Localidad'.Localidad
+
+relationship cb53cd85-6966-425f-98f7-62bfb1507470
+	fromColumn: 'Fact Encuentros Visitante'.Localidad
+	toColumn: 'Dim Localidad'.Localidad
+
+relationship 7dfa5715-1ebe-425f-97a6-eaf29aa222c8
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Det Fact Goles Local'.'ID Partido'
+	toColumn: 'Fact Encuentros Local'.'ID Partido'
+
+relationship b87afa99-6b4f-40e4-9525-bc20b6a016cd
+	fromColumn: 'Det Fact Goles Visitante'.'ID Partido'
+	toColumn: 'Fact Encuentros Visitante'.'ID Partido'
+
+relationship b6c16822-236a-4b6d-b30e-95e1278d115a
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Det Fact Goles Local'.'ID Jugador Gol'
+	toColumn: 'Dim Jugadores'.'ID Jugador'
+
+relationship a39e8c51-22d6-4fd1-960c-c0211503968f
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'Det Fact Goles Visitante'.'ID Jugador Gol'
+	toColumn: 'Dim Jugadores'.'ID Jugador'
+
+relationship 74ba3786-2f6f-49be-bb8d-2ce72a469850
+	isActive: false
+	fromColumn: 'Det Fact Goles Visitante'.'ID Jugador Asistencia'
+	toColumn: 'Dim Jugadores'.'ID Jugador'
+
+relationship 7b59ab08-cec5-4a99-81ed-8e8ee29b884d
+	isActive: false
+	fromColumn: 'Det Fact Goles Local'.'ID Jugador Asistencia'
+	toColumn: 'Dim Jugadores'.'ID Jugador'
+
+relationship 35c28de0-9c07-4433-8369-cfebb4d5c877
+	fromColumn: 'Dim Jugadores'.Posicion
+	toColumn: 'Dim Posiciones Jugadores'.Posicion
+
+relationship dedc5ee9-0558-4872-8f57-c4cde00f5d32
+	fromColumn: 'Det Fact Goles Local'.Minuto
+	toColumn: 'Dim Etapas Partido'.Minuto
+
+relationship 1c89cf25-a4ff-4389-b208-13bc3b3253f0
+	fromColumn: 'Det Fact Goles Visitante'.Minuto
+	toColumn: 'Dim Etapas Partido'.Minuto
+
+relationship 7b5cea0e-39d0-4f25-9b1d-d13d945e9265
+	isActive: false
+	fromColumn: 'Det Fact Goles Local'.'timeline.strTeam'
+	toColumn: 'Dim Clubes'.Club
+
+relationship ecbb6cdc-d3b0-4827-9494-db0e2406882f
+	isActive: false
+	fromColumn: 'Det Fact Goles Visitante'.'timeline.strTeam'
+	toColumn: 'Dim Clubes'.Club
+
+relationship ebb2ce6d-416c-4a20-9e4b-66342711b41f
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Fact Estadisticas Visitante'.'ID Partido'
+	toColumn: 'Fact Faltas Local'.'ID Partido'
+
+relationship 024461ca-8abf-4f0e-adc5-497c1b14755e
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Fact Estadisticas Local'.'ID Partido'
+	toColumn: 'Fact Faltas Visitante'.'ID Partido'
+

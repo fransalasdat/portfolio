@@ -1,0 +1,324 @@
+table 'Med Estadisticas'
+	lineageTag: fbb96bec-7b77-4225-8197-b32bfa334fe1
+
+	measure 'Remates al Arco de Local' =
+			
+			SUM ( 'Fact Estadisticas Local'[Remates al Arco] )
+		formatString: 0
+		lineageTag: 15456adb-332a-4314-8d2d-c958f45e3314
+
+	measure 'Remates al Arco de Visitante' =
+			
+			SUM ( 'Fact Estadisticas Visitante'[Remates al Arco] )
+		formatString: 0
+		lineageTag: d362c5f1-e5ca-4138-a07c-c0feae0f6e5b
+
+	measure 'Remates al Arco' =
+			
+			[Remates al Arco de Local] + [Remates al Arco de Visitante]
+		formatString: 0
+		lineageTag: f116b178-a101-4565-8e58-93209e4a13f1
+
+	measure 'Remates al Arco por Partido' =
+			
+			DIVIDE ( [Remates al Arco], [Partidos Totales], 0 )
+		lineageTag: a1096010-ee60-444d-aec0-c3a265915f10
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Remates desviados de Local' =
+			
+			SUM ( 'Fact Estadisticas Local'[Remates Desviados] )
+		formatString: 0
+		lineageTag: a4bdb967-a03d-4794-9fe3-1bbba7625aa7
+
+	measure 'Remates desviados de Visitante' =
+			
+			SUM ( 'Fact Estadisticas Visitante'[Remates Desviados] )
+		formatString: 0
+		lineageTag: d0ed83ad-2c24-41f4-a876-160165de0039
+
+	measure 'Remates Desviados' = [Remates desviados de Local]+[Remates desviados de Visitante]
+		formatString: 0
+		lineageTag: 53dbc754-7362-4b02-a121-ce1ada847b17
+
+	measure 'Remates Desviados por Partido' =
+			
+			DIVIDE ( [Remates Desviados], [Partidos Totales], 0 )
+		lineageTag: 36ef3c4e-40bf-433a-8203-0da3be315826
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Remates interceptados de Local' =
+			
+			SUM ( 'Fact Estadisticas Local'[Remates Interceptados] )
+		formatString: 0
+		lineageTag: 342ec84d-f483-457a-af08-34d2a49b6910
+
+	measure 'Remates interceptados de Visitante' =
+			
+			SUM ( 'Fact Estadisticas Visitante'[Remates Interceptados] )
+		lineageTag: a64029e1-d0bc-478f-b026-9dd67cbbd08d
+
+	measure 'Remates Interceptados' = [Remates interceptados de Local]+[Remates interceptados de Visitante]
+		formatString: 0
+		lineageTag: 228181b0-f8df-4478-be2b-db2bb57aa319
+
+	measure 'Remates Interceptados por Partido' =
+			
+			DIVIDE ( [Remates Interceptados], [Partidos Totales], 0 )
+		lineageTag: 82fbbec7-f2a3-487c-bfbe-a5ce700bbadf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Remates Totales de Local' =
+			
+			SUM ( 'Fact Estadisticas Local'[Remates Totales] )
+		formatString: 0
+		lineageTag: 973f4dbf-e583-4b9c-8e7c-df3f9207426e
+
+	measure 'Remates Totales de Visitante' =
+			
+			SUM ( 'Fact Estadisticas Visitante'[Remates Totales] )
+		formatString: 0
+		lineageTag: f9c240b2-9937-4bcd-85a2-5a4d1cee232e
+
+	measure 'Remates Totales' = [Remates Totales de Local]+[Remates Totales de Visitante]
+		formatString: 0
+		lineageTag: fb0a0cf6-386a-4853-8e98-82b1ca9f282c
+
+	measure 'Remates Totales por Partido' =
+			
+			DIVIDE ( [Remates Totales], [Partidos Totales], 0 )
+		formatString: 0.0
+		lineageTag: 961500c9-cba9-4792-91c9-d71dced797f6
+
+	measure 'Tiros IN de Local' =
+			
+			SUM ( 'Fact Estadisticas Local'[Tiros dentro del área] )
+		formatString: 0
+		lineageTag: 8c320463-5711-47f1-8910-f7971156ba2a
+
+	measure 'Tiros IN Visitante' =
+			
+			SUM ( 'Fact Estadisticas Visitante'[Tiros dentro del área] )
+		formatString: 0
+		lineageTag: 90178c41-3d77-4b0e-be35-42564a57fb33
+
+	measure 'Remates dentro del área' = [Tiros IN de Local]+[Tiros IN Visitante]
+		formatString: 0
+		lineageTag: 123f3c04-5b9c-45ad-9613-84086e47a73b
+
+	measure 'Tiros IN por partido' =
+			
+			DIVIDE ( [Remates dentro del área], [Partidos Totales], 0 )
+		lineageTag: 67154ed4-b6dc-4504-a88a-23b3dab5a66d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Tiros OUT de Local' =
+			
+			SUM ( 'Fact Estadisticas Local'[Tiros desde fuera del área] )
+		formatString: 0
+		lineageTag: c43192a9-70b0-4f83-8508-dbe162a7e019
+
+	measure 'Tiros OUT de Visitante' =
+			
+			SUM ( 'Fact Estadisticas Visitante'[Tiros desde fuera del área] )
+		formatString: 0
+		lineageTag: bbc8fa85-3111-41fb-bb95-11fc37218de6
+
+	measure 'Remates de Larga Distancia' = [Tiros OUT de Local]+[Tiros OUT de Visitante]
+		formatString: 0
+		lineageTag: a839df16-0abf-428d-bac1-ac507104a0bf
+
+	measure 'Tiros OUT por Partido' =
+			
+			DIVIDE ( [Remates de Larga Distancia], [Partidos Totales], 0 )
+		lineageTag: 46aa3e06-c149-4a67-956b-1c223f0f0f72
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Faltas por partido' =
+			
+			DIVIDE ( [Faltas], [Partidos Totales], 0 )
+		lineageTag: 71598c43-de28-47da-994f-856fbc252ac0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Faltas = [Faltas de Local]+[Faltas de Visitante]
+		formatString: 0
+		lineageTag: b951f252-a7c8-46a6-9818-6431f0a7729d
+
+	measure 'Faltas de Local' = SUM('Fact Estadisticas Local'[Faltas])
+		formatString: 0
+		lineageTag: 333fac08-ee1a-4bc7-b681-4c678ec1ad86
+
+	measure 'Faltas de Visitante' = sum('Fact Estadisticas Visitante'[Faltas])
+		formatString: 0
+		lineageTag: 41fc935e-d1d8-4514-b04f-23628befdeec
+
+	measure 'Tiros de Esquina Local' = sum('Fact Estadisticas Local'[Tiros de Esquina])
+		formatString: 0
+		lineageTag: 1538c35a-845f-4f31-82fb-5dd001f30a3f
+
+	measure 'Tiros de Esquina Visitante' = sum('Fact Estadisticas Visitante'[Tiros de Esquina])
+		formatString: 0
+		lineageTag: fbc07279-546b-41ee-bc46-d25bbe001f8d
+
+	measure 'Tiros de Esquina' = [Tiros de Esquina Local]+[Tiros de Esquina Visitante]
+		formatString: 0
+		lineageTag: 538fe33b-1f57-4220-b306-5f7fb92efdae
+
+	measure 'Tiros de Esquina por Partido' =
+			
+			DIVIDE ( [Tiros de Esquina], [Partidos Totales], 0 )
+		lineageTag: 811beace-8f93-4f61-b191-fa1d052512ba
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fuera de Juego de Local' = sum('Fact Estadisticas Local'[Fuera de juego])
+		formatString: 0
+		lineageTag: afc578f9-0cf0-4c80-8fb4-ca6ac6b9809f
+
+	measure 'Fuera de Juego de Visitante' = sum('Fact Estadisticas Visitante'[Fuera de juego])
+		formatString: 0
+		lineageTag: 0d39beab-e9ad-4060-997f-a98e60b91aa5
+
+	measure 'Fuera de Juego' = [Fuera de Juego de Local]+ [Fuera de Juego de Visitante]
+		formatString: 0
+		lineageTag: 04ae9e0b-5b07-4e20-8669-dae4485efc37
+
+	measure 'Fuera de Juego por partido' = DIVIDE([Fuera de Juego],[Partidos Totales],0)
+		lineageTag: 89cc4146-ab2d-46f8-be22-10bf3a8f0c90
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pases de Local' = SUM('Fact Estadisticas Local'[Pases])
+		formatString: 0
+		lineageTag: 2bc16249-30fa-417f-8c41-9aeb51a9b212
+
+	measure 'Pases de Visitante' = SUM('Fact Estadisticas Visitante'[Pases])
+		formatString: 0
+		lineageTag: 5e38f879-5642-43af-b094-b52beb529803
+
+	measure Pases = [Pases de Local]+[Pases de Visitante]
+		formatString: 0
+		lineageTag: bd7624d3-38dc-492d-bbc7-ad1a95b4d9e2
+
+	measure 'Pases por Partido' = DIVIDE([Pases],[Partidos Totales],0)
+		lineageTag: 7a8ce3f3-0076-425b-b157-8faa6129c2e1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pases Completados de Local' = sum('Fact Estadisticas Local'[Pases Completados])
+		formatString: 0
+		lineageTag: 6d604c71-d6f5-4cba-80a7-c2bb0a2a6986
+
+	measure 'Pases Completados de Visitante' = sum('Fact Estadisticas Visitante'[Pases Completados])
+		formatString: 0
+		lineageTag: 3d446502-9cdf-4fce-88b0-74b835c39b08
+
+	measure 'Pases Completados' = [Pases Completados de Local]+[Pases Completados de Visitante]
+		formatString: 0
+		lineageTag: 1fc143bb-9261-41dd-8029-fc40790ea5bf
+
+	measure 'Pases Completados por partido' = DIVIDE([Pases Completados],[Partidos Totales],0)
+		lineageTag: 6345bfd6-1905-42c8-a2a0-5276599609e9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Efectividad en Pases de Local' = AVERAGE('Fact Estadisticas Local'[Efectividad de Pases])
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 4d8d3975-4575-429b-be79-739c2aa12069
+
+	measure 'Efectividad en Pases de Visitante' = AVERAGE('Fact Estadisticas Visitante'[Efectividad de Pases])
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 4677be1d-1446-42e6-ac99-3c372f771b0b
+
+	measure 'Efectividad en Pases' = ([Efectividad en Pases de Local]+[Efectividad en Pases de Visitante])/2
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 86e3097f-06aa-4432-a2dd-c96f56cfbbf0
+
+	measure 'Remates Efectivos' = [Remates al Arco]/[Remates Totales]
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: e93bfd15-c363-4ca2-96fa-7bf1eb5c81d4
+
+	measure 'Remates por gol' = [Remates Totales]/[Goles Convertidos Totales]
+		formatString: 0.0
+		lineageTag: f8b680ca-ede4-42a6-8dce-74dad7d393eb
+
+	measure 'Remates Largos' = [Remates de Larga Distancia]/[Remates Totales]
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: e47bc224-d78b-44be-a4b6-753cc3a293c9
+
+	measure 'Intercepcion de Remates' = [Remates Interceptados]/[Remates Totales]
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: efc0e3fa-d62a-4d2c-a841-8a1296d45c87
+
+	measure 'Disparos y Localía' =
+			
+			CALCULATE((sum('Fact Estadisticas Local'[Remates Totales])/sum('Fact Estadisticas Visitante'[Remates Totales]))-1,
+			            all('Dim Localidad'[Localidad]))
+			
+			--(SUMX ( all('Estadisticas Local','Estadisticas Local'[Remates Totales]),[Remates Totales] )/SUM ( 'Estadisticas Visitante'[Remates Totales] ))-1
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: d93d6153-6a34-4063-80db-946980daf918
+
+	measure 'Porcentaje de Remates Desviados' = [Remates Desviados]/[Remates Totales]
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: f786b737-ffec-4337-97a0-8a650d28416c
+
+	measure 'Posesion de Local' = AVERAGE('Fact Estadisticas Local'[Posesion])
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: ae2e4f60-bf2e-408c-b6ae-3fd6c5b1ffd2
+
+	measure 'Posesion de Visitante' = AVERAGE('Fact Estadisticas Visitante'[Posesion])
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: f8e77672-45ce-4e35-83d5-a0ad88ab71ea
+
+	measure Posesion = ([Posesion de Local]+[Posesion de Visitante])/2
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: c2e0f364-6482-4849-b7eb-d3bc82850162
+
+	measure 'Eficiencia de Posesion' = [Goles Convertidos Totales]/[Posesion]
+		lineageTag: e7e0037f-37bd-4809-91df-d05f0a43d57d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Pases por Gol convertido' = [Pases]/[Goles Convertidos Totales]
+		lineageTag: d1defa8c-18a7-49b0-8b77-72223828e4c5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Faltas Recibidas de Local' = sum('Fact Estadisticas Local'[Faltas en Contra])
+		formatString: 0
+		lineageTag: 50281d9c-6d72-4275-9e9a-6df4c20d7ee1
+
+	measure 'Faltas Recibidas de Visitante' = sum('Fact Estadisticas Visitante'[Faltas en Contra])
+		formatString: 0
+		lineageTag: f99d5105-5b84-4550-9085-e6c0a52fdb22
+
+	measure 'Faltas Recibidas' = [Faltas Recibidas de Local]+[Faltas Recibidas de Visitante]
+		formatString: 0
+		lineageTag: c935a34e-d16f-41c1-91e5-3189d7671120
+
+	measure 'Faltas Recibidas por partido' =
+			
+			DIVIDE ( [Faltas Recibidas], [Partidos Totales], 0 )
+		lineageTag: 83caaf40-dcad-47ed-87e9-fbe3f1689185
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Med Estadisticas-ce2c3feb-0533-4921-92cb-1221bf99e52a' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,342 @@
+expression 2020-2021 =
+		let
+		    Origen = Json.Document(Web.Contents("https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2020-2021")),
+		    #"Convertida en tabla" = Table.FromRecords({Origen}),
+		    #"Se expandió events" = Table.ExpandListColumn(#"Convertida en tabla", "events"),
+		    #"Se expandió events1" = Table.ExpandRecordColumn(#"Se expandió events", "events", {"idEvent", "idSoccerXML", "idAPIfootball", "strEvent", "strEventAlternate", "strFilename", "strSport", "idLeague", "strLeague", "strSeason", "strDescriptionEN", "strHomeTeam", "strAwayTeam", "intHomeScore", "intRound", "intAwayScore", "intSpectators", "strOfficial", "strTimestamp", "dateEvent", "dateEventLocal", "strTime", "strTimeLocal", "strTVStation", "idHomeTeam", "idAwayTeam", "intScore", "intScoreVotes", "strResult", "strVenue", "strCountry", "strCity", "strPoster", "strSquare", "strFanart", "strThumb", "strBanner", "strMap", "strTweet1", "strTweet2", "strTweet3", "strVideo", "strStatus", "strPostponed", "strLocked"}, {"idEvent", "idSoccerXML", "idAPIfootball", "strEvent", "strEventAlternate", "strFilename", "strSport", "idLeague", "strLeague", "strSeason", "strDescriptionEN", "strHomeTeam", "strAwayTeam", "intHomeScore", "intRound", "intAwayScore", "intSpectators", "strOfficial", "strTimestamp", "dateEvent", "dateEventLocal", "strTime", "strTimeLocal", "strTVStation", "idHomeTeam", "idAwayTeam", "intScore", "intScoreVotes", "strResult", "strVenue", "strCountry", "strCity", "strPoster", "strSquare", "strFanart", "strThumb", "strBanner", "strMap", "strTweet1", "strTweet2", "strTweet3", "strVideo", "strStatus", "strPostponed", "strLocked"}),
+		    #"Columnas quitadas" = Table.RemoveColumns(#"Se expandió events1",{"idSoccerXML", "strSport", "strDescriptionEN"}),
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Columnas quitadas",{{"strHomeTeam", "Local"}, {"strAwayTeam", "Visitante"}}),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columnas con nombre cambiado",{{"intHomeScore", Int64.Type}, {"intRound", Int64.Type}, {"intAwayScore", Int64.Type}}),
+		    #"Columnas quitadas1" = Table.RemoveColumns(#"Tipo cambiado",{"intSpectators", "strOfficial", "strLocked", "strPostponed", "strStatus", "strTweet3", "strTweet2", "strMap", "strTweet1", "strBanner", "strSquare", "strCity", "strPoster", "strCountry", "strTVStation"}),
+		    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Columnas quitadas1",{{"strEvent", type text}, {"strEventAlternate", type text}, {"strFilename", type text}, {"strLeague", type text}, {"strSeason", type text}, {"Local", type text}, {"Visitante", type text}, {"idEvent", Int64.Type}, {"idAPIfootball", Int64.Type}, {"idLeague", Int64.Type}, {"idHomeTeam", Int64.Type}, {"idAwayTeam", Int64.Type}}),
+		    #"Filas ordenadas" = Table.Sort(#"Tipo cambiado1",{{"idEvent", Order.Ascending}})
+		in
+		    #"Filas ordenadas"
+	lineageTag: 199ac390-f925-4c36-ad9b-b3b33a7c53ba
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression 2019-2020 =
+		let
+		    Origen = Json.Document(Web.Contents("https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2019-2020")),
+		    #"Convertida en tabla" = Table.FromRecords({Origen}),
+		    #"Se expandió events" = Table.ExpandListColumn(#"Convertida en tabla", "events"),
+		    #"Se expandió events1" = Table.ExpandRecordColumn(#"Se expandió events", "events", {"idEvent", "idSoccerXML", "idAPIfootball", "strEvent", "strEventAlternate", "strFilename", "strSport", "idLeague", "strLeague", "strSeason", "strDescriptionEN", "strHomeTeam", "strAwayTeam", "intHomeScore", "intRound", "intAwayScore", "intSpectators", "strOfficial", "strTimestamp", "dateEvent", "dateEventLocal", "strTime", "strTimeLocal", "strTVStation", "idHomeTeam", "idAwayTeam", "intScore", "intScoreVotes", "strResult", "strVenue", "strCountry", "strCity", "strPoster", "strSquare", "strFanart", "strThumb", "strBanner", "strMap", "strTweet1", "strTweet2", "strTweet3", "strVideo", "strStatus", "strPostponed", "strLocked"}, {"idEvent", "idSoccerXML", "idAPIfootball", "strEvent", "strEventAlternate", "strFilename", "strSport", "idLeague", "strLeague", "strSeason", "strDescriptionEN", "strHomeTeam", "strAwayTeam", "intHomeScore", "intRound", "intAwayScore", "intSpectators", "strOfficial", "strTimestamp", "dateEvent", "dateEventLocal", "strTime", "strTimeLocal", "strTVStation", "idHomeTeam", "idAwayTeam", "intScore", "intScoreVotes", "strResult", "strVenue", "strCountry", "strCity", "strPoster", "strSquare", "strFanart", "strThumb", "strBanner", "strMap", "strTweet1", "strTweet2", "strTweet3", "strVideo", "strStatus", "strPostponed", "strLocked"}),
+		    #"Columnas quitadas" = Table.RemoveColumns(#"Se expandió events1",{"idSoccerXML", "strSport", "strDescriptionEN"}),
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Columnas quitadas",{{"strHomeTeam", "Local"}, {"strAwayTeam", "Visitante"}}),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columnas con nombre cambiado",{{"intHomeScore", Int64.Type}, {"intRound", Int64.Type}, {"intAwayScore", Int64.Type}}),
+		    #"Columnas quitadas1" = Table.RemoveColumns(#"Tipo cambiado",{"intSpectators", "strOfficial", "strLocked", "strPostponed", "strStatus", "strTweet3", "strTweet2", "strMap", "strTweet1", "strBanner", "strSquare", "strCity", "strPoster", "strCountry", "strTVStation"}),
+		    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Columnas quitadas1",{{"strEvent", type text}, {"strEventAlternate", type text}, {"strFilename", type text}, {"strLeague", type text}, {"strSeason", type text}, {"Local", type text}, {"Visitante", type text}, {"idEvent", Int64.Type}, {"idAPIfootball", Int64.Type}, {"idLeague", Int64.Type}, {"idHomeTeam", Int64.Type}, {"idAwayTeam", Int64.Type}}),
+		    #"Filas ordenadas" = Table.Sort(#"Tipo cambiado1",{{"idEvent", Order.Ascending}})
+		in
+		    #"Filas ordenadas"
+	lineageTag: 606bf4d0-71d3-478e-8ef9-3201c0876f57
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression 2018-2019 =
+		let
+		    Origen = Json.Document(Web.Contents("https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2018-2019")),
+		    #"Convertida en tabla" = Table.FromRecords({Origen}),
+		    #"Se expandió events" = Table.ExpandListColumn(#"Convertida en tabla", "events"),
+		    #"Se expandió events1" = Table.ExpandRecordColumn(#"Se expandió events", "events", {"idEvent", "idSoccerXML", "idAPIfootball", "strEvent", "strEventAlternate", "strFilename", "strSport", "idLeague", "strLeague", "strSeason", "strDescriptionEN", "strHomeTeam", "strAwayTeam", "intHomeScore", "intRound", "intAwayScore", "intSpectators", "strOfficial", "strTimestamp", "dateEvent", "dateEventLocal", "strTime", "strTimeLocal", "strTVStation", "idHomeTeam", "idAwayTeam", "intScore", "intScoreVotes", "strResult", "strVenue", "strCountry", "strCity", "strPoster", "strSquare", "strFanart", "strThumb", "strBanner", "strMap", "strTweet1", "strTweet2", "strTweet3", "strVideo", "strStatus", "strPostponed", "strLocked"}, {"idEvent", "idSoccerXML", "idAPIfootball", "strEvent", "strEventAlternate", "strFilename", "strSport", "idLeague", "strLeague", "strSeason", "strDescriptionEN", "strHomeTeam", "strAwayTeam", "intHomeScore", "intRound", "intAwayScore", "intSpectators", "strOfficial", "strTimestamp", "dateEvent", "dateEventLocal", "strTime", "strTimeLocal", "strTVStation", "idHomeTeam", "idAwayTeam", "intScore", "intScoreVotes", "strResult", "strVenue", "strCountry", "strCity", "strPoster", "strSquare", "strFanart", "strThumb", "strBanner", "strMap", "strTweet1", "strTweet2", "strTweet3", "strVideo", "strStatus", "strPostponed", "strLocked"}),
+		    #"Columnas quitadas" = Table.RemoveColumns(#"Se expandió events1",{"idSoccerXML", "strSport", "strDescriptionEN"}),
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Columnas quitadas",{{"strHomeTeam", "Local"}, {"strAwayTeam", "Visitante"}}),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columnas con nombre cambiado",{{"intHomeScore", Int64.Type}, {"intRound", Int64.Type}, {"intAwayScore", Int64.Type}}),
+		    #"Columnas quitadas1" = Table.RemoveColumns(#"Tipo cambiado",{"intSpectators", "strOfficial", "strLocked", "strPostponed", "strStatus", "strTweet3", "strTweet2", "strMap", "strTweet1", "strBanner", "strSquare", "strCity", "strPoster", "strCountry", "strTVStation"}),
+		    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Columnas quitadas1",{{"strEvent", type text}, {"strEventAlternate", type text}, {"strFilename", type text}, {"strLeague", type text}, {"strSeason", type text}, {"Local", type text}, {"Visitante", type text}, {"idEvent", Int64.Type}, {"idAPIfootball", Int64.Type}, {"idLeague", Int64.Type}, {"idHomeTeam", Int64.Type}, {"idAwayTeam", Int64.Type}}),
+		    #"Filas ordenadas" = Table.Sort(#"Tipo cambiado1",{{"idEvent", Order.Ascending}})
+		in
+		    #"Filas ordenadas"
+	lineageTag: f77d11d0-edc8-474a-8a9e-c8bbdee5fcae
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression 2022-2023 =
+		let
+		    Origen = Json.Document(Web.Contents("https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2022-2023")),
+		    #"Convertida en tabla" = Table.FromRecords({Origen}),
+		    #"Se expandió events" = Table.ExpandListColumn(#"Convertida en tabla", "events"),
+		    #"Se expandió events1" = Table.ExpandRecordColumn(#"Se expandió events", "events", {"idEvent", "idSoccerXML", "idAPIfootball", "strEvent", "strEventAlternate", "strFilename", "strSport", "idLeague", "strLeague", "strSeason", "strDescriptionEN", "strHomeTeam", "strAwayTeam", "intHomeScore", "intRound", "intAwayScore", "intSpectators", "strOfficial", "strTimestamp", "dateEvent", "dateEventLocal", "strTime", "strTimeLocal", "strTVStation", "idHomeTeam", "idAwayTeam", "intScore", "intScoreVotes", "strResult", "strVenue", "strCountry", "strCity", "strPoster", "strSquare", "strFanart", "strThumb", "strBanner", "strMap", "strTweet1", "strTweet2", "strTweet3", "strVideo", "strStatus", "strPostponed", "strLocked"}, {"idEvent", "idSoccerXML", "idAPIfootball", "strEvent", "strEventAlternate", "strFilename", "strSport", "idLeague", "strLeague", "strSeason", "strDescriptionEN", "strHomeTeam", "strAwayTeam", "intHomeScore", "intRound", "intAwayScore", "intSpectators", "strOfficial", "strTimestamp", "dateEvent", "dateEventLocal", "strTime", "strTimeLocal", "strTVStation", "idHomeTeam", "idAwayTeam", "intScore", "intScoreVotes", "strResult", "strVenue", "strCountry", "strCity", "strPoster", "strSquare", "strFanart", "strThumb", "strBanner", "strMap", "strTweet1", "strTweet2", "strTweet3", "strVideo", "strStatus", "strPostponed", "strLocked"}),
+		    #"Columnas quitadas" = Table.RemoveColumns(#"Se expandió events1",{"idSoccerXML", "strSport", "strDescriptionEN"}),
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Columnas quitadas",{{"strHomeTeam", "Local"}, {"strAwayTeam", "Visitante"}}),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columnas con nombre cambiado",{{"intHomeScore", Int64.Type}, {"intRound", Int64.Type}, {"intAwayScore", Int64.Type}}),
+		    #"Columnas quitadas1" = Table.RemoveColumns(#"Tipo cambiado",{"intSpectators", "strOfficial", "strLocked", "strPostponed", "strStatus", "strTweet3", "strTweet2", "strMap", "strTweet1", "strBanner", "strSquare", "strCity", "strPoster", "strCountry", "strTVStation"}),
+		    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Columnas quitadas1",{{"strEvent", type text}, {"strEventAlternate", type text}, {"strFilename", type text}, {"strLeague", type text}, {"strSeason", type text}, {"Local", type text}, {"Visitante", type text}, {"idEvent", Int64.Type}, {"idAPIfootball", Int64.Type}, {"idLeague", Int64.Type}, {"idHomeTeam", Int64.Type}, {"idAwayTeam", Int64.Type}}),
+		    #"Filas ordenadas" = Table.Sort(#"Tipo cambiado1",{{"idEvent", Order.Ascending}})
+		in
+		    #"Filas ordenadas"
+	lineageTag: c436d20c-eae9-4103-bf37-6ec3f0a5c983
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression 2021-2022 =
+		let
+		    Origen = Json.Document(Web.Contents("https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2021-2022")),
+		    #"Convertida en tabla" = Table.FromRecords({Origen}),
+		    #"Se expandió events" = Table.ExpandListColumn(#"Convertida en tabla", "events"),
+		    #"Se expandió events1" = Table.ExpandRecordColumn(#"Se expandió events", "events", {"idEvent", "idSoccerXML", "idAPIfootball", "strEvent", "strEventAlternate", "strFilename", "strSport", "idLeague", "strLeague", "strSeason", "strDescriptionEN", "strHomeTeam", "strAwayTeam", "intHomeScore", "intRound", "intAwayScore", "intSpectators", "strOfficial", "strTimestamp", "dateEvent", "dateEventLocal", "strTime", "strTimeLocal", "strTVStation", "idHomeTeam", "idAwayTeam", "intScore", "intScoreVotes", "strResult", "strVenue", "strCountry", "strCity", "strPoster", "strSquare", "strFanart", "strThumb", "strBanner", "strMap", "strTweet1", "strTweet2", "strTweet3", "strVideo", "strStatus", "strPostponed", "strLocked"}, {"idEvent", "idSoccerXML", "idAPIfootball", "strEvent", "strEventAlternate", "strFilename", "strSport", "idLeague", "strLeague", "strSeason", "strDescriptionEN", "strHomeTeam", "strAwayTeam", "intHomeScore", "intRound", "intAwayScore", "intSpectators", "strOfficial", "strTimestamp", "dateEvent", "dateEventLocal", "strTime", "strTimeLocal", "strTVStation", "idHomeTeam", "idAwayTeam", "intScore", "intScoreVotes", "strResult", "strVenue", "strCountry", "strCity", "strPoster", "strSquare", "strFanart", "strThumb", "strBanner", "strMap", "strTweet1", "strTweet2", "strTweet3", "strVideo", "strStatus", "strPostponed", "strLocked"}),
+		    #"Columnas quitadas" = Table.RemoveColumns(#"Se expandió events1",{"idSoccerXML", "strSport", "strDescriptionEN"}),
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Columnas quitadas",{{"strHomeTeam", "Local"}, {"strAwayTeam", "Visitante"}}),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columnas con nombre cambiado",{{"intHomeScore", Int64.Type}, {"intRound", Int64.Type}, {"intAwayScore", Int64.Type}}),
+		    #"Columnas quitadas1" = Table.RemoveColumns(#"Tipo cambiado",{"intSpectators", "strOfficial", "strLocked", "strPostponed", "strStatus", "strTweet3", "strTweet2", "strMap", "strTweet1", "strBanner", "strSquare", "strCity", "strPoster", "strCountry", "strTVStation"}),
+		    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Columnas quitadas1",{{"strEvent", type text}, {"strEventAlternate", type text}, {"strFilename", type text}, {"strLeague", type text}, {"strSeason", type text}, {"Local", type text}, {"Visitante", type text}, {"idEvent", Int64.Type}, {"idAPIfootball", Int64.Type}, {"idLeague", Int64.Type}, {"idHomeTeam", Int64.Type}, {"idAwayTeam", Int64.Type}}),
+		    #"Filas ordenadas" = Table.Sort(#"Tipo cambiado1",{{"idEvent", Order.Ascending}})
+		in
+		    #"Filas ordenadas"
+	lineageTag: 0bad1ccb-8c8b-41b5-8939-7670c1c43f8a
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression 'Estadisticas 2020-2021' =
+		let
+		    Origen = R.Execute("rm(list = ls())#(lf)options(scipen=999)#(lf)library(jsonlite)#(lf)library(curl)#(lf)#(lf)event<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2020-2021"")#(lf)data<- fromJSON(event)#(lf)data_soccer <- as.data.frame(data)#(lf)data_soccer <- data_soccer[,1]#(lf)data_soccer <- as.integer(data_soccer)#(lf)#(lf)dataset_event <- data.frame(idStatistics = numeric(),#(lf)                              isEvent = numeric(),#(lf)                              idApiFootball = numeric(),#(lf)                              strEvent = character(),#(lf)                              strStat = character(),#(lf)                              intHome = numeric(),#(lf)                              intAway =numeric())#(lf)#(lf)library(RCurl)#(lf)for (i in data_soccer){#(lf)  p1 <- ""https://www.thesportsdb.com/api/v1/json/60130162/lookupeventstats.php?id=""#(lf)  p2 <- i#(lf)  url_event <- paste0(p1,p2)#(lf)  stat_event <- getURL(url_event, timeout = 600)#(lf)  evento <- fromJSON(stat_event)#(lf)  fila <- as.data.frame(evento)#(lf)  dataset_event <- rbind(dataset_event,fila)#(lf)}"),
+		    dataset_event1 = Origen{[Name="dataset_event"]}[Value]
+		in
+		    dataset_event1
+	lineageTag: f85ffe87-f679-4ad8-b09c-163b0d79d7c0
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression 'Estadisticas 2019-2020' =
+		let
+		    Origen = R.Execute("rm(list = ls())#(lf)options(scipen=999)#(lf)library(jsonlite)#(lf)library(curl)#(lf)#(lf)event<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2019-2020"")#(lf)data<- fromJSON(event)#(lf)data_soccer <- as.data.frame(data)#(lf)data_soccer <- data_soccer[,1]#(lf)data_soccer <- as.integer(data_soccer)#(lf)#(lf)dataset_event <- data.frame(idStatistics = numeric(),#(lf)                              isEvent = numeric(),#(lf)                              idApiFootball = numeric(),#(lf)                              strEvent = character(),#(lf)                              strStat = character(),#(lf)                              intHome = numeric(),#(lf)                              intAway =numeric())#(lf)#(lf)library(RCurl)#(lf)for (i in data_soccer){#(lf)  p1 <- ""https://www.thesportsdb.com/api/v1/json/60130162/lookupeventstats.php?id=""#(lf)  p2 <- i#(lf)  url_event <- paste0(p1,p2)#(lf)  stat_event <- getURL(url_event, timeout = 600)#(lf)  evento <- fromJSON(stat_event)#(lf)  fila <- as.data.frame(evento)#(lf)  dataset_event <- rbind(dataset_event,fila)#(lf)}"),
+		    dataset_event1 = Origen{[Name="dataset_event"]}[Value]
+		in
+		    dataset_event1
+	lineageTag: 33f47514-8442-4a81-8af3-2840affb5231
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression 'Estadisticas 2021-2022' =
+		let
+		    Origen = R.Execute("rm(list = ls())#(lf)options(scipen=999)#(lf)library(jsonlite)#(lf)library(curl)#(lf)#(lf)event<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2021-2022"")#(lf)data<- fromJSON(event)#(lf)data_soccer <- as.data.frame(data)#(lf)data_soccer <- data_soccer[,1]#(lf)data_soccer <- as.integer(data_soccer)#(lf)#(lf)dataset_event <- data.frame(idStatistics = numeric(),#(lf)                              isEvent = numeric(),#(lf)                              idApiFootball = numeric(),#(lf)                              strEvent = character(),#(lf)                              strStat = character(),#(lf)                              intHome = numeric(),#(lf)                              intAway =numeric())#(lf)#(lf)library(RCurl)#(lf)for (i in data_soccer){#(lf)  p1 <- ""https://www.thesportsdb.com/api/v1/json/60130162/lookupeventstats.php?id=""#(lf)  p2 <- i#(lf)  url_event <- paste0(p1,p2)#(lf)  stat_event <- getURL(url_event, timeout = 600)#(lf)  evento <- fromJSON(stat_event)#(lf)  fila <- as.data.frame(evento)#(lf)  dataset_event <- rbind(dataset_event,fila)#(lf)}"),
+		    dataset_event1 = Origen{[Name="dataset_event"]}[Value]
+		in
+		    dataset_event1
+	lineageTag: 50167695-8196-4751-8f51-b291bc393115
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression 'Estadisticas 2022-2023' =
+		let
+		    Origen = R.Execute("rm(list = ls())#(lf)options(scipen=999)#(lf)library(jsonlite)#(lf)library(curl)#(lf)#(lf)event<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2022-2023"")#(lf)data<- fromJSON(event)#(lf)data_soccer <- as.data.frame(data)#(lf)data_soccer <- data_soccer[,1]#(lf)data_soccer <- as.integer(data_soccer)#(lf)#(lf)dataset_event <- data.frame(idStatistics = numeric(),#(lf)                              isEvent = numeric(),#(lf)                              idApiFootball = numeric(),#(lf)                              strEvent = character(),#(lf)                              strStat = character(),#(lf)                              intHome = numeric(),#(lf)                              intAway =numeric())#(lf)#(lf)library(RCurl)#(lf)for (i in data_soccer){#(lf)  p1 <- ""https://www.thesportsdb.com/api/v1/json/60130162/lookupeventstats.php?id=""#(lf)  p2 <- i#(lf)  url_event <- paste0(p1,p2)#(lf)  stat_event <- getURL(url_event, timeout = 600)#(lf)  evento <- fromJSON(stat_event)#(lf)  fila <- as.data.frame(evento)#(lf)  dataset_event <- rbind(dataset_event,fila)#(lf)}"),
+		    dataset_event1 = Origen{[Name="dataset_event"]}[Value]
+		in
+		    dataset_event1
+	lineageTag: 1d520dfd-c435-4ab0-a77e-d4e9ae63835f
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+
+expression 'Table 1' =
+		let
+		    Source = Web.BrowserContents("https://www.nationsonline.org/oneworld/countrynames_spanish.htm"),
+		    #"Extracted Table From Html" = Html.Table(Source, {{"Column1", "DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5)"}, {"Column2", "DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4)"}, {"Column3", "DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3)"}, {"Column4", "DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3) + TD:not([colspan]):not([rowspan]):nth-child(4):nth-last-child(2)"}, {"Column5", "DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3) + TD:not([colspan]):not([rowspan]):nth-child(4):nth-last-child(2) + TD:not([colspan]):not([rowspan]):nth-child(5):nth-last-child(1)"}}, [RowSelector="DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(1) > * > TR"]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Extracted Table From Html",{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([Column3] <> "" and [Column3] <> "A" and [Column3] <> "B" and [Column3] <> "C")),
+		    #"Removed Columns" = Table.RemoveColumns(#"Filtered Rows",{"Column1"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"Column2", "Ingles"}}),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Renamed Columns",{"Column4", "Column5"}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns1",{{"Column3", "Castellano"}})
+		in
+		    #"Renamed Columns1"
+	lineageTag: 8d8fefce-7001-490e-ab7b-645d9560b5fc
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Table 2' =
+		let
+		    Source = Web.BrowserContents("https://www.nationsonline.org/oneworld/countrynames_spanish.htm"),
+		    #"Extracted Table From Html" = Html.Table(Source, {{"Column1", "DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(2)"}, {"Column2", "DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(2) + TD[colspan=""4""]:not([rowspan]):nth-child(2):nth-last-child(1)"}, {"Column3", "DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(2) + TD[colspan=""4""]:not([rowspan]):nth-child(2):nth-last-child(1)"}, {"Column4", "DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3) + TD:not([colspan]):not([rowspan]):nth-child(4):nth-last-child(2), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(2) + TD[colspan=""4""]:not([rowspan]):nth-child(2):nth-last-child(1)"}, {"Column5", "DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3) + TD:not([colspan]):not([rowspan]):nth-child(4):nth-last-child(2) + TD:not([colspan]):not([rowspan]):nth-child(5):nth-last-child(1), DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(2) + TD[colspan=""4""]:not([rowspan]):nth-child(2):nth-last-child(1)"}}, [RowSelector="DIV.wrap:nth-child(6) > DIV.row > TABLE.tl:nth-child(2) > * > TR"]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Extracted Table From Html",{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}}),
+		    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Removed Columns", each ([Column3] <> "" and [Column3] <> "D" and [Column3] <> "E" and [Column3] <> "F" and [Column3] <> "G")),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Filtered Rows",{"Column4", "Column5"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns1",{{"Column2", "Ingles"}, {"Column3", "Castellano"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 2c3617ac-4b43-4d8e-a9e1-e171ab66117e
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Table 3' =
+		let
+		    Source = Web.BrowserContents("https://www.nationsonline.org/oneworld/countrynames_spanish.htm"),
+		    #"Extracted Table From Html" = Html.Table(Source, {{"Column1", "DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5)"}, {"Column2", "DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4)"}, {"Column3", "DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3)"}, {"Column4", "DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3) + TD:not([colspan]):not([rowspan]):nth-child(4):nth-last-child(2)"}, {"Column5", "DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3) + TD:not([colspan]):not([rowspan]):nth-child(4):nth-last-child(2) + TD:not([colspan]):not([rowspan]):nth-child(5):nth-last-child(1)"}}, [RowSelector="DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(1) > * > TR"]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Extracted Table From Html",{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}}),
+		    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1", "Column4", "Column5"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"Column2", "Ingles"}, {"Column3", "Castellano"}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each ([Castellano] <> "" and [Castellano] <> "H" and [Castellano] <> "I" and [Castellano] <> "J" and [Castellano] <> "K" and [Castellano] <> "L" and [Castellano] <> "M"))
+		in
+		    #"Filtered Rows"
+	lineageTag: 870dc1e0-aec0-4b2d-a2a2-4fe95783f91c
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Table 4' =
+		let
+		    Source = Web.BrowserContents("https://www.nationsonline.org/oneworld/countrynames_spanish.htm"),
+		    #"Extracted Table From Html" = Html.Table(Source, {{"Column1", "DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5)"}, {"Column2", "DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4)"}, {"Column3", "DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3)"}, {"Column4", "DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3) + TD:not([colspan]):not([rowspan]):nth-child(4):nth-last-child(2)"}, {"Column5", "DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(2) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3) + TD:not([colspan]):not([rowspan]):nth-child(4):nth-last-child(2) + TD:not([colspan]):not([rowspan]):nth-child(5):nth-last-child(1)"}}, [RowSelector="DIV.wrap:nth-child(8) > DIV.row > TABLE.tl:nth-child(2) > * > TR"]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Extracted Table From Html",{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Column2", "Ingles"}, {"Column3", "Castellano"}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Ingles", "Castellano"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Removed Other Columns", each ([Ingles] <> "" and [Ingles] <> "N" and [Ingles] <> "O" and [Ingles] <> "P" and [Ingles] <> "Q" and [Ingles] <> "R" and [Ingles] <> "S"))
+		in
+		    #"Filtered Rows"
+	lineageTag: fb3a684d-1379-4aa7-beba-d50fcf357f33
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Table 5' =
+		let
+		    Source = Web.BrowserContents("https://www.nationsonline.org/oneworld/countrynames_spanish.htm"),
+		    #"Extracted Table From Html" = Html.Table(Source, {{"Column1", "DIV.wrap:nth-child(10) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(10) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5)"}, {"Column2", "DIV.wrap:nth-child(10) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(10) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4)"}, {"Column3", "DIV.wrap:nth-child(10) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(10) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3)"}, {"Column4", "DIV.wrap:nth-child(10) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(10) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3) + TD:not([colspan]):not([rowspan]):nth-child(4):nth-last-child(2)"}, {"Column5", "DIV.wrap:nth-child(10) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD[colspan=""5""]:not([rowspan]):nth-child(1):nth-last-child(1), DIV.wrap:nth-child(10) > DIV.row > TABLE.tl:nth-child(1) > * > TR > TD:not([colspan]):not([rowspan]):nth-child(1):nth-last-child(5) + TD:not([colspan]):not([rowspan]):nth-child(2):nth-last-child(4) + TD:not([colspan]):not([rowspan]):nth-child(3):nth-last-child(3) + TD:not([colspan]):not([rowspan]):nth-child(4):nth-last-child(2) + TD:not([colspan]):not([rowspan]):nth-child(5):nth-last-child(1)"}}, [RowSelector="DIV.wrap:nth-child(10) > DIV.row > TABLE.tl:nth-child(1) > * > TR"]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Extracted Table From Html",{{"Column1", type text}, {"Column2", type text}, {"Column3", type text}, {"Column4", type text}, {"Column5", type text}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Column2", "Ingles"}, {"Column3", "Castellano"}}),
+		    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Ingles", "Castellano"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Removed Other Columns", each ([Castellano] <> "" and [Castellano] <> "T" and [Castellano] <> "U" and [Castellano] <> "V" and [Castellano] <> "W" and [Castellano] <> "Y" and [Castellano] <> "Z"))
+		in
+		    #"Filtered Rows"
+	lineageTag: 875125cb-98e8-46f7-a079-aa0cc9591dcc
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Tabla Posiciones Final' =
+		let
+		    Origen = Json.Document(Web.Contents("https://www.thesportsdb.com/api/v1/json/3/lookuptable.php?l=4335&s=2021-2022")),
+		    #"Convertida en tabla" = Table.FromRecords({Origen}),
+		    #"Se expandió table" = Table.ExpandListColumn(#"Convertida en tabla", "table"),
+		    #"Se expandió table1" = Table.ExpandRecordColumn(#"Se expandió table", "table", {"idStanding", "intRank", "idTeam", "strTeam", "strTeamBadge", "idLeague", "strLeague", "strSeason", "strForm", "strDescription", "intPlayed", "intWin", "intLoss", "intDraw", "intGoalsFor", "intGoalsAgainst", "intGoalDifference", "intPoints", "dateUpdated"}, {"table.idStanding", "table.intRank", "table.idTeam", "table.strTeam", "table.strTeamBadge", "table.idLeague", "table.strLeague", "table.strSeason", "table.strForm", "table.strDescription", "table.intPlayed", "table.intWin", "table.intLoss", "table.intDraw", "table.intGoalsFor", "table.intGoalsAgainst", "table.intGoalDifference", "table.intPoints", "table.dateUpdated"}),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(#"Se expandió table1",{{"table.idStanding", Int64.Type}, {"table.intRank", Int64.Type}, {"table.idTeam", Int64.Type}, {"table.strTeam", type text}, {"table.strTeamBadge", type text}, {"table.idLeague", Int64.Type}, {"table.strLeague", type text}, {"table.strSeason", type text}, {"table.strForm", type text}, {"table.strDescription", type text}, {"table.intPlayed", Int64.Type}, {"table.intWin", Int64.Type}, {"table.intLoss", Int64.Type}, {"table.intDraw", Int64.Type}, {"table.intGoalsFor", Int64.Type}, {"table.intGoalsAgainst", Int64.Type}, {"table.intGoalDifference", Int64.Type}, {"table.intPoints", Int64.Type}, {"table.dateUpdated", type datetime}})
+		in
+		    #"Tipo cambiado"
+	lineageTag: 6ad16dd3-d2aa-4943-b42f-0a97af3b4368
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Resumen Partido 20-21' =
+		let
+		    Source = R.Execute("rm(list = ls())#(lf)options(scipen=999)#(lf)library(jsonlite)#(lf)library(curl)#(lf)#(lf)event<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2020-2021"")#(lf)data<- fromJSON(event)#(lf)data_soccer <- as.data.frame(data)#(lf)data_soccer <- data_soccer[,1]#(lf)data_soccer <- as.integer(data_soccer)#(lf)#(lf)dataset_partidoaminuto <- data.frame(idStatistics = numeric(),#(lf)                                     isEvent = numeric(),#(lf)                                     idApiFootball = numeric(),#(lf)                                     strEvent = character(),#(lf)                                     strStat = character(),#(lf)                                     intHome = numeric(),#(lf)                                     intAway =numeric())#(lf)#(lf)library(RCurl)#(lf)for (i in data_soccer){#(lf)  p1 <- ""https://www.thesportsdb.com/api/v1/json/60130162/lookuptimeline.php?id=""#(lf)  p2 <- i#(lf)  url_event <- paste0(p1,p2)#(lf)  stat_event <- getURL(url_event, timeout = 600)#(lf)  evento <- fromJSON(stat_event)#(lf)  fila <- as.data.frame(evento)#(lf)  dataset_partidoaminuto <- rbind(dataset_partidoaminuto,fila)#(lf)}"),
+		    dataset_partidoaminuto1 = Source{[Name="dataset_partidoaminuto"]}[Value]
+		in
+		    dataset_partidoaminuto1
+	lineageTag: a4d4a5f1-df21-4520-b8c0-5715dea78f85
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Resumen Partido 21-22' =
+		let
+		    Source = R.Execute("rm(list = ls())#(lf)options(scipen=999)#(lf)library(jsonlite)#(lf)library(curl)#(lf)#(lf)event<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2021-2022"")#(lf)data<- fromJSON(event)#(lf)data_soccer <- as.data.frame(data)#(lf)data_soccer <- data_soccer[,1]#(lf)data_soccer <- as.integer(data_soccer)#(lf)#(lf)dataset_partidoaminuto <- data.frame(idStatistics = numeric(),#(lf)                                     isEvent = numeric(),#(lf)                                     idApiFootball = numeric(),#(lf)                                     strEvent = character(),#(lf)                                     strStat = character(),#(lf)                                     intHome = numeric(),#(lf)                                     intAway =numeric())#(lf)#(lf)library(RCurl)#(lf)for (i in data_soccer){#(lf)  p1 <- ""https://www.thesportsdb.com/api/v1/json/60130162/lookuptimeline.php?id=""#(lf)  p2 <- i#(lf)  url_event <- paste0(p1,p2)#(lf)  stat_event <- getURL(url_event, timeout = 600)#(lf)  evento <- fromJSON(stat_event)#(lf)  fila <- as.data.frame(evento)#(lf)  dataset_partidoaminuto <- rbind(dataset_partidoaminuto,fila)#(lf)}"),
+		    dataset_partidoaminuto1 = Source{[Name="dataset_partidoaminuto"]}[Value]
+		in
+		    dataset_partidoaminuto1
+	lineageTag: 9869c110-b48e-4179-b04c-3f8b88acf06a
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Resumen Partido 22-23' =
+		let
+		    Source = R.Execute("rm(list = ls())#(lf)options(scipen=999)#(lf)library(jsonlite)#(lf)library(curl)#(lf)#(lf)event<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2022-2023"")#(lf)data<- fromJSON(event)#(lf)data_soccer <- as.data.frame(data)#(lf)data_soccer <- data_soccer[,1]#(lf)data_soccer <- as.integer(data_soccer)#(lf)#(lf)dataset_partidoaminuto <- data.frame(idStatistics = numeric(),#(lf)                                     isEvent = numeric(),#(lf)                                     idApiFootball = numeric(),#(lf)                                     strEvent = character(),#(lf)                                     strStat = character(),#(lf)                                     intHome = numeric(),#(lf)                                     intAway =numeric())#(lf)#(lf)library(RCurl)#(lf)for (i in data_soccer){#(lf)  p1 <- ""https://www.thesportsdb.com/api/v1/json/60130162/lookuptimeline.php?id=""#(lf)  p2 <- i#(lf)  url_event <- paste0(p1,p2)#(lf)  stat_event <- getURL(url_event, timeout = 600)#(lf)  evento <- fromJSON(stat_event)#(lf)  fila <- as.data.frame(evento)#(lf)  dataset_partidoaminuto <- rbind(dataset_partidoaminuto,fila)#(lf)}"),
+		    dataset_partidoaminuto1 = Source{[Name="dataset_partidoaminuto"]}[Value]
+		in
+		    dataset_partidoaminuto1
+	lineageTag: bba11727-f7be-4414-9bba-f12e76880c6d
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Estadisticas 2020-2021 (2)' =
+		let
+		    Origen = R.Execute("rm(list = ls())#(lf)options(scipen=999)#(lf)library(jsonlite)#(lf)library(curl)#(lf)#(lf)event<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2020-2021"")#(lf)data<- fromJSON(event)#(lf)data_soccer <- as.data.frame(data)#(lf)data_soccer <- data_soccer[,1]#(lf)data_soccer <- as.integer(data_soccer)#(lf)#(lf)dataset_event <- data.frame(idStatistics = numeric(),#(lf)                              isEvent = numeric(),#(lf)                              idApiFootball = numeric(),#(lf)                              strEvent = character(),#(lf)                              strStat = character(),#(lf)                              intHome = numeric(),#(lf)                              intAway =numeric())#(lf)#(lf)library(RCurl)#(lf)for (i in data_soccer){#(lf)  p1 <- ""https://www.thesportsdb.com/api/v1/json/60130162/lookupeventstats.php?id=""#(lf)  p2 <- i#(lf)  url_event <- paste0(p1,p2)#(lf)  stat_event <- getURL(url_event, timeout = 600)#(lf)  evento <- fromJSON(stat_event)#(lf)  fila <- as.data.frame(evento)#(lf)  dataset_event <- rbind(dataset_event,fila)#(lf)}"),
+		    dataset_event1 = Origen{[Name="dataset_event"]}[Value]
+		in
+		    dataset_event1
+	lineageTag: c15ed0be-d2ab-4d6b-a385-36910a3d500b
+
+	annotation PBI_ResultType = Table
+
+expression 'Estadisticas 2021-2022 (2)' =
+		let
+		    Origen = R.Execute("rm(list = ls())#(lf)options(scipen=999)#(lf)library(jsonlite)#(lf)library(curl)#(lf)#(lf)event<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2021-2022"")#(lf)data<- fromJSON(event)#(lf)data_soccer <- as.data.frame(data)#(lf)data_soccer <- data_soccer[,1]#(lf)data_soccer <- as.integer(data_soccer)#(lf)#(lf)dataset_event <- data.frame(idStatistics = numeric(),#(lf)                              isEvent = numeric(),#(lf)                              idApiFootball = numeric(),#(lf)                              strEvent = character(),#(lf)                              strStat = character(),#(lf)                              intHome = numeric(),#(lf)                              intAway =numeric())#(lf)#(lf)library(RCurl)#(lf)for (i in data_soccer){#(lf)  p1 <- ""https://www.thesportsdb.com/api/v1/json/60130162/lookupeventstats.php?id=""#(lf)  p2 <- i#(lf)  url_event <- paste0(p1,p2)#(lf)  stat_event <- getURL(url_event, timeout = 600)#(lf)  evento <- fromJSON(stat_event)#(lf)  fila <- as.data.frame(evento)#(lf)  dataset_event <- rbind(dataset_event,fila)#(lf)}"),
+		    dataset_event1 = Origen{[Name="dataset_event"]}[Value]
+		in
+		    dataset_event1
+	lineageTag: ff6855b1-7c29-400d-94c8-858277a340d2
+
+	annotation PBI_ResultType = Table
+
+expression 'Estadisticas 2022-2023 (2)' =
+		let
+		    Origen = R.Execute("rm(list = ls())#(lf)options(scipen=999)#(lf)library(jsonlite)#(lf)library(curl)#(lf)#(lf)event<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2022-2023"")#(lf)data<- fromJSON(event)#(lf)data_soccer <- as.data.frame(data)#(lf)data_soccer <- data_soccer[,1]#(lf)data_soccer <- as.integer(data_soccer)#(lf)#(lf)dataset_event <- data.frame(idStatistics = numeric(),#(lf)                              isEvent = numeric(),#(lf)                              idApiFootball = numeric(),#(lf)                              strEvent = character(),#(lf)                              strStat = character(),#(lf)                              intHome = numeric(),#(lf)                              intAway =numeric())#(lf)#(lf)library(RCurl)#(lf)for (i in data_soccer){#(lf)  p1 <- ""https://www.thesportsdb.com/api/v1/json/60130162/lookupeventstats.php?id=""#(lf)  p2 <- i#(lf)  url_event <- paste0(p1,p2)#(lf)  stat_event <- getURL(url_event, timeout = 600)#(lf)  evento <- fromJSON(stat_event)#(lf)  fila <- as.data.frame(evento)#(lf)  dataset_event <- rbind(dataset_event,fila)#(lf)}"),
+		    dataset_event1 = Origen{[Name="dataset_event"]}[Value]
+		in
+		    dataset_event1
+	lineageTag: 1be973c2-bbf6-44bc-b305-ec64d2574e79
+
+	annotation PBI_ResultType = Table
+
+expression 'Estadisticas 2020-2021 (3)' =
+		let
+		    Origen = R.Execute("rm(list = ls())#(lf)options(scipen=999)#(lf)library(jsonlite)#(lf)library(curl)#(lf)#(lf)event<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2020-2021"")#(lf)data<- fromJSON(event)#(lf)data_soccer <- as.data.frame(data)#(lf)data_soccer <- data_soccer[,1]#(lf)data_soccer <- as.integer(data_soccer)#(lf)#(lf)dataset_event <- data.frame(idStatistics = numeric(),#(lf)                              isEvent = numeric(),#(lf)                              idApiFootball = numeric(),#(lf)                              strEvent = character(),#(lf)                              strStat = character(),#(lf)                              intHome = numeric(),#(lf)                              intAway =numeric())#(lf)#(lf)library(RCurl)#(lf)for (i in data_soccer){#(lf)  p1 <- ""https://www.thesportsdb.com/api/v1/json/60130162/lookupeventstats.php?id=""#(lf)  p2 <- i#(lf)  url_event <- paste0(p1,p2)#(lf)  stat_event <- getURL(url_event, timeout = 600)#(lf)  evento <- fromJSON(stat_event)#(lf)  fila <- as.data.frame(evento)#(lf)  dataset_event <- rbind(dataset_event,fila)#(lf)}"),
+		    dataset_event1 = Origen{[Name="dataset_event"]}[Value]
+		in
+		    dataset_event1
+	lineageTag: 05f89b28-21e1-476a-962b-f0c47c553f29
+
+	annotation PBI_ResultType = Table
+
+expression 'Estadisticas 2021-2022 (3)' =
+		let
+		    Origen = R.Execute("rm(list = ls())#(lf)options(scipen=999)#(lf)library(jsonlite)#(lf)library(curl)#(lf)#(lf)event<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2021-2022"")#(lf)data<- fromJSON(event)#(lf)data_soccer <- as.data.frame(data)#(lf)data_soccer <- data_soccer[,1]#(lf)data_soccer <- as.integer(data_soccer)#(lf)#(lf)dataset_event <- data.frame(idStatistics = numeric(),#(lf)                              isEvent = numeric(),#(lf)                              idApiFootball = numeric(),#(lf)                              strEvent = character(),#(lf)                              strStat = character(),#(lf)                              intHome = numeric(),#(lf)                              intAway =numeric())#(lf)#(lf)library(RCurl)#(lf)for (i in data_soccer){#(lf)  p1 <- ""https://www.thesportsdb.com/api/v1/json/60130162/lookupeventstats.php?id=""#(lf)  p2 <- i#(lf)  url_event <- paste0(p1,p2)#(lf)  stat_event <- getURL(url_event, timeout = 600)#(lf)  evento <- fromJSON(stat_event)#(lf)  fila <- as.data.frame(evento)#(lf)  dataset_event <- rbind(dataset_event,fila)#(lf)}"),
+		    dataset_event1 = Origen{[Name="dataset_event"]}[Value]
+		in
+		    dataset_event1
+	lineageTag: f0af13df-449b-4094-8b8f-78caca069020
+
+	annotation PBI_ResultType = Table
+
+expression 'Estadisticas 2022-2023 (3)' =
+		let
+		    Origen = R.Execute("rm(list = ls())#(lf)options(scipen=999)#(lf)library(jsonlite)#(lf)library(curl)#(lf)#(lf)event<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/eventsseason.php?id=4335&s=2022-2023"")#(lf)data<- fromJSON(event)#(lf)data_soccer <- as.data.frame(data)#(lf)data_soccer <- data_soccer[,1]#(lf)data_soccer <- as.integer(data_soccer)#(lf)#(lf)dataset_event <- data.frame(idStatistics = numeric(),#(lf)                              isEvent = numeric(),#(lf)                              idApiFootball = numeric(),#(lf)                              strEvent = character(),#(lf)                              strStat = character(),#(lf)                              intHome = numeric(),#(lf)                              intAway =numeric())#(lf)#(lf)library(RCurl)#(lf)for (i in data_soccer){#(lf)  p1 <- ""https://www.thesportsdb.com/api/v1/json/60130162/lookupeventstats.php?id=""#(lf)  p2 <- i#(lf)  url_event <- paste0(p1,p2)#(lf)  stat_event <- getURL(url_event, timeout = 600)#(lf)  evento <- fromJSON(stat_event)#(lf)  fila <- as.data.frame(evento)#(lf)  dataset_event <- rbind(dataset_event,fila)#(lf)}"),
+		    dataset_event1 = Origen{[Name="dataset_event"]}[Value]
+		in
+		    dataset_event1
+	lineageTag: 1b0fc3ad-d122-4f68-af5d-ff3a621bebe5
+
+	annotation PBI_ResultType = Table
+

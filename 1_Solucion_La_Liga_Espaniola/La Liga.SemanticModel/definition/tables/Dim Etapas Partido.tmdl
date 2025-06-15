@@ -1,0 +1,41 @@
+table 'Dim Etapas Partido'
+	lineageTag: 3d4d209c-fae0-4e62-97d8-44c29281c629
+
+	column Minuto
+		dataType: int64
+		formatString: 0
+		lineageTag: a198c9f8-0caa-48b5-8365-bcce0d4fff71
+		summarizeBy: none
+		sourceColumn: Minuto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Etapa
+		dataType: string
+		lineageTag: 1102e921-e5a2-43d2-98c0-e79d5acd2e34
+		summarizeBy: none
+		sourceColumn: Etapa
+
+		annotation SummarizationSetBy = Automatic
+
+	column Seccion
+		dataType: string
+		lineageTag: 0d636da2-f99b-45f2-b8d2-85067c364bf6
+		summarizeBy: none
+		sourceColumn: Seccion
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Etapas Partido-b2e74ffb-b2f3-4275-a431-8b85737df853' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("jdWxasNAEEXRXzGqXXhnpJ3VJ6QIBJJUwp1FEERSkOX/D0mRYvNAt1y41XmwMwxNas7NyzbN43Z6m8b5a/17r/fT87Q89vXeXM9DYzR0GrY07GiYRfi07OM2j7dp/U3iOCnHSX+cpAtolH7dKPi6UeZ1o7jrRknXDUBOQDkB5gScDTgbcDbgbMDZgLMBZwPOBpwNOBtwduDswNmBswNnB84OnB04O3B24OzAuQXOrXJ+/9ynuf5iFbYMlbgMFbsMlb0MfwZ4HT8ey209uhjB08LTHqfdhadJpdWQnZHISdSSqCOR3KOO5BJ1JDeoI6lfRVm61xERz0Q8E/FMxDMRz0Q8E/FMxDMRDyIeRDyIeBDxIOJBxIOIBxEPIh5EvBDxQsQLES9EvBDxQsSLFFf3oEh2WUp7WcoBVNnLFf6V128=", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Minuto = _t, Etapa = _t, Seccion = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Minuto", Int64.Type}, {"Etapa", type text}, {"Seccion", type text}})
+				in
+				    #"Changed Type"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

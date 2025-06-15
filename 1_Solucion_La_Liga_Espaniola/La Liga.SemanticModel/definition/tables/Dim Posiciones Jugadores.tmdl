@@ -1,0 +1,53 @@
+table 'Dim Posiciones Jugadores'
+	isHidden
+	lineageTag: 31a794bf-fd63-43c6-9048-0b80b6a4366e
+
+	column Posicion
+		isHidden
+		lineageTag: 546cf6f6-00e3-4f7a-b540-9e6ee0992717
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: Dim Jugadores[Posicion]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Posicion Traducida' = ```
+			
+			SWITCH('Dim Posiciones Jugadores'[Posicion], 
+			    "Winger", "Extremo",
+			    "Left-Back", "Defensa lateral izquierdo",
+			    "Centre Midfielder", "Centrocampista",
+			    "Centre-Back", "Defensa central",
+			    "Goalkeeper", "Portero",
+			    "Forward", "Delantero",
+			    "Attacking Midfield", "Mediocampista ofensivo",
+			    "Defender", "Defensa",
+			    "Left Wing", "Ala izquierda",
+			    "Manager", "Entrenador",
+			    "Midfielder", "Mediocampista",
+			    "Right-Back", "Defensa lateral derecho",
+			    "Attacker", "Atacante",
+			    "Defensive Midfield", "Mediocampista defensivo",
+			    "Right Winger", "Extremo derecho",
+			    "Centre-Forward", "Delantero centro",
+			    "Second Striker", "Segundo delantero",
+			    "Forward/Center", "Delantero/centro",
+			    "Central Midfield", "Centrocampista central",
+			    "Right Wing", "Ala derecha",
+			    "Full-back", "Lateral",
+			    "","Sin Datos"
+			)
+			
+			```
+		isHidden
+		lineageTag: e7a09da2-fcb1-4b4c-9857-4de22e53e62f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Posiciones Jugadores-5a91ad97-eba6-4b97-8104-f87d44ce7fd7' = calculated
+		mode: import
+		source = FILTER(DISTINCT(VALUES('Dim Jugadores'[Posicion])),NOT(ISBLANK('Dim Jugadores'[Posicion])))
+
+	annotation PBI_Id = 2b87d0413a094e8ea348079fa0d1a416
+

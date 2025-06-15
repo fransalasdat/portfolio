@@ -1,0 +1,43 @@
+model Model
+	culture: es-MX
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-AR
+	maxParallelismPerRefresh: 1
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Dim Torneos","Dim Temporadas","2021-2022","2020-2021","2019-2020","2018-2019","2022-2023","Dim Clubes","Tabla Posiciones Final","Fact Encuentros Local","Fact Encuentros Visitante","Med Basicas","Estadisticas 2020-2021","Estadisticas 2019-2020","Estadisticas 2021-2022","Estadisticas 2022-2023","Fact Estadisticas Local","Fact Estadisticas Visitante","Dim Jugadores","Med Textos","Table 1","Table 2","Table 3","Table 4","Table 5","Dim_Paises","Med Estadisticas","Dim Localidad","Resumen Partido 20-21","Resumen Partido 21-22","Resumen Partido 22-23","Det Fact Goles Local","Det Fact Goles Visitante","Dim Etapas Partido","Estadisticas 2020-2021 (2)","Estadisticas 2021-2022 (2)","Estadisticas 2022-2023 (2)","Fact Faltas Local","Estadisticas 2020-2021 (3)","Estadisticas 2021-2022 (3)","Estadisticas 2022-2023 (3)","Fact Faltas Visitante"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.144.679.0 (25.06)+ef40146207b86a826d1c72a7727a743ee37450e9
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table DateTableTemplate_5e2f873f-9aa0-4121-a0bc-b2628e83a6eb
+ref table 'Dim Clubes'
+ref table 'Fact Encuentros Local'
+ref table 'Fact Encuentros Visitante'
+ref table 'Dim Temporadas'
+ref table 'Dim Torneos'
+ref table 'Med Basicas'
+ref table 'Fact Estadisticas Local'
+ref table LocalDateTable_117917ac-6c7b-45ac-b55e-500a79249ae3
+ref table LocalDateTable_0a8c722d-0ede-4f3e-909d-68a352a74171
+ref table 'Fact Estadisticas Visitante'
+ref table 'Dim Jugadores'
+ref table 'Med Textos'
+ref table LocalDateTable_f42861e9-dd22-4aea-a05a-3471cc4cefcd
+ref table Dim_Paises
+ref table 'Dim Posiciones Jugadores'
+ref table 'Med Estadisticas'
+ref table 'Dim Localidad'
+ref table 'Det Fact Goles Local'
+ref table 'Det Fact Goles Visitante'
+ref table 'Dim Etapas Partido'
+ref table 'Fact Faltas Local'
+ref table 'Fact Faltas Visitante'
+
+ref cultureInfo es-MX
+

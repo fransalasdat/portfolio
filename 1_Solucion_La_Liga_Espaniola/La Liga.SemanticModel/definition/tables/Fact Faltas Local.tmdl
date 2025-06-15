@@ -1,0 +1,52 @@
+table 'Fact Faltas Local'
+	lineageTag: b1080a2a-9fab-4e6f-891f-308414b788d9
+
+	column 'ID Partido'
+		dataType: string
+		lineageTag: e1462bd2-46d8-435c-9390-23093aae681c
+		summarizeBy: none
+		sourceColumn: ID Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column Faltas
+		dataType: int64
+		formatString: 0
+		lineageTag: 98d4f713-d93d-48ba-b202-e32e65d4658c
+		summarizeBy: sum
+		sourceColumn: Faltas
+
+		annotation SummarizationSetBy = Automatic
+
+	column Atajadas
+		dataType: int64
+		formatString: 0
+		lineageTag: 03eee634-a58c-43da-ad99-6beb61494919
+		summarizeBy: sum
+		sourceColumn: Atajadas
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Faltas Local' = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({#"Estadisticas 2020-2021 (2)", #"Estadisticas 2021-2022 (2)", #"Estadisticas 2022-2023 (2)"}),
+				    #"Renamed Columns" = Table.RenameColumns(Origen,{{"eventstats.idEvent", "ID Partido"}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Renamed Columns",{"eventstats.intAway", "eventstats.strEvent", "eventstats.idStatistic", "eventstats.idApiFootball"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns",{{"eventstats.strStat", "Estadistica"}, {"eventstats.intHome", "Valor"}}),
+				    #"Pivoted Column" = Table.Pivot(#"Renamed Columns1", List.Distinct(#"Renamed Columns1"[Estadistica]), "Estadistica", "Valor"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Pivoted Column",{{"Shots on Goal", Int64.Type}, {"Shots off Goal", Int64.Type}, {"Total Shots", Int64.Type}, {"Blocked Shots", Int64.Type}, {"Shots insidebox", Int64.Type}, {"Shots outsidebox", Int64.Type}, {"Fouls", Int64.Type}, {"Corner Kicks", Int64.Type}, {"Offsides", Int64.Type}, {"Ball Possession", Int64.Type}, {"Yellow Cards", Int64.Type}, {"Red Cards", Int64.Type}, {"Goalkeeper Saves", Int64.Type}, {"Total passes", Int64.Type}, {"Passes accurate", Int64.Type}, {"Passes %", Int64.Type}, {"expected_goals", Int64.Type}}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type",{{"Shots on Goal", "Remates al Arco"}, {"Shots off Goal", "Remates Desviados"}, {"Total Shots", "Remates Totales"}, {"Blocked Shots", "Remates Interceptados"}, {"Shots insidebox", "Tiros dentro del área"}, {"Shots outsidebox", "Tiros desde fuera del área"}, {"Fouls", "Faltas"}, {"Corner Kicks", "Tiros de Esquina"}, {"Offsides", "Fuera de juego"}, {"Ball Possession", "Posesion"}, {"Yellow Cards", "Tarjetas Amarillas"}, {"Red Cards", "Tarjetas Rojas"}, {"Goalkeeper Saves", "Atajadas"}, {"Total passes", "Pases"}, {"Passes accurate", "Pases Completados"}, {"Passes %", "Efectividad de Pases"}, {"expected_goals", "Goles Esperados"}}),
+				    #"Divided Column" = Table.TransformColumns(#"Renamed Columns2", {{"Efectividad de Pases", each _ / 100, type number}}),
+				    #"Divided Column1" = Table.TransformColumns(#"Divided Column", {{"Posesion", each _ / 100, type number}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Divided Column1",{"Remates al Arco", "Remates Desviados", "Remates Totales", "Remates Interceptados", "Tiros dentro del área", "Tiros desde fuera del área", "Tiros de Esquina", "Fuera de juego", "Posesion", "Tarjetas Amarillas", "Tarjetas Rojas", "Pases", "Pases Completados", "Efectividad de Pases", "Goles Esperados"})
+				in
+				    #"Removed Columns1"
+
+	changedProperty = Name
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

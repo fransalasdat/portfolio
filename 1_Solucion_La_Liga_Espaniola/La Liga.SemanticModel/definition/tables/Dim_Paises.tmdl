@@ -1,0 +1,41 @@
+table Dim_Paises
+	isHidden
+	lineageTag: b49b21d1-6ec2-40c0-b293-ddb91b647869
+
+	column Ingles
+		dataType: string
+		isHidden
+		lineageTag: 8a36d746-52f3-402b-a17c-f34ef468732d
+		summarizeBy: none
+		sourceColumn: Ingles
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Castellano
+		dataType: string
+		isHidden
+		lineageTag: 985cf208-3227-4b80-b338-6e8e187c6585
+		summarizeBy: none
+		sourceColumn: Castellano
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Paises-5bc46c6d-b16e-4c46-9a18-8633c829885b = m
+		mode: import
+		source =
+				let
+				    Source = Table.Combine({#"Table 4", #"Table 1", #"Table 2", #"Table 3", #"Table 5"}),
+				    #"Replaced Value" = Table.ReplaceValue(Source,", Holanda","",Replacer.ReplaceText,{"Castellano"})
+				in
+				    #"Replaced Value"
+
+	changedProperty = IsHidden
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

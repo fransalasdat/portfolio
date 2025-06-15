@@ -1,0 +1,518 @@
+table 'Med Basicas'
+	lineageTag: 49bca6a8-b33a-4ad3-bebf-e72f980d149e
+
+	measure 'Goles de Local' =
+			
+			--CALCULATE(COUNT('Goles Local'[ID Gol]),'Goles Local'[Local]="Yes")
+			SUM ( 'Fact Encuentros Local'[Goles Local] )
+		formatString: 0
+		lineageTag: e09cf94f-f5d2-4b3d-87b8-65288f0d67b8
+
+	measure 'Goles de Visitante' =
+			
+			--CALCULATE(COUNT('Goles Visitante'[ID Gol]),'Goles Visitante'[Gol Local]="No")
+			SUM ( 'Fact Encuentros Visitante'[Goles Visitante] )
+		formatString: 0
+		lineageTag: 059ca1c6-fee1-4021-9f41-3fedd5ad7e50
+
+	measure 'Goles Convertidos Totales' =
+			
+			[Goles de Local] + [Goles de Visitante]
+		formatString: 0
+		lineageTag: f498ad7b-afdd-4b19-a31a-6d1b6327c9d8
+
+	measure 'Puntos de Local' =
+			
+			SUM ( 'Fact Encuentros Local'[Puntaje] )
+		formatString: 0
+		lineageTag: bc11bf87-fd8d-4828-ba45-f358a61bc679
+
+	measure 'Puntos de Visitante' =
+			
+			SUM ( 'Fact Encuentros Visitante'[Puntaje] )
+		formatString: 0
+		lineageTag: c0a4be87-f7ee-4f96-bee4-9d86736fb7ef
+
+	measure 'Puntos Totales' =
+			
+			[Puntos de Local] + [Puntos de Visitante]
+		formatString: 0
+		lineageTag: 9389eb0a-7d64-487b-8fde-5b725d08e875
+
+	measure 'Victorias de Local' =
+			
+			CALCULATE (
+			    COUNT ( 'Fact Encuentros Local'[ID Partido] ),
+			    'Fact Encuentros Local'[Resultado] = "Victoria"
+			)
+		formatString: 0
+		lineageTag: cb0e1f96-34bb-40a3-8fdb-d1e12da72812
+
+	measure 'Victorias de Visitante' =
+			
+			CALCULATE (
+			    COUNT ( 'Fact Encuentros Visitante'[ID Partido] ),
+			    'Fact Encuentros Visitante'[Resultado] = "Victoria"
+			)
+		formatString: 0
+		lineageTag: a72f3c62-afbc-44ed-a22a-f5c50398ccdc
+
+	measure 'Victorias totales' =
+			
+			[Victorias de Local] + [Victorias de Visitante]
+		formatString: 0
+		lineageTag: 4a0a67e4-0942-4130-9aaf-4b9220946b68
+
+	measure 'Empates de Local' =
+			
+			CALCULATE (
+			    COUNT ( 'Fact Encuentros Local'[ID Partido] ),
+			    'Fact Encuentros Local'[Resultado] = "Empate"
+			)
+		formatString: 0
+		lineageTag: 1dd8fff7-4d31-4dd0-8cb0-e919edc343ea
+
+	measure 'Empates de Visitante' =
+			
+			CALCULATE (
+			    COUNT ( 'Fact Encuentros Visitante'[ID Partido] ),
+			    'Fact Encuentros Visitante'[Resultado] = "Empate"
+			)
+		formatString: 0
+		lineageTag: 7275028d-b43b-4db0-8ef4-4d3aaee1304d
+
+	measure 'Empates Totales' =
+			
+			[Empates de Local] + [Empates de Visitante]
+		formatString: 0
+		lineageTag: ef014a24-1bd7-47be-8f0e-61e8eaa05260
+
+	measure 'Derrotas de Local' =
+			
+			CALCULATE (
+			    COUNT ( 'Fact Encuentros Local'[ID Partido] ),
+			    'Fact Encuentros Local'[Resultado] = "Derrota"
+			)
+		formatString: 0
+		lineageTag: 5729d13c-1ffe-437e-bb41-69389b3c3c60
+
+	measure 'Derrotas de Visitante' =
+			
+			CALCULATE (
+			    COUNT ( 'Fact Encuentros Visitante'[ID Partido] ),
+			    'Fact Encuentros Visitante'[Resultado] = "Derrota"
+			)
+		formatString: 0
+		lineageTag: 845f47b6-b550-43ab-b6fc-eb262f2e3fa0
+
+	measure 'Derrotas Totales' =
+			
+			[Derrotas de Local] + [Derrotas de Visitante]
+		formatString: 0
+		lineageTag: 7df760e5-891b-4401-b88d-19fb41a276dd
+
+	measure 'Partidos de Local' =
+			
+			CALCULATE (
+			    COUNT ( 'Fact Encuentros Local'[ID Partido] ),
+			    'Fact Encuentros Local'[Fecha Partido] < TODAY ()
+			)
+		formatString: 0
+		lineageTag: 84722518-427e-45ce-ae75-68b88f600dd6
+
+	measure 'Partidos de Visitante' =
+			
+			CALCULATE (
+			    COUNT ( 'Fact Encuentros Visitante'[ID Partido] ),
+			    'Fact Encuentros Visitante'[Fecha Partido] < TODAY ()
+			)
+		formatString: 0
+		lineageTag: 4c7acba3-074b-47ef-bb60-eec3e0a2161d
+
+	measure 'Partidos Totales' =
+			
+			[Partidos de Local] + [Partidos de Visitante]
+		formatString: 0
+		lineageTag: 67afc243-9b3e-4e6d-be7c-48adbdf67d56
+
+	measure 'Goles Recibidos Totales' =
+			
+			[Goles Recibidos de Local] + [Goles Recibidos de Visitante]
+		formatString: 0
+		lineageTag: a6c3b821-e549-4bd2-937b-3dd272f1b06f
+
+	measure 'Diferencia de Gol' =
+			
+			[Goles Convertidos Totales] - [Goles Recibidos Totales]
+		formatString: 0
+		lineageTag: 929c5df9-abd8-4baf-826c-bde3ad9fed6b
+
+	measure Posicion =
+			
+			RANKX ( ALL ( 'Dim Clubes' ), [Puntos Totales] )
+		formatString: 0
+		lineageTag: f95403e8-71c9-4d1f-aeda-6abee55ed232
+
+	measure 'Goles Recibidos de Local' =
+			
+			SUM ( 'Fact Encuentros Local'[Goles Visitante] )
+		formatString: 0
+		lineageTag: 605a66b1-6fa1-4c56-9726-96d35a00e492
+
+	measure 'Goles Recibidos de Visitante' =
+			
+			SUM ( 'Fact Encuentros Visitante'[Goles Local] )
+		formatString: 0
+		lineageTag: 00774fa9-635f-4dcc-af24-dc9fea17cc7b
+
+	measure 'Puntos Posibles de Local' =
+			
+			[Partidos de Local] * 3
+		formatString: 0
+		lineageTag: 52b5b419-e016-403c-987f-8652faba3349
+
+	measure 'Puntos Perdidos de Local' =
+			
+			[Puntos Posibles de Local] - [Puntos de Local]
+		formatString: 0
+		lineageTag: 98c9cf4f-5f67-41f6-824a-4ae3f6f7b265
+
+	measure 'Efectividad de Local' =
+			
+			[Puntos de Local] / [Puntos Posibles de Local]
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: c8694047-31cc-4bb0-b003-98bf61e977c9
+
+	measure 'Tarjetas Rojas de Local' =
+			
+			SUM ( 'Fact Estadisticas Local'[Tarjetas Rojas] )
+		formatString: 0
+		lineageTag: eaa70277-fdbc-490c-83ec-7a33a6792bf7
+
+	measure 'Tarjetas Amarillas de Local' =
+			
+			SUM ( 'Fact Estadisticas Local'[Tarjetas Amarillas] )
+		formatString: 0
+		lineageTag: c96cfcff-0575-4a3e-97ca-7743f9d6c9aa
+
+	measure 'Prom Amarillas por Partido de Local' =
+			
+			[Tarjetas Amarillas de Local] / [Partidos de Local]
+		lineageTag: 21b72400-9eff-4c33-b903-e6b2a8877efa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Prom Rojas por Partido de Local' =
+			
+			[Tarjetas Rojas de Local] / [Partidos de Local]
+		lineageTag: c470e9f5-9426-4b60-a153-4f636199c26a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Tarjetas Amarillas de Visitante' =
+			
+			SUM ( 'Fact Estadisticas Visitante'[Tarjetas Amarillas] )
+		formatString: 0
+		lineageTag: 29d90452-177f-4320-8714-c265cd5bbdbd
+
+	measure 'Tarjetas Amarillas' =
+			
+			[Tarjetas Amarillas de Local] + [Tarjetas Amarillas de Visitante]
+		formatString: 0
+		lineageTag: bcda2499-55b1-4d47-b6bc-4cc008e591f2
+
+	measure 'Tarjetas Rojas de Visitante' =
+			
+			SUM ( 'Fact Estadisticas Visitante'[Tarjetas Rojas] )
+		formatString: 0
+		lineageTag: 5811ba0a-6690-46a4-a8d1-8b63a3648b3e
+
+	measure 'Tarjetas Rojas' =
+			
+			[Tarjetas Rojas de Local] + [Tarjetas Rojas de Visitante]
+		formatString: 0
+		lineageTag: abebad21-fc68-4f76-99d1-d26c675b7ee7
+
+	measure 'Puntos Posibles de Visitante' =
+			
+			[Partidos de Visitante] * 3
+		formatString: 0
+		lineageTag: 37f9c8c1-9954-4f59-bc09-e600c7d46d80
+
+	measure 'Efectividad de Visitante' =
+			
+			[Puntos de Visitante] / [Puntos Posibles de Visitante]
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 09b2a80d-a5e0-4855-ab82-1acb2cf175bd
+
+	measure 'Puntos Perdidos de Visitante' =
+			
+			[Puntos Posibles de Visitante] - [Puntos de Visitante]
+		formatString: 0
+		lineageTag: b3398cd4-122d-44d5-b39b-3f49a08a2763
+
+	measure 'Prom Amarillas por Partido de Visitante' =
+			
+			[Tarjetas Amarillas de Visitante] / [Partidos de Visitante]
+		lineageTag: df32161f-ffd7-40c8-81ed-c2f871bca47c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Prom Rojas por Partido de Visitante' =
+			
+			[Tarjetas Rojas de Visitante] / [Partidos de Visitante]
+		lineageTag: d6d588b2-05a7-484b-a3a9-36da46a8884c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Efectividad de Local Promedio' = CALCULATE([Efectividad de Local],all('Dim Clubes'[Club]))
+		lineageTag: f1c23129-adcb-40db-ba25-19db6ee8e6f4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Efectividad de Visitante Promedio' = CALCULATE([Efectividad de Visitante],all('Dim Clubes'[Club]))
+		lineageTag: d442a123-d4b3-4774-87d0-36c8a85a0ac4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Goles Convertidos Local MAM' = COUNT('Det Fact Goles Local'[ID Gol])
+		formatString: 0
+		lineageTag: 0c9d85d6-8573-4e6c-823d-f2c3ab0018c3
+
+	measure 'Goles por Partido' = [Goles Convertidos Totales]/[Partidos Totales]
+		lineageTag: 9bb12abd-7468-48d7-b936-40635f45106d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Goles Recibidos por Partido' = [Goles Recibidos Totales]/[Partidos Totales]
+		lineageTag: 8af37a0c-dcb8-4ae1-98ff-a42eced45be5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Goles Convertidos PT' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Dim Etapas Partido'[Etapa]="Primer Tiempo",'Det Fact Goles Local'[Gol Local]="Yes")+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Dim Etapas Partido'[Etapa]="Primer Tiempo",'Det Fact Goles Visitante'[Gol Local]="No")
+		formatString: 0
+		lineageTag: e98a6e39-3a07-4517-994a-6a60a7fd3567
+
+	measure 'Fecha Actualizacion' = CALCULATE(max('Fact Encuentros Local'[Fecha Partido]),not(ISBLANK('Fact Encuentros Local'[Goles Local])))
+		formatString: Short Date
+		lineageTag: 82147687-9b87-4358-b371-9a9756e8d065
+
+	measure 'Goles Convertidos ST' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Dim Etapas Partido'[Etapa]="Segundo Tiempo",'Det Fact Goles Local'[Gol Local]="Yes")+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Dim Etapas Partido'[Etapa]="Segundo Tiempo",'Det Fact Goles Visitante'[Gol Local]="No")
+		formatString: 0
+		lineageTag: 90325fdd-575b-4e3c-a27e-195408a0d3a9
+
+	measure 'Goles Convertidos Penal' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Det Fact Goles Local'[Tipo de Gol]="Penalty",'Det Fact Goles Local'[Gol Local]="Yes")+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Det Fact Goles Visitante'[Etapa]="Penalty",'Det Fact Goles Visitante'[Gol Local]="No")
+		formatString: 0
+		lineageTag: 7f1905ce-f754-4070-bedf-3576f829befe
+
+	measure 'Goles Recibidos PT' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Det Fact Goles Local'[Gol Local]="No",'Dim Etapas Partido'[Etapa]="Primer Tiempo")+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Det Fact Goles Visitante'[Gol Local]="Yes",'Dim Etapas Partido'[Etapa]="Primer Tiempo")
+		formatString: 0
+		lineageTag: 5a20ea82-9bb2-4c53-ba47-eb6aebb8af66
+
+	measure 'Goles Recibidos ST' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Det Fact Goles Local'[Gol Local]="No",'Dim Etapas Partido'[Etapa]="Segundo Tiempo")+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Det Fact Goles Visitante'[Gol Local]="Yes",'Dim Etapas Partido'[Etapa]="Segundo Tiempo")
+		formatString: 0
+		lineageTag: 9db4f736-8b0d-4ad5-8dff-b43428d4714c
+
+	measure '% Goles PT' = [Goles Convertidos PT]/ ([Goles Convertidos PT]+[Goles Convertidos ST])
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: dc51fda0-67da-4010-90f4-d842ff28ba56
+
+	measure '% Goles ST' = 1- [% Goles PT]
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 764c4d3d-bbe5-4185-84ad-61c509539627
+
+	measure '% Goles Recibidos PT' = [Goles Recibidos PT]/([Goles Recibidos PT]+[Goles Recibidos ST])
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: ef583f5d-a34b-4cd8-99c6-d57257783d0e
+
+	measure '% Goles Recibidos ST' = 1- [% Goles Recibidos PT]
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 2c2f1330-044e-4697-bb1e-454ce8e260da
+
+	measure 'Goles Convertidos UM PT' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Dim Etapas Partido'[Etapa]="Primer Tiempo",'Det Fact Goles Local'[Gol Local]="Yes",'Dim Etapas Partido'[Seccion]="Ultimos Minutos")
+			+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Dim Etapas Partido'[Etapa]="Primer Tiempo",'Det Fact Goles Visitante'[Gol Local]="No",'Dim Etapas Partido'[Seccion]="Ultimos Minutos")
+		formatString: 0
+		lineageTag: 182e6b09-c3a3-45ae-82d8-1df3df5b83e8
+
+	measure 'Goles Convertidos UM ST' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Dim Etapas Partido'[Etapa]="Segundo Tiempo",'Det Fact Goles Local'[Gol Local]="Yes",'Dim Etapas Partido'[Seccion]="Ultimos Minutos")+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Dim Etapas Partido'[Etapa]="Segundo Tiempo",'Det Fact Goles Visitante'[Gol Local]="No",'Dim Etapas Partido'[Seccion]="Ultimos Minutos")
+		formatString: 0
+		lineageTag: c52414fe-5524-449d-945a-325574bbae18
+
+	measure 'Goles Convertidos PM PT' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Dim Etapas Partido'[Etapa]="Primer Tiempo",'Det Fact Goles Local'[Gol Local]="Yes",'Dim Etapas Partido'[Seccion]="Primeros Minutos")
+			+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Dim Etapas Partido'[Etapa]="Primer Tiempo",'Det Fact Goles Visitante'[Gol Local]="No",'Dim Etapas Partido'[Seccion]="Primeros Minutos")
+		formatString: 0
+		lineageTag: 876efae3-6a92-424c-af1d-621a6d11623a
+
+	measure 'Goles Convertidos PM ST' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Dim Etapas Partido'[Etapa]="Segundo Tiempo",'Det Fact Goles Local'[Gol Local]="Yes",'Dim Etapas Partido'[Seccion]="Primeros Minutos")+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Dim Etapas Partido'[Etapa]="Segundo Tiempo",'Det Fact Goles Visitante'[Gol Local]="No",'Dim Etapas Partido'[Seccion]="Primeros Minutos")
+		formatString: 0
+		lineageTag: 92972ad7-8f32-46f0-8b95-7e8cd0972cf8
+
+	measure 'Goles Recibidos PM PT' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Dim Etapas Partido'[Etapa]="Primer Tiempo",'Det Fact Goles Local'[Gol Local]="No",'Dim Etapas Partido'[Seccion]="Primeros Minutos")+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Dim Etapas Partido'[Etapa]="Primer Tiempo",'Det Fact Goles Visitante'[Gol Local]="Yes",'Dim Etapas Partido'[Seccion]="Primeros Minutos")
+		formatString: 0
+		lineageTag: 1e946c6d-e992-45e1-a248-6abb1557bd00
+
+	measure 'Goles Recibidos PM ST' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Dim Etapas Partido'[Etapa]="Segundo Tiempo",'Det Fact Goles Local'[Gol Local]="No",'Dim Etapas Partido'[Seccion]="Primeros Minutos")+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Dim Etapas Partido'[Etapa]="Segundo Tiempo",'Det Fact Goles Visitante'[Gol Local]="Yes",'Dim Etapas Partido'[Seccion]="Primeros Minutos")
+		formatString: 0
+		lineageTag: ce568461-c970-4e94-932d-fcec7d4a177f
+
+	measure 'Goles Recibidos UM PT' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Dim Etapas Partido'[Etapa]="Primer Tiempo",'Det Fact Goles Local'[Gol Local]="No",'Dim Etapas Partido'[Seccion]="Ultimos Minutos")+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Dim Etapas Partido'[Etapa]="Primer Tiempo",'Det Fact Goles Visitante'[Gol Local]="Yes",'Dim Etapas Partido'[Seccion]="Ultimos Minutos")
+		formatString: 0
+		lineageTag: dfb100bd-120c-41a2-b72c-2355945792a7
+
+	measure 'Goles Recibidos UM ST' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Dim Etapas Partido'[Etapa]="Segundo Tiempo",'Det Fact Goles Local'[Gol Local]="No",'Dim Etapas Partido'[Seccion]="Ultimos Minutos")+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Dim Etapas Partido'[Etapa]="Segundo Tiempo",'Det Fact Goles Visitante'[Gol Local]="Yes",'Dim Etapas Partido'[Seccion]="Ultimos Minutos")
+		formatString: 0
+		lineageTag: 418b5a6f-a795-4178-a26f-d79bd1a41e2a
+
+	measure 'Goles Convertidos Jugadores' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]))
+		formatString: 0
+		lineageTag: c711dafc-3e6e-4534-9a5c-7f93023ab532
+
+	measure 'Goles Convertidos UM' = [Goles Convertidos UM PT]+[Goles Convertidos UM ST]
+		formatString: 0
+		lineageTag: 90de71ce-3f63-49e5-b482-20b90abf86c5
+
+	measure 'Goles Convertidos PM' = [Goles Convertidos PM PT]+[Goles Convertidos PM ST]
+		formatString: 0
+		lineageTag: 15f0c1e2-8d45-448c-87bf-aaf2509ca54e
+
+	measure 'Goles Recibidos PM' = [Goles Recibidos PM PT]+[Goles Recibidos PM ST]
+		formatString: 0
+		lineageTag: 7413e700-2b9d-4f23-a252-448e8ef56065
+
+	measure 'Goles Recibidos UM' = [Goles Recibidos UM PT]+[Goles Recibidos UM ST]
+		formatString: 0
+		lineageTag: f683e0bf-2f9d-4d82-b2d0-a84be3c3cf15
+
+	measure 'Goles Convertidos Intermedios' = [Goles Convertidos IN PT]+ [Goles Convertidos IN ST]
+		formatString: 0
+		lineageTag: fd37d006-0005-4291-970d-97eb19c41e0f
+
+	measure 'Goles Convertidos IN PT' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Dim Etapas Partido'[Etapa]="Primer Tiempo",'Det Fact Goles Local'[Gol Local]="Yes",'Dim Etapas Partido'[Seccion]="Intermedio")
+			+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Dim Etapas Partido'[Etapa]="Primer Tiempo",'Det Fact Goles Visitante'[Gol Local]="No",'Dim Etapas Partido'[Seccion]="Intermedio")
+		formatString: 0
+		lineageTag: f3124c06-ce31-4958-abb9-2d1f01741d57
+
+	measure 'Goles Convertidos IN ST' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Dim Etapas Partido'[Etapa]="Segundo Tiempo",'Det Fact Goles Local'[Gol Local]="Yes",'Dim Etapas Partido'[Seccion]="Intermedio")+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Dim Etapas Partido'[Etapa]="Segundo Tiempo",'Det Fact Goles Visitante'[Gol Local]="No",'Dim Etapas Partido'[Seccion]="Intermedio")
+		formatString: 0
+		lineageTag: 2aad4f4c-fc97-4e55-bf72-d635e80bacdb
+
+	measure 'Goles Recibidos IN PT' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Dim Etapas Partido'[Etapa]="Primer Tiempo",'Det Fact Goles Local'[Gol Local]="No",'Dim Etapas Partido'[Seccion]="Intermedio")
+			+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Dim Etapas Partido'[Etapa]="Primer Tiempo",'Det Fact Goles Visitante'[Gol Local]="Yes",'Dim Etapas Partido'[Seccion]="Intermedio")
+		formatString: 0
+		lineageTag: de6ef98e-22ad-4bae-baad-98ca23bb6e8d
+
+	measure 'Goles Recibidos IN ST' =
+			
+			CALCULATE(COUNT('Det Fact Goles Local'[ID Gol]),'Dim Etapas Partido'[Etapa]="Segundo Tiempo",'Det Fact Goles Local'[Gol Local]="No",'Dim Etapas Partido'[Seccion]="Intermedio")+
+			CALCULATE(COUNT('Det Fact Goles Visitante'[ID Gol]),'Dim Etapas Partido'[Etapa]="Segundo Tiempo",'Det Fact Goles Visitante'[Gol Local]="Yes",'Dim Etapas Partido'[Seccion]="Intermedio")
+		formatString: 0
+		lineageTag: 0b9ec91e-3ba1-4378-a5f9-dad32a131991
+
+	measure 'Goles Recibidos Intermedio' = [Goles Recibidos IN PT]+[Goles Recibidos IN ST]
+		formatString: 0
+		lineageTag: a0737768-b456-45ea-9dde-fc7bc46f520e
+
+	measure 'Tarjetas Amarillas Promedio' = ([Prom Amarillas por Partido de Local]+[Prom Amarillas por Partido de Visitante])/2
+		lineageTag: 49013cbf-19ca-4412-8e0a-f5c42b2b771f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Tarjetas Rojas Promedio' = ([Prom Rojas por Partido de Local]+[Prom Rojas por Partido de Visitante])/2
+		lineageTag: dfe0ae75-51dc-4523-bcf4-7d7a285fdc08
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Puntos Posibles Totales' = [Puntos Posibles de Local]+[Puntos Posibles de Visitante]
+		formatString: 0
+		lineageTag: f6a8f461-4243-4d2d-90fd-cf85135502d4
+
+	measure 'Efectividad Total' =
+			
+			[Puntos Totales] / [Puntos Posibles Totales]
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: aca43725-bbe3-4842-8c20-0a24db9a0f24
+
+	measure 'Efectividad Promedio' =
+			
+			CALCULATE(([Efectividad de Local]+[Efectividad de Visitante Promedio])/2,
+			            all('Dim Clubes'[Club]),
+			            ALL('Dim Localidad'[Localidad])
+			            )
+		lineageTag: 6c32e139-cd31-4740-8cda-f05e98535c65
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Goles Esperados de Local' = sum('Fact Estadisticas Local'[Goles Esperados])
+		formatString: 0
+		lineageTag: 0c760b0a-29ae-4907-9f19-5401ae066172
+
+	measure 'Goles Esperados de Visitante' = sum('Fact Estadisticas Visitante'[Goles Esperados])
+		formatString: 0
+		lineageTag: 48faec17-3c2a-4a28-bb75-b5cbecf70ef3
+
+	measure 'Goles Esperados' = [Goles Esperados de Local]+[Goles Esperados de Visitante]
+		formatString: 0
+		lineageTag: 2aa578e1-0d09-47ad-97cb-2a3ee639f70b
+
+	partition 'Med Basicas-7da1aae4-2ec3-4c4c-bc47-611d65136a36' = m
+		mode: import
+		source =
+				let
+				    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Columna1 = _t]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Columna1", type text}}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado",{"Columna1"})
+				in
+				    #"Columnas quitadas"
+
+	annotation PBI_ResultType = Table
+

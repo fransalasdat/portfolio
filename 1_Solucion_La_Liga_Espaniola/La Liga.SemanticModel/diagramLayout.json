@@ -1,0 +1,265 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 546.28570556640591
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1242.47145579796,
+            "y": 33.886301866627321
+          },
+          "nodeIndex": "Med Basicas",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 1236.7994044342934,
+            "y": 166.06526764325122
+          },
+          "nodeIndex": "Med Textos",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 1237.8246438995416,
+            "y": 303.12463143891426
+          },
+          "nodeIndex": "Med Estadisticas",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 13
+        },
+        {
+          "location": {
+            "x": 326.75846635955492,
+            "y": 0
+          },
+          "nodeIndex": "Dim Localidad",
+          "nodeLineageTag": "6cb05a28-8ad2-4859-8976-c79aef0f517b",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 14
+        },
+        {
+          "location": {
+            "x": 324.79639661039175,
+            "y": 139.10627984070709
+          },
+          "nodeIndex": "Dim Temporadas",
+          "nodeLineageTag": "c9159c98-a1fc-4bc1-9b36-4d5eed25c3b6",
+          "size": {
+            "height": 124,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 312.59713042890655,
+            "y": 1238.6879142597502
+          },
+          "nodeIndex": "Dim Posiciones Jugadores",
+          "nodeLineageTag": "31a794bf-fd63-43c6-9048-0b80b6a4366e",
+          "size": {
+            "height": 135,
+            "width": 234
+          },
+          "zIndex": 19
+        },
+        {
+          "location": {
+            "x": 318.04472090245611,
+            "y": 491.14204065359559
+          },
+          "nodeIndex": "Dim Clubes",
+          "nodeLineageTag": "ae4b1aaa-423f-4b59-9967-16b689d88ccd",
+          "size": {
+            "height": 283.33333333333326,
+            "width": 234
+          },
+          "zIndex": 16
+        },
+        {
+          "location": {
+            "x": 321.2322477656881,
+            "y": 309.103270784867
+          },
+          "nodeIndex": "Dim Torneos",
+          "nodeLineageTag": "cf3760db-c35b-4adf-ac72-05703715683e",
+          "size": {
+            "height": 141.93826274228275,
+            "width": 234
+          },
+          "zIndex": 15
+        },
+        {
+          "location": {
+            "x": 320.12283488368462,
+            "y": 826.64182592745976
+          },
+          "nodeIndex": "Dim Jugadores",
+          "nodeLineageTag": "dbd4eba7-6e4e-4f0a-88d7-0f6bbba8dfb0",
+          "size": {
+            "height": 175,
+            "width": 234
+          },
+          "zIndex": 17
+        },
+        {
+          "location": {
+            "x": 362.29698208832076,
+            "y": 1056.6913103793765
+          },
+          "nodeIndex": "Dim_Paises",
+          "nodeLineageTag": "b49b21d1-6ec2-40c0-b293-ddb91b647869",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 18
+        },
+        {
+          "location": {
+            "x": 687.99999999999841,
+            "y": 416.06664021809814
+          },
+          "nodeIndex": "Fact Estadisticas Visitante",
+          "nodeLineageTag": "2d353572-e932-4899-b0c5-29959b758061",
+          "size": {
+            "height": 360,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 319.05363578756175,
+            "y": 1384.6504803930961
+          },
+          "nodeIndex": "Dim Etapas Partido",
+          "nodeLineageTag": "3d4d209c-fae0-4e62-97d8-44c29281c629",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 683.47145579796143,
+            "y": 858.33333333333212
+          },
+          "nodeIndex": "Fact Faltas Local",
+          "nodeLineageTag": "b1080a2a-9fab-4e6f-891f-308414b788d9",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 841.66666666666515
+          },
+          "nodeIndex": "Fact Faltas Visitante",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "Fact Encuentros Local",
+          "nodeLineageTag": "6236d0b0-d682-4f05-9c34-70a1a7ce68b8",
+          "size": {
+            "height": 273.94711653505613,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 421.3316582914573
+          },
+          "nodeIndex": "Fact Estadisticas Local",
+          "nodeLineageTag": "15571f66-2bfe-4531-9199-bdf7abbdfab5",
+          "size": {
+            "height": 347.99999999999989,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 698.40195424356546,
+            "y": 0
+          },
+          "nodeIndex": "Fact Encuentros Visitante",
+          "nodeLineageTag": "6e119d43-6ce5-487b-a5ac-cb221b2803cc",
+          "size": {
+            "height": 283.09523809523796,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 1042.1349072346757
+          },
+          "nodeIndex": "Det Fact Goles Local",
+          "nodeLineageTag": "be4fac2e-940d-4d75-b9cf-ce2be7abe1b4",
+          "size": {
+            "height": 386.66666666666652,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 677.43579704138926,
+            "y": 1068.1608844012076
+          },
+          "nodeIndex": "Det Fact Goles Visitante",
+          "nodeLineageTag": "c018cefb-fcff-44ef-971f-c29a7d510560",
+          "size": {
+            "height": 428.33333333333303,
+            "width": 234
+          },
+          "zIndex": 7
+        }
+      ],
+      "name": "Todas las tablas",
+      "zoomValue": 70.000000000000043,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas las tablas",
+  "defaultDiagram": "Todas las tablas"
+}

@@ -1,0 +1,190 @@
+table 'Fact Estadisticas Visitante'
+	lineageTag: 2d353572-e932-4899-b0c5-29959b758061
+
+	column 'ID Partido'
+		dataType: string
+		lineageTag: 41e4d0d8-e021-47ae-96ae-0c7160850f69
+		summarizeBy: none
+		sourceColumn: ID Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Remates al Arco'
+		dataType: int64
+		formatString: 0
+		lineageTag: d443bfcb-e18d-4d23-ac34-8cdb0a7495ab
+		summarizeBy: sum
+		sourceColumn: Remates al Arco
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Remates Desviados'
+		dataType: int64
+		formatString: 0
+		lineageTag: cfe6292a-89dc-426c-8ca7-6964ff61fce9
+		summarizeBy: sum
+		sourceColumn: Remates Desviados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Remates Totales'
+		dataType: int64
+		formatString: 0
+		lineageTag: 29a9d44a-7db5-4979-9419-a488dffad1fe
+		summarizeBy: sum
+		sourceColumn: Remates Totales
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Remates Interceptados'
+		dataType: int64
+		formatString: 0
+		lineageTag: c4938205-092f-4437-8936-ae5adc6b5eb6
+		summarizeBy: sum
+		sourceColumn: Remates Interceptados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tiros dentro del área'
+		dataType: int64
+		formatString: 0
+		lineageTag: c89173b9-187d-4f6a-a27f-923d82f8fb16
+		summarizeBy: sum
+		sourceColumn: Tiros dentro del área
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tiros desde fuera del área'
+		dataType: int64
+		formatString: 0
+		lineageTag: d1400e67-30d3-445b-a8b2-ba469fb72f90
+		summarizeBy: sum
+		sourceColumn: Tiros desde fuera del área
+
+		annotation SummarizationSetBy = Automatic
+
+	column Faltas
+		dataType: int64
+		formatString: 0
+		lineageTag: 3b88ec48-1901-44c0-ae3f-158e08a487b4
+		summarizeBy: sum
+		sourceColumn: Faltas
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tiros de Esquina'
+		dataType: int64
+		formatString: 0
+		lineageTag: d26f4709-8220-45de-8d31-505332214de0
+		summarizeBy: sum
+		sourceColumn: Tiros de Esquina
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fuera de juego'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9439f20f-082c-444d-80f4-628377537b6f
+		summarizeBy: sum
+		sourceColumn: Fuera de juego
+
+		annotation SummarizationSetBy = Automatic
+
+	column Posesion
+		dataType: double
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: 9d925efd-373e-4ac7-aae0-cbe039f540b9
+		summarizeBy: sum
+		sourceColumn: Posesion
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tarjetas Amarillas'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5b7b8f5a-fc94-4bf0-8976-4108795910ff
+		summarizeBy: sum
+		sourceColumn: Tarjetas Amarillas
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tarjetas Rojas'
+		dataType: int64
+		formatString: 0
+		lineageTag: ef3d79f9-d791-4b1e-9bf1-8c321002abb1
+		summarizeBy: sum
+		sourceColumn: Tarjetas Rojas
+
+		annotation SummarizationSetBy = Automatic
+
+	column Atajadas
+		dataType: int64
+		formatString: 0
+		lineageTag: b37685b8-14b8-4d40-b537-c1608fac3429
+		summarizeBy: sum
+		sourceColumn: Atajadas
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pases
+		dataType: int64
+		formatString: 0
+		lineageTag: 9310649c-6634-41e4-80e4-b282508a903a
+		summarizeBy: sum
+		sourceColumn: Pases
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases Completados'
+		dataType: int64
+		formatString: 0
+		lineageTag: 979a920f-0d00-4531-a8f0-fd7fc9877f0a
+		summarizeBy: sum
+		sourceColumn: Pases Completados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Efectividad de Pases'
+		dataType: double
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: b2084890-5226-48d5-bf70-808e97561016
+		summarizeBy: sum
+		sourceColumn: Efectividad de Pases
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Goles Esperados'
+		dataType: int64
+		formatString: 0
+		lineageTag: 40fa4c28-5d0f-45cd-99e7-b7b2dcf8023d
+		summarizeBy: sum
+		sourceColumn: Goles Esperados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Faltas en Contra' = RELATED('Fact Faltas Local'[Faltas])
+		formatString: 0
+		lineageTag: edc61901-1ab7-4353-bb61-2e6422f22cf1
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Estadisticas Visitante-0c2a5015-6706-48db-a9e4-deac28c0d37d' = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({#"Estadisticas 2020-2021", #"Estadisticas 2021-2022", #"Estadisticas 2022-2023"}),
+				    #"Renamed Columns" = Table.RenameColumns(Origen,{{"eventstats.idEvent", "ID Partido"}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Renamed Columns",{"eventstats.idStatistic", "eventstats.idApiFootball", "eventstats.strEvent", "eventstats.intHome"}),
+				    #"Pivoted Column" = Table.Pivot(#"Removed Columns", List.Distinct(#"Removed Columns"[eventstats.strStat]), "eventstats.strStat", "eventstats.intAway"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Pivoted Column",{{"Shots on Goal", Int64.Type}, {"Shots off Goal", Int64.Type}, {"Total Shots", Int64.Type}, {"Blocked Shots", Int64.Type}, {"Shots insidebox", Int64.Type}, {"Shots outsidebox", Int64.Type}, {"Fouls", Int64.Type}, {"Corner Kicks", Int64.Type}, {"Offsides", Int64.Type}, {"Ball Possession", Int64.Type}, {"Yellow Cards", Int64.Type}, {"Red Cards", Int64.Type}, {"Goalkeeper Saves", Int64.Type}, {"Total passes", Int64.Type}, {"Passes accurate", Int64.Type}, {"Passes %", Int64.Type}, {"expected_goals", Int64.Type}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type",{{"Shots on Goal", "Remates al Arco"}, {"Shots off Goal", "Remates Desviados"}, {"Total Shots", "Remates Totales"}, {"Blocked Shots", "Remates Interceptados"}, {"Shots insidebox", "Tiros dentro del área"}, {"Shots outsidebox", "Tiros desde fuera del área"}, {"Fouls", "Faltas"}, {"Corner Kicks", "Tiros de Esquina"}, {"Offsides", "Fuera de juego"}, {"Ball Possession", "Posesion"}, {"Yellow Cards", "Tarjetas Amarillas"}, {"Red Cards", "Tarjetas Rojas"}, {"Goalkeeper Saves", "Atajadas"}, {"Total passes", "Pases"}, {"Passes accurate", "Pases Completados"}, {"Passes %", "Efectividad de Pases"}, {"expected_goals", "Goles Esperados"}}),
+				    #"Divided Column" = Table.TransformColumns(#"Renamed Columns1", {{"Efectividad de Pases", each _ / 100, type number}}),
+				    #"Divided Column1" = Table.TransformColumns(#"Divided Column", {{"Posesion", each _ / 100, type number}})
+				in
+				    #"Divided Column1"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

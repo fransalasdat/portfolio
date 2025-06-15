@@ -1,0 +1,36 @@
+table 'Dim Temporadas'
+	lineageTag: c9159c98-a1fc-4bc1-9b36-4d5eed25c3b6
+
+	column Temporada
+		dataType: string
+		lineageTag: 05dfe371-8de9-4c35-bdde-42e1452533a0
+		summarizeBy: none
+		sourceColumn: Temporada
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Solo Temporada Actual' = if('Dim Temporadas'[Temporada]="2022-2023","Si","No")
+		lineageTag: 46989968-40fa-470a-a86a-3bfb2124254a
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Temporadas-43014e74-1a5c-43b8-bd67-440ab3cad218' = m
+		mode: import
+		source =
+				let
+				    Origen = Json.Document(Web.Contents("https://www.thesportsdb.com/api/v1/json/3/search_all_seasons.php?id=4335")),
+				    #"Convertida en tabla" = Table.FromRecords({Origen}),
+				    #"Se expandió seasons" = Table.ExpandListColumn(#"Convertida en tabla", "seasons"),
+				    #"Se expandió seasons1" = Table.ExpandRecordColumn(#"Se expandió seasons", "seasons", {"strSeason"}, {"seasons.strSeason"}),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Se expandió seasons1",{{"seasons.strSeason", type text}}),
+				    #"Filas filtradas" = Table.SelectRows(#"Tipo cambiado", each ([seasons.strSeason] = "2018-2019" or [seasons.strSeason] = "2019-2020" or [seasons.strSeason] = "2020-2021" or [seasons.strSeason] = "2021-2022" or [seasons.strSeason] = "2022-2023")),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Filas filtradas",{{"seasons.strSeason", "Temporada"}}),
+				    #"Filas filtradas1" = Table.SelectRows(#"Columnas con nombre cambiado", each ([Temporada] <> "2018-2019" and [Temporada] <> "2019-2020"))
+				in
+				    #"Filas filtradas1"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

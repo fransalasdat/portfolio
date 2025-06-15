@@ -1,0 +1,164 @@
+table 'Fact Encuentros Local'
+	lineageTag: 6236d0b0-d682-4f05-9c34-70a1a7ce68b8
+
+	column 'ID Partido'
+		dataType: int64
+		formatString: 0
+		lineageTag: 26ede162-aaad-4e71-b8d4-eff766194600
+		summarizeBy: none
+		sourceColumn: ID Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column idAPIfootball
+		dataType: int64
+		formatString: 0
+		lineageTag: fa14f2d8-acd8-436c-9ee1-e27b2ebf3b73
+		summarizeBy: sum
+		sourceColumn: idAPIfootball
+
+		annotation SummarizationSetBy = Automatic
+
+	column strSeason
+		dataType: string
+		lineageTag: 5837a04e-d91a-4f49-b793-01e2d4840eba
+		summarizeBy: none
+		sourceColumn: strSeason
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Local
+		dataType: string
+		lineageTag: ddd98cc6-5718-46b9-8afe-2d7520e8b26c
+		summarizeBy: none
+		sourceColumn: Local
+
+		annotation SummarizationSetBy = Automatic
+
+	column Visitante
+		dataType: string
+		lineageTag: 7d689297-2867-4659-bae7-dfe6bc24ad8d
+		summarizeBy: none
+		sourceColumn: Visitante
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Goles Local'
+		dataType: int64
+		formatString: 0
+		lineageTag: c99425a4-b0bb-43e2-821d-7c0098df4956
+		summarizeBy: sum
+		sourceColumn: Goles Local
+
+		annotation SummarizationSetBy = Automatic
+
+	column intRound
+		dataType: int64
+		formatString: 0
+		lineageTag: 0ba40c13-4890-4b99-948e-90410e69a6c0
+		summarizeBy: sum
+		sourceColumn: intRound
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Goles Visitante'
+		dataType: int64
+		formatString: 0
+		lineageTag: a2c8aca1-d7d4-45f1-9cb2-da7e6d25da6b
+		summarizeBy: sum
+		sourceColumn: Goles Visitante
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha Partido'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: fcb052b1-9948-46c4-b00d-d6fce0672d51
+		summarizeBy: none
+		sourceColumn: Fecha Partido
+
+		variation Variation
+			isDefault
+			relationship: 6a804e8b-9e2a-4234-9876-d2f732e4b204
+			defaultHierarchy: LocalDateTable_117917ac-6c7b-45ac-b55e-500a79249ae3.'Jerarquía de fechas'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'ID Club'
+		dataType: int64
+		formatString: 0
+		lineageTag: d76fe0ef-de8f-487c-8a0e-7fb5f0a82d39
+		summarizeBy: none
+		sourceColumn: ID Club
+
+		annotation SummarizationSetBy = Automatic
+
+	column idAwayTeam
+		dataType: int64
+		formatString: 0
+		lineageTag: 1a710043-4f89-4ccd-921c-e19487ecca10
+		summarizeBy: sum
+		sourceColumn: idAwayTeam
+
+		annotation SummarizationSetBy = Automatic
+
+	column Resultado
+		dataType: string
+		lineageTag: 669905bb-93d8-4a6c-883a-5a28d771123e
+		summarizeBy: none
+		sourceColumn: Resultado
+
+		annotation SummarizationSetBy = Automatic
+
+	column Puntaje
+		dataType: int64
+		formatString: 0
+		lineageTag: 566ed1ec-4c56-43de-a5ca-5b9b7c399efb
+		summarizeBy: sum
+		sourceColumn: Puntaje
+
+		annotation SummarizationSetBy = Automatic
+
+	column Localidad
+		dataType: string
+		isHidden
+		lineageTag: 569bb4df-3e6a-4742-a415-ae82e44400f9
+		summarizeBy: none
+		sourceColumn: Localidad
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Fact Encuentros Local-741a3d8f-fa7b-4e2d-8cc5-e50e09386d4c' = m
+		mode: import
+		source =
+				let
+				    Origen = Table.Combine({#"2022-2023", #"2021-2022", #"2020-2021"}),
+				    #"Columna condicional agregada" = Table.AddColumn(Origen, "Resultado", each if [intHomeScore] > [intAwayScore] then "Victoria" else if [intHomeScore] = [intAwayScore] then "Empate" else if [intHomeScore] < [intAwayScore] then "Derrota" else null),
+				    #"Errores reemplazados" = Table.ReplaceErrorValues(#"Columna condicional agregada", {{"Resultado", null}}),
+				    #"Columna condicional agregada1" = Table.AddColumn(#"Errores reemplazados", "Personalizado", each if [Resultado] = "Empate" then 1 else if [Resultado] = "Victoria" then 3 else if [Resultado] = "Derrota" then 0 else null, type number),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Columna condicional agregada1",{{"Personalizado", "Puntos"}}),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Columnas con nombre cambiado",{{"Resultado", type text}, {"Puntos", Int64.Type}}),
+				    #"Columnas con nombre cambiado1" = Table.RenameColumns(#"Tipo cambiado",{{"idHomeTeam", "ID Club"}, {"idEvent", "ID Partido"}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Columnas con nombre cambiado1",{{"dateEvent", "Fecha Partido"}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Renamed Columns",{"strEventAlternate", "strFilename", "idLeague", "strLeague"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns",{{"intHomeScore", "Goles Local"}, {"intAwayScore", "Goles Visitante"}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Renamed Columns1",{"strTimestamp", "dateEventLocal"}),
+				    #"Inserted Literal" = Table.AddColumn(#"Removed Columns1", "Localidad", each "Local", type text),
+				    #"Removed Columns2" = Table.RemoveColumns(#"Inserted Literal",{"strVideo", "strEvent", "strTime", "strTimeLocal", "strVenue", "strFanart", "strThumb", "strResult"}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Removed Columns2",{{"Puntos", "Puntaje"}}),
+				    #"Removed Columns3" = Table.RemoveColumns(#"Renamed Columns2",{"intScore", "intScoreVotes"})
+				in
+				    #"Removed Columns3"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

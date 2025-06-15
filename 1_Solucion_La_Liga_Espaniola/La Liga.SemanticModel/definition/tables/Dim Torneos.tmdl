@@ -1,0 +1,41 @@
+table 'Dim Torneos'
+	lineageTag: cf3760db-c35b-4adf-ac72-05703715683e
+
+	column 'ID Liga'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7f495229-80a9-4d90-8b75-41da08cb6e8c
+		summarizeBy: none
+		sourceColumn: ID Liga
+
+		annotation SummarizationSetBy = Automatic
+
+	column Liga
+		dataType: string
+		lineageTag: e413dced-04b5-4b84-a0f6-ed99474694ff
+		summarizeBy: none
+		sourceColumn: Liga
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Torneos-b4538e8d-d665-4465-9acd-5afbb86f9df3' = m
+		mode: import
+		source =
+				let
+				    Origen = Json.Document(Web.Contents("https://www.thesportsdb.com/api/v1/json/3/search_all_leagues.php?c=Spain&s=Soccer")),
+				    #"Convertida en tabla" = Table.FromRecords({Origen}),
+				    #"Se expandió countries" = Table.ExpandListColumn(#"Convertida en tabla", "countries"),
+				    #"Se expandió countries1" = Table.ExpandRecordColumn(#"Se expandió countries", "countries", {"idLeague", "idSoccerXML", "idAPIfootball", "strSport", "strLeague", "strLeagueAlternate", "intDivision", "idCup", "strCurrentSeason", "intFormedYear", "dateFirstEvent", "strGender", "strCountry", "strWebsite", "strFacebook", "strInstagram", "strTwitter", "strYoutube", "strRSS", "strDescriptionEN", "strDescriptionDE", "strDescriptionFR", "strDescriptionIT", "strDescriptionCN", "strDescriptionJP", "strDescriptionRU", "strDescriptionES", "strDescriptionPT", "strDescriptionSE", "strDescriptionNL", "strDescriptionHU", "strDescriptionNO", "strDescriptionPL", "strDescriptionIL", "strTvRights", "strFanart1", "strFanart2", "strFanart3", "strFanart4", "strBanner", "strBadge", "strLogo", "strPoster", "strTrophy", "strNaming", "strComplete", "strLocked"}, {"countries.idLeague", "countries.idSoccerXML", "countries.idAPIfootball", "countries.strSport", "countries.strLeague", "countries.strLeagueAlternate", "countries.intDivision", "countries.idCup", "countries.strCurrentSeason", "countries.intFormedYear", "countries.dateFirstEvent", "countries.strGender", "countries.strCountry", "countries.strWebsite", "countries.strFacebook", "countries.strInstagram", "countries.strTwitter", "countries.strYoutube", "countries.strRSS", "countries.strDescriptionEN", "countries.strDescriptionDE", "countries.strDescriptionFR", "countries.strDescriptionIT", "countries.strDescriptionCN", "countries.strDescriptionJP", "countries.strDescriptionRU", "countries.strDescriptionES", "countries.strDescriptionPT", "countries.strDescriptionSE", "countries.strDescriptionNL", "countries.strDescriptionHU", "countries.strDescriptionNO", "countries.strDescriptionPL", "countries.strDescriptionIL", "countries.strTvRights", "countries.strFanart1", "countries.strFanart2", "countries.strFanart3", "countries.strFanart4", "countries.strBanner", "countries.strBadge", "countries.strLogo", "countries.strPoster", "countries.strTrophy", "countries.strNaming", "countries.strComplete", "countries.strLocked"}),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Se expandió countries1",{{"countries.idLeague", Int64.Type}, {"countries.idSoccerXML", Int64.Type}, {"countries.idAPIfootball", Int64.Type}, {"countries.strSport", type text}, {"countries.strLeague", type text}, {"countries.strLeagueAlternate", type text}, {"countries.intDivision", Int64.Type}, {"countries.idCup", Int64.Type}, {"countries.strCurrentSeason", type text}, {"countries.intFormedYear", Int64.Type}, {"countries.dateFirstEvent", type date}, {"countries.strGender", type text}, {"countries.strCountry", type text}, {"countries.strWebsite", type text}, {"countries.strFacebook", type text}, {"countries.strInstagram", type text}, {"countries.strTwitter", type text}, {"countries.strYoutube", type text}, {"countries.strRSS", type text}, {"countries.strDescriptionEN", type text}, {"countries.strDescriptionDE", type any}, {"countries.strDescriptionFR", type text}, {"countries.strDescriptionIT", type any}, {"countries.strDescriptionCN", type any}, {"countries.strDescriptionJP", type any}, {"countries.strDescriptionRU", type any}, {"countries.strDescriptionES", type text}, {"countries.strDescriptionPT", type any}, {"countries.strDescriptionSE", type any}, {"countries.strDescriptionNL", type any}, {"countries.strDescriptionHU", type any}, {"countries.strDescriptionNO", type any}, {"countries.strDescriptionPL", type any}, {"countries.strDescriptionIL", type any}, {"countries.strTvRights", type text}, {"countries.strFanart1", type text}, {"countries.strFanart2", type text}, {"countries.strFanart3", type text}, {"countries.strFanart4", type text}, {"countries.strBanner", type text}, {"countries.strBadge", type text}, {"countries.strLogo", type text}, {"countries.strPoster", type text}, {"countries.strTrophy", type text}, {"countries.strNaming", type text}, {"countries.strComplete", type text}, {"countries.strLocked", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Tipo cambiado",{{"countries.idLeague", "ID Liga"}, {"countries.strLeague", "Liga"}}),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Renamed Columns",{"Liga", "ID Liga"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Removed Other Columns", each ([Liga] = "Spanish La Liga"))
+				in
+				    #"Filtered Rows"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

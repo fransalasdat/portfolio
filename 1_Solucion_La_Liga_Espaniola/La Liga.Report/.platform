@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "La Liga"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "73ae8a68-cd32-4e68-8ee9-524be5594879"
+  }
+}

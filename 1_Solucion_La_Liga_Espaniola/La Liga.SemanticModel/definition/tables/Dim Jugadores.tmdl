@@ -1,0 +1,258 @@
+table 'Dim Jugadores'
+	lineageTag: dbd4eba7-6e4e-4f0a-88d7-0f6bbba8dfb0
+
+	measure 'Pierna Habil OK' =
+			
+			IF ( SELECTEDVALUE ( 'Dim Jugadores'[Pierna Hábil] ) = "Right", "Diestro", "Zurdo" )
+		lineageTag: bb0f3dc6-9730-4bf7-9410-0f24a5779d87
+
+	column 'ID Jugador'
+		dataType: string
+		lineageTag: d79608f6-039d-4d0f-8281-120b2f350266
+		summarizeBy: none
+		sourceColumn: ID Jugador
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Club'
+		dataType: string
+		lineageTag: 2463c7b1-6667-41f2-8744-2dadf7e6b338
+		summarizeBy: none
+		sourceColumn: ID Club
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'player.idAPIfootball'
+		dataType: string
+		lineageTag: 30241356-62ac-4c03-8e27-a1ea8b27cb1e
+		summarizeBy: none
+		sourceColumn: player.idAPIfootball
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nacionality
+		dataType: string
+		isHidden
+		lineageTag: 920e759a-605a-4ee6-81c9-20f809fb654f
+		summarizeBy: none
+		sourceColumn: Nacionality
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nombre
+		dataType: string
+		lineageTag: ec66f7c4-9f7a-48b4-8be5-c4b043f1e059
+		summarizeBy: none
+		sourceColumn: Nombre
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'player.strTeam'
+		dataType: string
+		lineageTag: 3822a486-6d78-47eb-9328-70805559b7b7
+		summarizeBy: none
+		sourceColumn: player.strTeam
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha Nacimiento'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: e3f5afee-04ad-4bce-bb64-0c9edd757067
+		summarizeBy: none
+		sourceColumn: Fecha Nacimiento
+
+		variation Variation
+			isDefault
+			relationship: f00730be-148c-4726-889f-ed5b8f4afd19
+			defaultHierarchy: LocalDateTable_f42861e9-dd22-4aea-a05a-3471cc4cefcd.'Jerarquía de fechas'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Numero Camiseta'
+		dataType: string
+		lineageTag: 8eb5e173-b129-40d2-aa2d-73287cd1b89a
+		summarizeBy: none
+		sourceColumn: Numero Camiseta
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Lugar de Nacimiento'
+		dataType: string
+		lineageTag: d3a76ba1-f137-4a99-83b1-39b68bc52be0
+		summarizeBy: none
+		sourceColumn: Lugar de Nacimiento
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pierna Hábil'
+		dataType: string
+		lineageTag: ab4554b1-ef68-4544-b180-de917a301844
+		summarizeBy: none
+		sourceColumn: Pierna Hábil
+
+		annotation SummarizationSetBy = Automatic
+
+	column Posicion
+		dataType: string
+		isHidden
+		lineageTag: 946a9812-fd39-4813-9c12-46e5e7778f61
+		summarizeBy: none
+		sourceColumn: Posicion
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Amor Hinchada'
+		dataType: string
+		lineageTag: b5128c85-5e7c-4f3b-ad08-1a7e469ffcd1
+		summarizeBy: none
+		sourceColumn: Amor Hinchada
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Imagen Futbolista'
+		dataType: string
+		lineageTag: ec2123cf-2865-4d79-aeba-3a80274b7f34
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Imagen Futbolista
+
+		annotation SummarizationSetBy = Automatic
+
+	column Edad = DATEDIFF('Dim Jugadores'[Fecha Nacimiento],today(),YEAR)
+		formatString: 0
+		lineageTag: e6fc5370-dcaf-459c-b0a4-8ed26f40fa65
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Height
+		dataType: double
+		isHidden
+		lineageTag: 958b409c-9bfa-4dc2-b9a2-81de5b93a077
+		summarizeBy: sum
+		sourceColumn: Height
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Altura = if('Dim Jugadores'[Height]>100,'Dim Jugadores'[Height]/100,'Dim Jugadores'[Height])
+		lineageTag: 4cb78cba-2da1-456a-834c-173405fbe4bc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Nacionalidad = RELATED(Dim_Paises[Castellano])
+		lineageTag: 8696d93c-6d5c-4be5-be7c-8004875c38ba
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Posicion Campo' = RELATED('Dim Posiciones Jugadores'[Posicion Traducida])
+		lineageTag: a7e50822-9980-4627-be77-b86d05c39847
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Weight
+		dataType: double
+		isHidden
+		lineageTag: 26b689dd-9291-4ea5-a126-c3a2dd67e535
+		summarizeBy: sum
+		sourceColumn: Weight
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Peso = if('Dim Jugadores'[Weight]=0,BLANK(),'Dim Jugadores'[Weight])
+		lineageTag: e253e70e-2541-432c-8a56-0f330cc16cc8
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column IMC = DIVIDE('Dim Jugadores'[Peso], POWER('Dim Jugadores'[Altura], 2))
+		lineageTag: a8206e9d-2213-49df-8e6d-d6cc72cc9624
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Dim Jugadores-89111531-864f-4036-bd8b-127bc79b6232' = m
+		mode: import
+		source =
+				let
+				    Source = R.Execute("################## Script 2###################################################################(lf)################## Script para obtener los jugadores de los equipos ######################### #(lf)rm(list = ls())#(lf)options(scipen=999)#(lf)library(jsonlite)#(lf)library(curl)#(lf)#(lf)teams<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/lookup_all_teams.php?id=4335"")#(lf)team_league<- fromJSON(teams)#(lf)data_team <- as.data.frame(team_league)#(lf)data_team <- data_team[,1]#(lf)data_team <- as.integer(data_team)#(lf)#(lf)###### Obtener el nombre de las columnas para el dataset vacio ######################(lf)#(lf)prueba<- curl(""https://www.thesportsdb.com/api/v1/json/60130162/lookup_all_players.php?id=133739"")#(lf)prueba1<- fromJSON(prueba)#(lf)data_prueba <- as.data.frame(prueba1)#(lf)columnas_players <- colnames(data_prueba)#(lf)#(lf)##########################################################################################(lf)#(lf)dataset_players <- data.frame(matrix(ncol = 63, nrow = 0))#(lf)colnames(dataset_players) <- columnas_players#(lf)#(lf)#(lf)#(lf)for (i in data_team){#(lf)  v1 <- ""https://www.thesportsdb.com/api/v1/json/60130162/lookup_all_players.php?id=""#(lf)  v2 <- i#(lf)  url_team <- paste0(v1,v2)#(lf)  info_team <- curl(url_team)#(lf)  data_team <- fromJSON(info_team)#(lf)  fila_team <- as.data.frame(data_team)#(lf)  dataset_players <- rbind(dataset_players,fila_team)#(lf)}"),
+				    dataset_players1 = Source{[Name="dataset_players"]}[Value],
+				    #"Removed Columns" = Table.RemoveColumns(dataset_players1,{"player.idTeamNational"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"player.idTeam", "ID Club"}, {"player.idPlayer", "ID Jugador"}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Renamed Columns",{"player.idWikidata"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns1",{{"player.strNationality", "Nacionalidad"}, {"player.strPlayer", "Nombre"}}),
+				    #"Removed Columns2" = Table.RemoveColumns(#"Renamed Columns1",{"player.strPlayerAlternate", "player.strSport"}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Removed Columns2",{{"player.dateBorn", "Fecha Nacimiento"}, {"player.strNumber", "Numero Camiseta"}}),
+				    #"Removed Columns3" = Table.RemoveColumns(#"Renamed Columns2",{"player.strOutfitter", "player.strKit", "player.strEthnicity", "player.strDescriptionDE", "player.strDescriptionFR", "player.strDescriptionCN", "player.strDescriptionIT", "player.strDescriptionJP", "player.strDescriptionRU", "player.strDescriptionES", "player.strDescriptionPT", "player.strDescriptionSE", "player.strDescriptionNL", "player.strDescriptionHU", "player.strDescriptionNO", "player.strDescriptionIL", "player.strDescriptionPL", "player.strGender"}),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Removed Columns3",{{"player.strPosition", "Posicion"}}),
+				    #"Removed Columns4" = Table.RemoveColumns(#"Renamed Columns3",{"player.strCollege", "player.strFacebook", "player.strWebsite", "player.strTwitter", "player.strInstagram", "player.strYoutube"}),
+				    #"Renamed Columns4" = Table.RenameColumns(#"Removed Columns4",{{"player.strHeight", "Altura"}, {"player.strWeight", "Peso"}}),
+				    #"Removed Columns5" = Table.RemoveColumns(#"Renamed Columns4",{"player.strBanner", "player.strCreativeCommons", "player.strLocked"}),
+				    #"Renamed Columns5" = Table.RenameColumns(#"Removed Columns5",{{"player.dateSigned", "Fecha Firma"}, {"player.intLoved", "Amor Hinchada"}, {"player.strAgent", "Agente"}, {"player.strBirthLocation", "Lugar de Nacimiento"}, {"player.strCutout", "Imagen Futbolista"}, {"player.strSide", "Pierna Hábil"}}),
+				    #"Removed Columns6" = Table.RemoveColumns(#"Renamed Columns5",{"player.strDescriptionEN"}),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Removed Columns6", "Altura", Splitter.SplitTextByDelimiter("(", QuoteStyle.Csv), {"Altura.1", "Altura.2"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Altura.1", type text}, {"Altura.2", type text}}),
+				    #"Removed Columns7" = Table.RemoveColumns(#"Changed Type",{"Altura.2"}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Removed Columns7","m","",Replacer.ReplaceText,{"Altura.1"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","m","",Replacer.ReplaceText,{"Altura.1"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","c","",Replacer.ReplaceText,{"Altura.1"}),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value2","5 ft 9 in","1.75",Replacer.ReplaceText,{"Altura.1"}),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Replaced Value3","5 ft 10 in","1.77",Replacer.ReplaceText,{"Altura.1"}),
+				    #"Replaced Value5" = Table.ReplaceValue(#"Replaced Value4","5 ft 11","1.80",Replacer.ReplaceText,{"Altura.1"}),
+				    #"Replaced Value6" = Table.ReplaceValue(#"Replaced Value5","1.80 in","1.80",Replacer.ReplaceText,{"Altura.1"}),
+				    #"Replaced Value7" = Table.ReplaceValue(#"Replaced Value6","6 ft 0 in","1.83",Replacer.ReplaceText,{"Altura.1"}),
+				    #"Replaced Value8" = Table.ReplaceValue(#"Replaced Value7","6 ft 1 in","1.85",Replacer.ReplaceText,{"Altura.1"}),
+				    #"Replaced Value9" = Table.ReplaceValue(#"Replaced Value8","6 ft 2 in","1.87",Replacer.ReplaceText,{"Altura.1"}),
+				    #"Replaced Value10" = Table.ReplaceValue(#"Replaced Value9","6 ft 3 in","1.90",Replacer.ReplaceText,{"Altura.1"}),
+				    #"Replaced Value11" = Table.ReplaceValue(#"Replaced Value10","6 ft 4 in","1.93",Replacer.ReplaceText,{"Altura.1"}),
+				    #"Replaced Value12" = Table.ReplaceValue(#"Replaced Value11","6' 2","1.87",Replacer.ReplaceText,{"Altura.1"}),
+				    #"Replaced Value13" = Table.ReplaceValue(#"Replaced Value12",".",",",Replacer.ReplaceText,{"Altura.1"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Replaced Value13",{{"Altura.1", type number}}),
+				    #"Renamed Columns6" = Table.RenameColumns(#"Changed Type1",{{"Altura.1", "Height"}, {"Nacionalidad", "Nacionality"}}),
+				    #"Replaced Value14" = Table.ReplaceValue(#"Renamed Columns6","Right","Derecha",Replacer.ReplaceText,{"Pierna Hábil"}),
+				    #"Replaced Value15" = Table.ReplaceValue(#"Replaced Value14","Left","Izquierda",Replacer.ReplaceText,{"Pierna Hábil"}),
+				    #"Split Column by Delimiter1" = Table.SplitColumn(#"Replaced Value15", "Peso", Splitter.SplitTextByEachDelimiter({"("}, QuoteStyle.Csv, false), {"Peso.1", "Peso.2"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"Peso.1", type text}, {"Peso.2", type text}}),
+				    #"Removed Columns8" = Table.RemoveColumns(#"Changed Type2",{"Peso.2"}),
+				    #"Replaced Value16" = Table.ReplaceValue(#"Removed Columns8","163 lbs","74",Replacer.ReplaceText,{"Peso.1"}),
+				    #"Renamed Columns7" = Table.RenameColumns(#"Replaced Value16",{{"Peso.1", "Peso"}}),
+				    #"Replaced Value17" = Table.ReplaceValue(#"Renamed Columns7","Kg","",Replacer.ReplaceText,{"Peso"}),
+				    #"Replaced Value18" = Table.ReplaceValue(#"Replaced Value17","kg","",Replacer.ReplaceText,{"Peso"}),
+				    #"Replaced Value19" = Table.ReplaceValue(#"Replaced Value18",".",",",Replacer.ReplaceText,{"Peso"}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Replaced Value19",{{"Peso", type number}}),
+				    #"Renamed Columns8" = Table.RenameColumns(#"Changed Type3",{{"Peso", "Weight"}}),
+				    #"Removed Columns9" = Table.RemoveColumns(#"Renamed Columns8",{"player.idTeam2", "player.idSoccerXML", "player.idPlayerManager", "player.strTeam2", "player.intSoccerXMLTeamID", "Fecha Firma", "player.strSigning", "player.strWage", "Agente", "player.strStatus", "player.strThumb", "player.strRender", "player.strFanart1", "player.strFanart2", "player.strFanart3", "player.strFanart4"})
+				in
+				    #"Removed Columns9"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

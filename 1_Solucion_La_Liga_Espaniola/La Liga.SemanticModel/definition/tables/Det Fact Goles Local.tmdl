@@ -1,0 +1,139 @@
+table 'Det Fact Goles Local'
+	lineageTag: be4fac2e-940d-4d75-b9cf-ce2be7abe1b4
+
+	column 'ID Gol'
+		dataType: string
+		lineageTag: bf6cfdf1-9cd6-4515-b9b6-afd8ba5d56e2
+		summarizeBy: none
+		sourceColumn: ID Gol
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Partido'
+		dataType: string
+		lineageTag: 010a6368-74d0-4129-8b82-2086a12b71c4
+		summarizeBy: none
+		sourceColumn: ID Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo de Gol'
+		dataType: string
+		lineageTag: 21bb62a8-2b98-407a-9cb8-534122e4ec92
+		summarizeBy: none
+		sourceColumn: Tipo de Gol
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Gol Local'
+		dataType: string
+		lineageTag: dd64f9ac-6ee5-4d6c-a747-44b524534256
+		summarizeBy: none
+		sourceColumn: Gol Local
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'timeline.strEvent'
+		dataType: string
+		lineageTag: eb152005-4f93-443a-903e-2e90974b1f83
+		summarizeBy: none
+		sourceColumn: timeline.strEvent
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Jugador Gol'
+		dataType: string
+		lineageTag: f380f8a0-de4f-44d9-9590-1a88367dec72
+		summarizeBy: none
+		sourceColumn: ID Jugador Gol
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre Jugador Gol'
+		dataType: string
+		lineageTag: 04d30faf-bdb3-42fe-9c0b-91f2bb6cc5c0
+		summarizeBy: none
+		sourceColumn: Nombre Jugador Gol
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Jugador Asistencia'
+		dataType: string
+		lineageTag: fbf6fe26-6f54-434f-97a4-086c00c530dc
+		summarizeBy: none
+		sourceColumn: ID Jugador Asistencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre Jugador Asistencia'
+		dataType: string
+		lineageTag: 9d5d8586-9784-4ea4-9eff-3edf79c3d649
+		summarizeBy: none
+		sourceColumn: Nombre Jugador Asistencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Minuto
+		dataType: int64
+		formatString: 0
+		lineageTag: c95392b0-bee3-4e34-bf9a-348d888175e0
+		summarizeBy: none
+		sourceColumn: Minuto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'timeline.idTeam'
+		dataType: string
+		lineageTag: 2f3ae8fd-bba9-4862-82a6-47a09b32fb69
+		summarizeBy: none
+		sourceColumn: timeline.idTeam
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'timeline.strTeam'
+		dataType: string
+		lineageTag: ceb3bf47-5c4c-4e96-9bbb-db03cc43efaa
+		summarizeBy: none
+		sourceColumn: timeline.strTeam
+
+		annotation SummarizationSetBy = Automatic
+
+	column Etapa
+		dataType: string
+		lineageTag: 3f678e81-bc6e-4a54-90b8-2ebb14acdde8
+		summarizeBy: none
+		sourceColumn: Etapa
+
+		annotation SummarizationSetBy = Automatic
+
+	column Local = RELATED('Fact Encuentros Local'[Local])
+		lineageTag: 6831374f-492e-4c8b-9c1b-2a2ececd10cd
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Det Fact Goles Local-d717c941-b3bb-45cb-83d7-4b914428e600' = m
+		mode: import
+		source =
+				let
+				    Source = Table.Combine({#"Resumen Partido 22-23", #"Resumen Partido 20-21", #"Resumen Partido 21-22"}),
+				    #"Removed Columns" = Table.RemoveColumns(Source,{"timeline.strComment", "timeline.strCountry", "timeline.strSeason", "timeline.dateEvent"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"timeline.strTimeline", "Suceso"}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each ([Suceso] = "Goal")),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Filtered Rows",{{"timeline.idEvent", "ID Partido"}, {"timeline.strTimelineDetail", "Tipo de Gol"}}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Renamed Columns1", each ([Tipo de Gol] <> "Missed Penalty")),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Filtered Rows1",{"timeline.idAPIfootball"}),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Removed Columns1",{{"timeline.idPlayer", "ID Jugador Gol"}, {"timeline.idAssist", "ID Jugador Asistencia"}, {"timeline.intTime", "Tiempo"}}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Renamed Columns2",{{"Tiempo", Int64.Type}}),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Changed Type",{{"Tiempo", "Minuto"}}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Renamed Columns3", "Custom", each if [Minuto] >= 46 then "Segundo Tiempo" else if [Minuto] <= 45 then "Primer Tiempo" else null),
+				    #"Renamed Columns4" = Table.RenameColumns(#"Added Conditional Column",{{"Custom", "Etapa"}, {"timeline.strPlayer", "Nombre Jugador Gol"}, {"timeline.strAssist", "Nombre Jugador Asistencia"}, {"timeline.strHome", "Gol Local"}}),
+				    #"Renamed Columns5" = Table.RenameColumns(#"Renamed Columns4",{{"timeline.idTimeline", "ID Gol"}}),
+				    #"Removed Columns2" = Table.RemoveColumns(#"Renamed Columns5",{"Suceso"})
+				in
+				    #"Removed Columns2"
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+
