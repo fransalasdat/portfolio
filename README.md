@@ -7,7 +7,7 @@ Este repositorio contiene muestras del portfolio profesional en Power BI de Fran
 ### 1. Modelo Semántico y Tablero de [La Liga Española](https://app.powerbi.com/view?r=eyJrIjoiYWNkZGU4MDEtNTU5Yi00OWFlLTkyODAtMzJkN2M3YmY0OTU4IiwidCI6Ijg1MjI2NjJhLTVkYTctNGE1Zi05ZDM0LWFmNzAzNTM3NzIyZCIsImMiOjR9) con datos obtenidos de una Api de DB Sports:
 ![alt text](3.png)
 ![alt text](4.png)
-### 2. PDF con [solución de Seguimiento Personal](https://github.com/fransalasdat/portfolio/blob/main/2_Solucion_GiocaMeglio_TSP/2.%20Solucion%20GiocaMeglio%20TSP.pdf) con datos provenientes desde LongoMatch.
+### 2. PDF con [Solución de Seguimiento Personal](https://github.com/fransalasdat/portfolio/blob/main/2_Solucion_GiocaMeglio_TSP/2.%20Solucion%20GiocaMeglio%20TSP.pdf) con datos provenientes desde LongoMatch.
 ### 3. Modelo Semántico y Tablero de [Informe Estadístico de Rendimiento Deportivo](https://app.powerbi.com/view?r=eyJrIjoiZjU2ZGE4NzUtMDVlNi00ZGI4LTlmNGEtMmYwNDFhODNiZDc4IiwidCI6Ijg1MjI2NjJhLTVkYTctNGE1Zi05ZDM0LWFmNzAzNTM3NzIyZCIsImMiOjR9) con datos provenientes de WyScout:
 ![alt text](7.png)
 ![alt text](8.png)
