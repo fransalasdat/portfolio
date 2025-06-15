@@ -1,0 +1,167 @@
+expression 'Detalle 2' = ```
+		let
+		    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1MKR7oUvMQ7t9n4bLSRu8QBl_cvob43zeZ7PDcwf_WYs/edit#gid=185706033"),
+		    #"Estadísticas del proyecto_Table" = Source{[name="Estadísticas del proyecto",ItemKind="Table"]}[Data],
+		    #"Filtered Rows" = Table.SelectRows(#"Estadísticas del proyecto_Table", each ([Column3] <> "")),
+		    #"Promoted Headers" = Table.PromoteHeaders(#"Filtered Rows", [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Evento", type text}, {"Tiempo", type any}, {"Inicio", type any}, {"Fin", type any}, {"Equipo", type text}, {"Jugadores", type text}, {"Resultado", type text}, {"FieldX", type any}, {"FieldY", type any}, {"", type any}, {"_1", type any}}),
+		    #"Filtered Rows1" = Table.SelectRows(#"Changed Type", each ([Evento] <> "Alineación" and [Evento] <> "Evento")),
+		    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows1",{{"FieldX", "Posicion X"}, {"FieldY", "Posicion Y"}, {"", "Posicion Destino X"}, {"_1", "Posicion Destino Y"}}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns",{{"Tiempo", type time}, {"Inicio", type time}, {"Fin", type time}}),
+		    #"Removed Columns" = Table.RemoveColumns(#"Changed Type1",{"Equipo"}),
+		    #"PONER NOMBRE PARTIDO" = Table.AddColumn(#"Removed Columns", "ID Partido", each "Argentina - Nueva Zelanda - 23/2/2023"),
+		    #"Removed Columns1" = Table.RemoveColumns(#"PONER NOMBRE PARTIDO",{"Inicio", "Fin"}),
+		    #"PONER MINUTO DIVISOR" = Table.AddColumn(#"Removed Columns1", "Etapa", each if [Tiempo] <= #time(0, 55, 45) then "PT" else "ST"),
+		    #"PONER MINUTOS PRIM Y SEG" = Table.AddColumn(#"PONER MINUTO DIVISOR", "Tiempo 1", each if [Etapa]="PT" 
+		then [Tiempo]-#duration(0, 0, 9, 45)
+		else [Tiempo]-#duration(0,1,2,42)),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"PONER MINUTOS PRIM Y SEG",{{"Tiempo 1", type time}}),
+		    #"Split Column by Delimiter" = Table.SplitColumn(Table.TransformColumnTypes(#"Changed Type2", {{"Tiempo 1", type text}}, "es-AR"), "Tiempo 1", Splitter.SplitTextByEachDelimiter({":"}, QuoteStyle.Csv, false), {"Tiempo 1.1", "Tiempo 1.2"}),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Tiempo 1.1", Int64.Type}, {"Tiempo 1.2", Int64.Type}}),
+		    #"Removed Columns2" = Table.RemoveColumns(#"Changed Type3",{"Tiempo 1.1"}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns2",{{"Tiempo 1.2", "Minutos"}}),
+		    #"Duplicated Column" = Table.DuplicateColumn(#"Renamed Columns1", "Evento", "Evento - Copy"),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Duplicated Column",{{"Evento", "ID_Accion"}, {"Evento - Copy", "Accion"}}),
+		    #"Split Column by Delimiter1" = Table.SplitColumn(#"Renamed Columns2", "Accion", Splitter.SplitTextByEachDelimiter({" "}, QuoteStyle.Csv, true), {"Accion.1", "Accion.2"}),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"Accion.1", type text}, {"Accion.2", Int64.Type}}),
+		    #"Removed Columns3" = Table.RemoveColumns(#"Changed Type4",{"Accion.2"}),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Removed Columns3",{{"Accion.1", "Accion"}}),
+		    #"Added Custom1" = Table.AddColumn(#"Renamed Columns3", "Tipo Pase", each if [Accion]="Pases"
+		then
+		if ([Posicion Destino X]-[Posicion X])>0
+		then "Hacia Adelante"
+		else "Hacia Atras"
+		else "No Aplica"),
+		    #"Changed Type5" = Table.TransformColumnTypes(#"Added Custom1",{{"Tipo Pase", type text}}),
+		    #"Added Custom2" = Table.AddColumn(#"Changed Type5", "Tipo Recuperacion", each if [Accion]="Recuperación"
+		then
+		if [Posicion X]>0.5 then 
+		"En Campo Ajeno"
+		else "En Propio Campo"
+		else "No Aplica"),
+		    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Tipo Perdida", each if [Accion]="Pérdida"
+		then
+		if [Posicion X]>0.5 then 
+		"En Campo Ajeno"
+		else "En Propio Campo"
+		else "No Aplica"),
+		    #"Changed Type6" = Table.TransformColumnTypes(#"Added Custom3",{{"Tipo Recuperacion", type text}, {"Tipo Perdida", type text}}),
+		    #"Added Custom4" = Table.AddColumn(#"Changed Type6", "Tipo Duelo", each if [Accion]="Duelo suelo"
+		then
+		if [Posicion X]>0.5 then 
+		"Ofensivo"
+		else "Defensivo"
+		else "No Aplica"),
+		    #"Added Custom5" = Table.AddColumn(#"Added Custom4", "Tipo Duelo Aereo", each if [Accion]="Duelo Aéreo "
+		then
+		if [Posicion X]>0.5 then 
+		"Ofensivo"
+		else "Defensivo"
+		else "No Aplica"),
+		    #"Changed Type7" = Table.TransformColumnTypes(#"Added Custom5",{{"Tipo Duelo Aereo", type text}, {"Tipo Duelo", type text}}),
+		    #"Added Custom6" = Table.AddColumn(#"Changed Type7", "Tipo Falta Cometida", each if [Accion]="Faltas cometidas"
+		then
+		if [Posicion X]>0.5 then 
+		"En Campo Ajeno"
+		else "En Propio Campo"
+		else "No Aplica"),
+		    #"Added Custom7" = Table.AddColumn(#"Added Custom6", "Tipo Remate", each if [Accion]="Remates"
+		then
+		if [Posicion X]>0.83 then 
+		"de Corta Distancia"
+		else "de Larga Distancia"
+		else "No Aplica"),
+		    #"Changed Type8" = Table.TransformColumnTypes(#"Added Custom7",{{"Tipo Falta Cometida", type text}, {"Tipo Remate", type text}}),
+		    #"Added Custom8" = Table.AddColumn(#"Changed Type8", "Tipo Interceptacion", each if [Accion]="Interceptaciones"
+		then
+		if [Posicion X]>0.5 then 
+		"En Campo Ajeno"
+		else "En Propio Campo"
+		else "No Aplica"),
+		    #"Changed Type9" = Table.TransformColumnTypes(#"Added Custom8",{{"Tipo Interceptacion", type text}})
+		in
+		    #"Changed Type9"
+		```
+	lineageTag: 958d4355-8b78-4596-a5f7-f93ac8f3c493
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Datos Partido 2' =
+		let
+		    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1MKR7oUvMQ7t9n4bLSRu8QBl_cvob43zeZ7PDcwf_WYs/edit#gid=576967145"),
+		    #"Datos Partido_Table" = Source{[name="Datos Partido",ItemKind="Table"]}[Data],
+		    #"Promoted Headers" = Table.PromoteHeaders(#"Datos Partido_Table", [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Primer Minuto PT", type time}, {"Ultimo Minuto PT", type time}, {"Primer Minuto ST", type time}, {"Ultimo Minuto ST", type time}}),
+		    #"PONER NOMBRE PARTIDO" = Table.AddColumn(#"Changed Type", "Custom", each "Argentina - Nueva Zelanda - 23/2/2023"),
+		    #"Renamed Columns" = Table.RenameColumns(#"PONER NOMBRE PARTIDO",{{"Custom", "ID_Partido"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 86e0b22e-95df-4b3f-a3a5-cb1d895326d7
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Encabezado 2' =
+		let
+		    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1MKR7oUvMQ7t9n4bLSRu8QBl_cvob43zeZ7PDcwf_WYs/edit#gid=293673232"),
+		    #"Estadísticas del proyecto_Table" = Source{[name="Estadísticas del proyecto",ItemKind="Table"]}[Data],
+		    #"Filtered Rows" = Table.SelectRows(#"Estadísticas del proyecto_Table", each ([Column1] = "Competición" or [Column1] = "Equipo local" or [Column1] = "Equipo visitante" or [Column1] = "Fecha" or [Column1] = "Proyecto" or [Column1] = "Resultado" or [Column1] = "Temporada")),
+		    #"Removed Columns" = Table.RemoveColumns(#"Filtered Rows",{"Column3", "Column4", "Column5", "Column6", "Column7", "Column8", "Column9", "Column10", "Column11"}),
+		    #"Transposed Table" = Table.Transpose(#"Removed Columns"),
+		    #"Promoted Headers" = Table.PromoteHeaders(#"Transposed Table", [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Proyecto", type text}, {"Fecha", type date}, {"Competición", type text}, {"Temporada", Int64.Type}, {"Equipo local", type text}, {"Equipo visitante", type text}, {"Resultado", type text}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Proyecto", "Partido"}}),
+		    #"Split Column by Delimiter" = Table.SplitColumn(#"Renamed Columns", "Partido", Splitter.SplitTextByEachDelimiter({"("}, QuoteStyle.Csv, false), {"Partido.1", "Partido.2"}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Partido.1", type text}, {"Partido.2", type text}}),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Changed Type1",{"Partido.2"}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns1",{{"Partido.1", "Partido"}}),
+		    #"Duplicated Column" = Table.DuplicateColumn(#"Renamed Columns1", "Fecha", "Fecha - Copy"),
+		    #"Merged Columns" = Table.CombineColumns(Table.TransformColumnTypes(#"Duplicated Column", {{"Fecha - Copy", type text}}, "es-AR"),{"Partido", "Fecha - Copy"},Combiner.CombineTextByDelimiter(" - ", QuoteStyle.None),"ID Partido")
+		in
+		    #"Merged Columns"
+	lineageTag: 522cd352-ed59-400f-aacc-778aaa736512
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Jugadores 2' =
+		let
+		    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1MKR7oUvMQ7t9n4bLSRu8QBl_cvob43zeZ7PDcwf_WYs/edit#gid=293673232"),
+		    Jugadores_Table = Source{[name="Jugadores",ItemKind="Table"]}[Data],
+		    #"Promoted Headers" = Table.PromoteHeaders(Jugadores_Table, [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Jugadores", type text}, {"Posicion", type text}}),
+		    #"Duplicated Column" = Table.DuplicateColumn(#"Changed Type", "Jugadores", "Jugadores - Copy"),
+		    #"Split Column by Delimiter" = Table.SplitColumn(#"Duplicated Column", "Jugadores - Copy", Splitter.SplitTextByEachDelimiter({"-"}, QuoteStyle.Csv, false), {"Jugadores - Copy.1", "Jugadores - Copy.2"}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Jugadores - Copy.1", Int64.Type}, {"Jugadores - Copy.2", type text}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type1",{{"Jugadores - Copy.1", "Dorsal"}, {"Jugadores - Copy.2", "Nombre Jugador"}}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Renamed Columns",{{"Foto", type text}, {"Fecha Nacimiento", type date}}),
+		    #"PONER NOMBRE PARTIDO" = Table.AddColumn(#"Changed Type2", "Custom", each "Argentina - Nueva Zelanda - 23/2/2023"),
+		    #"Renamed Columns1" = Table.RenameColumns(#"PONER NOMBRE PARTIDO",{{"Custom", "ID_Partido"}}),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Renamed Columns1",{{"ID_Partido", type text}})
+		in
+		    #"Changed Type3"
+	lineageTag: 1f363bde-ad76-4fec-965f-6d01be93ed89
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'Minutos Jugados 2' =
+		let
+		    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1MKR7oUvMQ7t9n4bLSRu8QBl_cvob43zeZ7PDcwf_WYs/edit#gid=293673232"),
+		    #"Minutos Jugados_Table" = Source{[name="Minutos Jugados",ItemKind="Table"]}[Data],
+		    #"Promoted Headers" = Table.PromoteHeaders(#"Minutos Jugados_Table", [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Jugadores", type text}, {"Minutos Jugados", Int64.Type}}),
+		    #"PONER NOMBRE PARTIDO" = Table.AddColumn(#"Changed Type", "ID_Partido", each "Argentina - Nueva Zelanda - 23/2/2023")
+		in
+		    #"PONER NOMBRE PARTIDO"
+	lineageTag: 8b3f9f5d-5d41-411b-b72c-22df8c4eb5a6
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,38 @@
+relationship 44400f0e-3946-4170-90c5-4578970719cd
+	fromColumn: Detalle.Jugadores
+	toColumn: Jugadores.Jugadores
+
+relationship d3340f6b-d765-4d5e-873a-5926830b4215
+	fromColumn: Detalle.'ID Partido'
+	toColumn: Encabezado.'ID Partido'
+
+relationship c8fbd102-3b23-4cec-8f09-bea3c256ca72
+	fromColumn: Detalle.'ID Partido'
+	toColumn: 'Datos Partido'.ID_Partido
+
+relationship 0c888ce5-857d-4166-9dce-58f62110d538
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Jugadores.'Fecha Nacimiento'
+	toColumn: LocalDateTable_834aa88e-a45a-41d2-9002-075f29c690a4.Date
+
+relationship 3edc59e4-3d42-4248-9379-35878aa386bb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Datos Partido'.'ID_Partido - Copy.3'
+	toColumn: LocalDateTable_ff53cede-9f2c-4be1-ae9c-5acb472eabbe.Date
+
+relationship 88f379dd-7a0c-46bb-9750-5be039898aba
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: 'Datos Partido'.ID_Partido
+	toColumn: Encabezado.'ID Partido'
+
+relationship 6537682e-a9e4-4f02-9fad-19717503a76e
+	fromColumn: 'Minutos Jugados'.ID_Partido
+	toColumn: 'Datos Partido'.ID_Partido
+
+relationship 9f055f42-379e-4b82-a489-1cf111dd4871
+	isActive: false
+	fromColumn: Jugadores.ID_Partido
+	toColumn: 'Datos Partido'.ID_Partido
+

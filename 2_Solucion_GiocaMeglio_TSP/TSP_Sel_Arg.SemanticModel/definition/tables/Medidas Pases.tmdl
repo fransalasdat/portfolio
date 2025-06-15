@@ -1,0 +1,43 @@
+table 'Medidas Pases'
+	lineageTag: f44c4e93-2db2-4c29-a526-0a9e9f530778
+
+	measure Pases = CALCULATE(COUNT(Detalle[ID_Accion]),Detalle[Accion]="Pases")
+		formatString: 0
+		lineageTag: 79d8a324-7ea9-4702-9af3-0705a5f95a2c
+
+	measure 'Pases Correctos' = CALCULATE(COUNT(Detalle[ID_Accion]),Detalle[Accion]="Pases",Detalle[Resultado]="Correcto")
+		formatString: 0
+		lineageTag: 0a019bc5-5c81-4cc0-858c-afbe84fc29ec
+
+	measure 'Pases Hacia Adelante' = CALCULATE([Pases],Detalle[Tipo Pase]="Hacia Adelante")
+		formatString: 0
+		lineageTag: cb7a3c90-6d71-4d8b-8a30-92b248a2165d
+
+	measure 'Pases Hacia Atras' = CALCULATE([Pases],Detalle[Tipo Pase]="Hacia Atras")
+		formatString: 0
+		lineageTag: bbe31d35-765a-466e-a69f-d90bfe5ee347
+
+	measure '% Pases Correctos' = DIVIDE([Pases Correctos],[Pases],0)
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 593aaa0a-b4f3-4f8e-86dc-9076b90cfdfb
+
+	measure 'Pases Ultimo Tercio' = CALCULATE('Medidas Pases'[Pases],Detalle[Pases en el último tercio]="SI")
+		formatString: 0
+		lineageTag: d438e284-56c0-4f7a-bd34-08f6970826ee
+
+	measure '% Pases Ultimo Tercio' = DIVIDE('Medidas Pases'[Pases Ultimo Tercio],'Medidas Pases'[Pases],0)
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 523f85f2-ae61-4e92-95a2-62557fc5835a
+
+	partition 'Medidas Pases-263fba20-ad33-4ea0-9088-8d42fc537c3a' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

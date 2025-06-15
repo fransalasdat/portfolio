@@ -1,0 +1,137 @@
+table Jugadores
+	lineageTag: 24b9131a-47be-429f-9614-85d7fe2d3f58
+
+	column Jugadores
+		dataType: string
+		lineageTag: 1f58b6f4-6288-4c07-a8f4-0b0f7bc1cda5
+		summarizeBy: none
+		sourceColumn: Jugadores
+
+		annotation SummarizationSetBy = Automatic
+
+	column Posicion
+		dataType: string
+		lineageTag: ba6b3ccd-68cf-4658-8e34-320d640e1459
+		summarizeBy: none
+		sourceColumn: Posicion
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dorsal
+		dataType: int64
+		formatString: 0
+		lineageTag: 8e121ecc-ee76-440b-a3db-4c91146d2f47
+		summarizeBy: sum
+		sourceColumn: Dorsal
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre Jugador'
+		dataType: string
+		lineageTag: c0c8366e-0644-4017-bd7d-4901784ae9d9
+		summarizeBy: none
+		sourceColumn: Nombre Jugador
+
+		annotation SummarizationSetBy = Automatic
+
+	column Foto
+		dataType: string
+		lineageTag: e52abc3c-d8fa-46f1-8ab7-3b8ac9fa424e
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Foto
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha Nacimiento'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 53ad0437-f598-4daa-a266-fb723f809176
+		summarizeBy: none
+		sourceColumn: Fecha Nacimiento
+
+		variation Variation
+			isDefault
+			relationship: 0c888ce5-857d-4166-9dce-58f62110d538
+			defaultHierarchy: LocalDateTable_834aa88e-a45a-41d2-9002-075f29c690a4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Edad = ```
+			
+			VAR FechaNacimiento = Jugadores[Fecha Nacimiento]
+			VAR FechaHoy = TODAY()
+			VAR Anios = DATEDIFF(FechaNacimiento, FechaHoy, YEAR)
+			VAR FechaCumpleaniosEsteAnio = DATE(YEAR(FechaHoy), MONTH(FechaNacimiento), DAY(FechaNacimiento))
+			RETURN
+			    IF(FechaCumpleaniosEsteAnio > FechaHoy,
+			        Anios - 1 ,
+			        Anios 
+			    )  
+			```
+		formatString: 0
+		lineageTag: ad2c1a04-489a-4ea2-b033-94ce21c640a3
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_Partido
+		dataType: string
+		lineageTag: 6106edef-214e-44a9-8da4-d2645fd3f958
+		summarizeBy: none
+		sourceColumn: ID_Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column Estatura
+		dataType: double
+		lineageTag: 3a274f23-50d5-4077-b388-1d01e66d6105
+		summarizeBy: sum
+		sourceColumn: Estatura
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Club
+		dataType: string
+		lineageTag: c4ba8d0c-4714-4111-b611-f9acd3dbc5cc
+		summarizeBy: none
+		sourceColumn: Club
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Foto Club'
+		dataType: string
+		lineageTag: 98114e33-9130-4e37-ba91-73cd2845d5f6
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Foto Club
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Jugadores-46170675-1ff5-4758-b337-a3dd00b3e1b8 = m
+		mode: import
+		source =
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1MDrufxITJsSE76JQDo7GrbCq-DwNGm0qcF5NaTEjKsc/edit#gid=0"),
+				    Jugadores_Table = Source{[name="Hoja 1",ItemKind="Table"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Jugadores_Table, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Jugadores", type text}, {"Posicion", type text}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Changed Type", "Jugadores", "Jugadores - Copy"),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Duplicated Column", "Jugadores - Copy", Splitter.SplitTextByEachDelimiter({"-"}, QuoteStyle.Csv, false), {"Jugadores - Copy.1", "Jugadores - Copy.2"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Jugadores - Copy.1", Int64.Type}, {"Jugadores - Copy.2", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type1",{{"Jugadores - Copy.1", "Dorsal"}, {"Jugadores - Copy.2", "Nombre Jugador"}}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Renamed Columns",{{"Foto", type text}, {"Fecha Nacimiento", type date}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type2", "Custom", each "Argentina Fem - Nueva Zelanda Fem  - 23/6/2023"),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Added Custom",{{"Custom", "ID_Partido"}}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Renamed Columns1",{{"ID_Partido", type text}, {"Estatura", type number}, {"Foto Club", type text}})
+				in
+				    #"Changed Type3"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

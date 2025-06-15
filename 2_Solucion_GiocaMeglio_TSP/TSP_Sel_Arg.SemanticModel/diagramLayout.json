@@ -1,0 +1,139 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 256.32600000000008
+          },
+          "nodeIndex": "Datos Partido",
+          "nodeLineageTag": "4e2328db-ff5b-47b6-be7a-fdfc43597d8f",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 407.5,
+            "y": 0
+          },
+          "nodeIndex": "Detalle",
+          "nodeLineageTag": "bac64845-516a-4139-a803-42c007c30d0d",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 387.86299999999977,
+            "y": 361.41200000000003
+          },
+          "nodeIndex": "Encabezado",
+          "nodeLineageTag": "3275a67c-f052-4f4b-a4ae-fd6a77ae7d9e",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 826.879,
+            "y": 313.96200000000005
+          },
+          "nodeIndex": "Jugadores",
+          "nodeLineageTag": "24b9131a-47be-429f-9614-85d7fe2d3f58",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1134,
+            "y": 0
+          },
+          "nodeIndex": "Medidas",
+          "nodeLineageTag": "ea96a316-5370-4113-8a14-08bbf98e3132",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1134.947,
+            "y": 134.43100000000004
+          },
+          "nodeIndex": "Medidas Duelos Aereos",
+          "nodeLineageTag": "8b10c873-16ed-4365-8031-f0e2205f383b",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1139.0883918762206,
+            "y": 250.22800000000009
+          },
+          "nodeIndex": "Medidas Duelos",
+          "nodeLineageTag": "ca26c1d2-2f40-451e-a911-4d60c2e3a2d8",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1129.3874528045649,
+            "y": 383.32800000000009
+          },
+          "nodeIndex": "Medidas Pases",
+          "nodeLineageTag": "f44c4e93-2db2-4c29-a526-0a9e9f530778",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 115.24776344299278,
+            "y": 0
+          },
+          "nodeIndex": "Minutos Jugados",
+          "nodeLineageTag": "262d580f-81bb-4633-af01-04d62848832d",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 75.131480090157751,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

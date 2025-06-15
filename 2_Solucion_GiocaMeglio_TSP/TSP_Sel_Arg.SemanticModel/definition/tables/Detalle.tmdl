@@ -1,0 +1,274 @@
+table Detalle
+	lineageTag: bac64845-516a-4139-a803-42c007c30d0d
+
+	column ID_Accion
+		dataType: string
+		lineageTag: 0618a649-2394-4e91-a096-e70e11016426
+		summarizeBy: none
+		sourceColumn: ID_Accion
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tiempo
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 61e1b3eb-b94e-4195-bf91-4c7b45964cdb
+		summarizeBy: none
+		sourceColumn: Tiempo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column Jugadores
+		dataType: string
+		lineageTag: c0a99fc6-3239-4b2c-a340-b837961e0299
+		summarizeBy: none
+		sourceColumn: Jugadores
+
+		annotation SummarizationSetBy = Automatic
+
+	column Resultado
+		dataType: string
+		lineageTag: bd87c050-6963-45fb-8e7f-2cf56c84b166
+		summarizeBy: none
+		sourceColumn: Resultado
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Posicion X'
+		dataType: double
+		lineageTag: 8f817183-e1ab-46d6-8aea-3bdb7fcfabb8
+		summarizeBy: sum
+		sourceColumn: Posicion X
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Posicion Y'
+		dataType: double
+		lineageTag: b19de3a9-4929-484c-a848-cf8ba6e2b0eb
+		summarizeBy: sum
+		sourceColumn: Posicion Y
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Posicion Destino X'
+		dataType: double
+		lineageTag: 67026c57-41dd-47d8-a6b4-358596a39e31
+		summarizeBy: sum
+		sourceColumn: Posicion Destino X
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Posicion Destino Y'
+		dataType: double
+		lineageTag: 66950614-5fbc-47f3-af49-093a3e2d81dd
+		summarizeBy: sum
+		sourceColumn: Posicion Destino Y
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'ID Partido'
+		dataType: string
+		lineageTag: 28419573-5022-40a4-a16a-15351216ed71
+		summarizeBy: none
+		sourceColumn: ID Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column Etapa
+		dataType: string
+		lineageTag: c86f4396-e97e-4f69-9ea6-a503504a6b55
+		summarizeBy: none
+		sourceColumn: Etapa
+
+		annotation SummarizationSetBy = Automatic
+
+	column Minutos
+		dataType: int64
+		formatString: 0
+		lineageTag: fd4c78e9-3323-4faa-84ab-deef02a1f565
+		summarizeBy: sum
+		sourceColumn: Minutos
+
+		annotation SummarizationSetBy = Automatic
+
+	column Accion
+		dataType: string
+		lineageTag: ac92b8ee-0875-437a-8e3c-13d0ea9e18ce
+		summarizeBy: none
+		sourceColumn: Accion
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo Pase'
+		dataType: string
+		lineageTag: 90142a38-7744-4161-93e5-10fd4c3297d9
+		summarizeBy: none
+		sourceColumn: Tipo Pase
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo Recuperacion'
+		dataType: string
+		lineageTag: 750fdd97-a317-4f8f-8605-23671a4d450e
+		summarizeBy: none
+		sourceColumn: Tipo Recuperacion
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo Perdida'
+		dataType: string
+		lineageTag: 97951ffe-96b5-4fc0-b584-7e9cb2ab3efe
+		summarizeBy: none
+		sourceColumn: Tipo Perdida
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo Duelo'
+		dataType: string
+		lineageTag: 080879fe-e989-437e-b4c9-a884f1ed3f79
+		summarizeBy: none
+		sourceColumn: Tipo Duelo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo Duelo Aereo'
+		dataType: string
+		lineageTag: c38dd62d-d798-479d-88a7-cc48fd967188
+		summarizeBy: none
+		sourceColumn: Tipo Duelo Aereo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo Falta Cometida'
+		dataType: string
+		lineageTag: 3c214c52-bc4d-423f-838e-e3424ce4bf43
+		summarizeBy: none
+		sourceColumn: Tipo Falta Cometida
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo Remate'
+		dataType: string
+		lineageTag: 3d3209c5-0918-45ef-abe7-36cae7ce1e48
+		summarizeBy: none
+		sourceColumn: Tipo Remate
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tipo Interceptacion'
+		dataType: string
+		lineageTag: ed1501f3-0aa6-4046-b877-b4d1728667b3
+		summarizeBy: none
+		sourceColumn: Tipo Interceptacion
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases en el último tercio' = if(and(Detalle[Accion]="Pases",Detalle[Posicion X]>0.66),"SI","NO")
+		lineageTag: ad3879c4-0363-4a58-9fb6-31d29c7eee32
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Detalle-48f4ee0d-7b5f-4b8a-9f24-cc5329cfdb60 = m
+		mode: import
+		source = ```
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/17o1-jRhMxVCibwr7_K7-BUpt31i_bErIPLg45L1XAUY/edit#gid=2113720906"),
+				    #"Estadísticas del proyecto_Table" = Source{[name="Estadísticas del proyecto",ItemKind="Table"]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(#"Estadísticas del proyecto_Table", each ([Column3] <> "")),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Filtered Rows", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Evento", type text}, {"Tiempo", type any}, {"Inicio", type any}, {"Fin", type any}, {"Equipo", type text}, {"Jugadores", type text}, {"Resultado", type text}, {"FieldX", type any}, {"FieldY", type any}, {"", type any}, {"_1", type any}}),
+				    #"Filtered Rows1" = Table.SelectRows(#"Changed Type", each ([Evento] <> "Alineación" and [Evento] <> "Evento")),
+				    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows1",{{"FieldX", "Posicion X"}, {"FieldY", "Posicion Y"}, {"", "Posicion Destino X"}, {"_1", "Posicion Destino Y"}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Renamed Columns",{{"Tiempo", type time}, {"Inicio", type time}, {"Fin", type time}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type1",{"Equipo"}),
+				    #"PONER NOMBRE DE PARTIDO" = Table.AddColumn(#"Removed Columns", "ID Partido", each "Argentina - Nueva Zelanda - 20/2/2023", type text),
+				    #"Removed Columns1" = Table.RemoveColumns(#"PONER NOMBRE DE PARTIDO",{"Inicio", "Fin"}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Removed Columns1", "Etapa", each if [Tiempo] <= #time(0, 56, 35) then "PT" else "ST"),
+				    #"Added Custom" = Table.AddColumn(#"Added Conditional Column", "Tiempo 1", each if [Etapa]="PT" 
+				then [Tiempo]-#duration(0, 0, 9, 35)
+				else [Tiempo]-#duration(0,1,6,50)),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom",{{"Tiempo 1", type time}}),
+				    #"Split Column by Delimiter" = Table.SplitColumn(Table.TransformColumnTypes(#"Changed Type2", {{"Tiempo 1", type text}}, "es-AR"), "Tiempo 1", Splitter.SplitTextByEachDelimiter({":"}, QuoteStyle.Csv, false), {"Tiempo 1.1", "Tiempo 1.2"}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Tiempo 1.1", Int64.Type}, {"Tiempo 1.2", Int64.Type}}),
+				    #"Removed Columns2" = Table.RemoveColumns(#"Changed Type3",{"Tiempo 1.1"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns2",{{"Tiempo 1.2", "Minutos"}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Renamed Columns1", "Evento", "Evento - Copy"),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Duplicated Column",{{"Evento", "ID_Accion"}, {"Evento - Copy", "Accion"}}),
+				    #"Split Column by Delimiter1" = Table.SplitColumn(#"Renamed Columns2", "Accion", Splitter.SplitTextByEachDelimiter({" "}, QuoteStyle.Csv, true), {"Accion.1", "Accion.2"}),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"Accion.1", type text}, {"Accion.2", Int64.Type}}),
+				    #"Removed Columns3" = Table.RemoveColumns(#"Changed Type4",{"Accion.2"}),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Removed Columns3",{{"Accion.1", "Accion"}}),
+				    #"Added Custom1" = Table.AddColumn(#"Renamed Columns3", "Tipo Pase", each if [Accion]="Pases"
+				then
+				if ([Posicion Destino X]-[Posicion X])>0
+				then "Hacia Adelante"
+				else "Hacia Atras"
+				else "No Aplica"),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"Added Custom1",{{"Tipo Pase", type text}}),
+				    #"Added Custom2" = Table.AddColumn(#"Changed Type5", "Tipo Recuperacion", each if [Accion]="Recuperación"
+				then
+				if [Posicion X]>0.5 then 
+				"En Campo Ajeno"
+				else "En Propio Campo"
+				else "No Aplica"),
+				    #"Added Custom3" = Table.AddColumn(#"Added Custom2", "Tipo Perdida", each if [Accion]="Pérdida"
+				then
+				if [Posicion X]>0.5 then 
+				"En Campo Ajeno"
+				else "En Propio Campo"
+				else "No Aplica"),
+				    #"Changed Type6" = Table.TransformColumnTypes(#"Added Custom3",{{"Tipo Recuperacion", type text}, {"Tipo Perdida", type text}}),
+				    #"Added Custom4" = Table.AddColumn(#"Changed Type6", "Tipo Duelo", each if [Accion]="Duelo suelo"
+				then
+				if [Posicion X]>0.5 then 
+				"Ofensivo"
+				else "Defensivo"
+				else "No Aplica"),
+				    #"Added Custom5" = Table.AddColumn(#"Added Custom4", "Tipo Duelo Aereo", each if [Accion]="Duelo Aéreo "
+				then
+				if [Posicion X]>0.5 then 
+				"Ofensivo"
+				else "Defensivo"
+				else "No Aplica"),
+				    #"Changed Type7" = Table.TransformColumnTypes(#"Added Custom5",{{"Tipo Duelo Aereo", type text}, {"Tipo Duelo", type text}}),
+				    #"Added Custom6" = Table.AddColumn(#"Changed Type7", "Tipo Falta Cometida", each if [Accion]="Faltas cometidas"
+				then
+				if [Posicion X]>0.5 then 
+				"En Campo Ajeno"
+				else "En Propio Campo"
+				else "No Aplica"),
+				    #"Added Custom7" = Table.AddColumn(#"Added Custom6", "Tipo Remate", each if [Accion]="Remates"
+				then
+				if [Posicion X]>0.83 then 
+				"de Corta Distancia"
+				else "de Larga Distancia"
+				else "No Aplica"),
+				    #"Changed Type8" = Table.TransformColumnTypes(#"Added Custom7",{{"Tipo Falta Cometida", type text}, {"Tipo Remate", type text}}),
+				    #"Added Custom8" = Table.AddColumn(#"Changed Type8", "Tipo Interceptacion", each if [Accion]="Interceptaciones"
+				then
+				if [Posicion X]>0.5 then 
+				"En Campo Ajeno"
+				else "En Propio Campo"
+				else "No Aplica"),
+				    #"Changed Type9" = Table.TransformColumnTypes(#"Added Custom8",{{"Tipo Interceptacion", type text}}),
+				    #"Appended Query" = Table.Combine({#"Changed Type9", #"Detalle 2"}),
+				    #"Changed Type10" = Table.TransformColumnTypes(#"Appended Query",{{"Posicion X", type number}, {"Posicion Y", type number}, {"Posicion Destino X", type number}, {"Posicion Destino Y", type number}, {"Etapa", type text}, {"ID Partido", type text}})
+				in
+				    #"Changed Type10"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

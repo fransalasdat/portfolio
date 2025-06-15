@@ -1,0 +1,109 @@
+table 'Datos Partido'
+	lineageTag: 4e2328db-ff5b-47b6-be7a-fdfc43597d8f
+
+	column 'Primer Minuto PT'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 6f97f615-2b68-48ca-b315-a19adf1a8287
+		summarizeBy: none
+		sourceColumn: Primer Minuto PT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column 'Ultimo Minuto PT'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 4c9b2069-4844-4e4a-93a7-48a2f67286dd
+		summarizeBy: none
+		sourceColumn: Ultimo Minuto PT
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column 'Primer Minuto ST'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: d9c7fda7-ae79-493f-82b7-e1b724928528
+		summarizeBy: none
+		sourceColumn: Primer Minuto ST
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column 'Ultimo Minuto ST'
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: a05cc70d-ef85-4661-9fbb-c1b0bf17c730
+		summarizeBy: none
+		sourceColumn: Ultimo Minuto ST
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column ID_Partido
+		dataType: string
+		lineageTag: 8c97a731-1a43-4d6e-83e1-8a891fb46fa7
+		summarizeBy: none
+		sourceColumn: ID_Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID_Partido - Copy.1'
+		dataType: string
+		lineageTag: b8dd779e-4994-4c45-8f9f-8b3ce5740a27
+		summarizeBy: none
+		sourceColumn: ID_Partido - Copy.1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID_Partido - Copy.2'
+		dataType: string
+		lineageTag: f080b7c0-5337-49eb-98af-d67d1a2a0e44
+		summarizeBy: none
+		sourceColumn: ID_Partido - Copy.2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID_Partido - Copy.3'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c1bbfaae-db0b-42c5-93ee-f4c717234337
+		summarizeBy: none
+		sourceColumn: ID_Partido - Copy.3
+
+		variation Variation
+			isDefault
+			relationship: 3edc59e4-3d42-4248-9379-35878aa386bb
+			defaultHierarchy: LocalDateTable_ff53cede-9f2c-4be1-ae9c-5acb472eabbe.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'Datos Partido-4b4a8fb4-42db-467a-8095-f416bc6d8315' = m
+		mode: import
+		source =
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/17o1-jRhMxVCibwr7_K7-BUpt31i_bErIPLg45L1XAUY/edit#gid=1690021842"),
+				    #"Datos Partido_Table" = Source{[name="Datos Partido",ItemKind="Table"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Datos Partido_Table", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Primer Minuto PT", type time}, {"Ultimo Minuto PT", type time}, {"Primer Minuto ST", type time}, {"Ultimo Minuto ST", type time}}),
+				    #"PONER NOMBRE PARTIDO" = Table.AddColumn(#"Changed Type", "Custom", each "Argentina - Nueva Zelanda - 20/2/2023"),
+				    #"Renamed Columns" = Table.RenameColumns(#"PONER NOMBRE PARTIDO",{{"Custom", "ID_Partido"}}),
+				    #"Appended Query" = Table.Combine({#"Renamed Columns", #"Datos Partido 2"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Appended Query",{{"ID_Partido", type text}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Changed Type1", "ID_Partido", "ID_Partido - Copy"),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Duplicated Column", "ID_Partido - Copy", Splitter.SplitTextByDelimiter(" - ", QuoteStyle.Csv), {"ID_Partido - Copy.1", "ID_Partido - Copy.2", "ID_Partido - Copy.3"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"ID_Partido - Copy.1", type text}, {"ID_Partido - Copy.2", type text}, {"ID_Partido - Copy.3", type date}})
+				in
+				    #"Changed Type2"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

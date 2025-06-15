@@ -1,0 +1,52 @@
+table 'Medidas Duelos Aereos'
+	lineageTag: 8b10c873-16ed-4365-8031-f0e2205f383b
+
+	measure '% Duelos Aereos Defensivos Ganados' = DIVIDE([Duelos Aereos Defensivos Ganados],[Duelos Aereos Defensivos],0)
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 4ccd32d2-fb2a-44d5-9bbd-b52637f5c483
+
+	measure '% Duelos Aereos Ganados' = DIVIDE([Duelos Aéreos Ganados],[Duelos Aéreos],0)
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 70dc97b5-5f82-4fb6-a68b-3ea23c366bf4
+
+	measure '% Duelos Aereos Ofensivos Ganados' = DIVIDE([Duelos Aer Ofens. Ganados],[Duelos Aereos Ofensivos],0)
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 13c4c05c-76b9-4faa-8936-04874a1deeaf
+
+	measure 'Duelos Aéreos' = CALCULATE(COUNT(Detalle[ID_Accion]),Detalle[Accion]="Duelo Aéreo")
+		formatString: 0
+		lineageTag: ddb90304-3049-40a3-8507-616f067f6593
+
+	measure 'Duelos Aereos Defensivos' = CALCULATE([Duelos Aéreos],Detalle[Tipo Duelo Aereo]="Defensivo")
+		formatString: 0
+		lineageTag: fcb0e613-e603-4c84-bb35-acbb530bf943
+
+	measure 'Duelos Aereos Defensivos Ganados' = CALCULATE([Duelos Aereos Defensivos],Detalle[Resultado]="Ganada")
+		formatString: 0
+		lineageTag: a48ad71f-7106-4e40-a211-4d673c5c9cb2
+
+	measure 'Duelos Aéreos Ganados' = CALCULATE(COUNT(Detalle[ID_Accion]),Detalle[Accion]="Duelo Aéreo",Detalle[Resultado]="Ganada")
+		formatString: 0
+		lineageTag: 895abebd-61c6-457e-b965-0367abb291eb
+
+	measure 'Duelos Aereos Ofensivos' = CALCULATE([Duelos Aéreos],Detalle[Tipo Duelo Aereo]="Ofensivo")
+		formatString: 0
+		lineageTag: ca0190c2-c720-45fc-9bc7-1a587ee9ff10
+
+	measure 'Duelos Aer Ofens. Ganados' = CALCULATE([Duelos Aéreos Ganados],Detalle[Tipo Duelo Aereo]="Ofensivo")
+		lineageTag: 2b41cc3b-249e-4b6e-bbf7-7d5ddd7e7219
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'Medidas Duelos Aereos-b809e6de-d12c-4578-b153-64c5a909ccf9' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

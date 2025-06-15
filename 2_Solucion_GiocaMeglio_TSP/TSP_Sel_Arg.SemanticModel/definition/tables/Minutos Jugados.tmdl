@@ -1,0 +1,43 @@
+table 'Minutos Jugados'
+	lineageTag: 262d580f-81bb-4633-af01-04d62848832d
+
+	column Jugadores
+		dataType: string
+		lineageTag: bed9afc6-a9cf-49dc-ba9e-d87157b53ff1
+		summarizeBy: none
+		sourceColumn: Jugadores
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Minutos Jugados'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0bda2cf5-0abc-478c-a541-76fc37c870b9
+		summarizeBy: sum
+		sourceColumn: Minutos Jugados
+
+		annotation SummarizationSetBy = Automatic
+
+	column ID_Partido
+		dataType: string
+		lineageTag: ee13c56a-eee4-4d1b-8085-5387cace03b9
+		summarizeBy: none
+		sourceColumn: ID_Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Minutos Jugados' = m
+		mode: import
+		source =
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/17o1-jRhMxVCibwr7_K7-BUpt31i_bErIPLg45L1XAUY/edit#gid=2113720906"),
+				    #"Minutos Jugados_Table" = Source{[name="Minutos Jugados",ItemKind="Table"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Minutos Jugados_Table", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Jugadores", type text}, {"Minutos Jugados", Int64.Type}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type", "ID_Partido", each "Argentina - Nueva Zelanda - 20/2/2023"),
+				    #"Appended Query" = Table.Combine({#"Added Custom", #"Minutos Jugados 2"})
+				in
+				    #"Appended Query"
+
+	annotation PBI_ResultType = Table
+

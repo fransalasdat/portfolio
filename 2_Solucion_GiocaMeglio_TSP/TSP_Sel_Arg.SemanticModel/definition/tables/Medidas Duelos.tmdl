@@ -1,0 +1,53 @@
+table 'Medidas Duelos'
+	lineageTag: ca26c1d2-2f40-451e-a911-4d60c2e3a2d8
+
+	measure Duelos = CALCULATE(COUNT(Detalle[ID_Accion]),Detalle[Accion]="Duelo suelo")
+		formatString: 0
+		lineageTag: a86173e3-eaf3-408d-ab7e-30b61e4a47cf
+
+	measure 'Duelos Ganados' = CALCULATE(COUNT(Detalle[ID_Accion]),Detalle[Accion]="Duelo suelo",Detalle[Resultado]="Ganada")
+		formatString: 0
+		lineageTag: e6aca107-7cfe-411e-b694-98dd96570ea0
+
+	measure '% Duelos Ganados' = DIVIDE([Duelos Ganados],[Duelos],0)
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 5b9f53c7-9cda-41d1-ac90-b29974bb797e
+
+	measure 'Duelos Ofensivos' =
+			var _var=CALCULATE([Duelos],Detalle[Tipo Duelo]="Ofensivo")
+			return if(ISBLANK(_var),0,_var)
+		formatString: 0
+		lineageTag: 0f5f0a5e-d307-4f39-b51f-17aa1e7e53ea
+
+	measure 'Duelos Defensivos' = CALCULATE([Duelos],Detalle[Tipo Duelo]="Defensivo")
+		formatString: 0
+		lineageTag: ac299ec4-902e-4fa5-b2ac-a69a2eee189b
+
+	measure 'Duelos Defensivos Ganados' = CALCULATE([Duelos Defensivos],Detalle[Resultado]="Ganada")
+		formatString: 0
+		lineageTag: ce0eccdb-dd71-4c2c-83df-f9100528f6d8
+
+	measure '% Duelos Defensivos Ganados' = DIVIDE([Duelos Defensivos Ganados],[Duelos Defensivos],0)
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: c0580107-cdbe-4f82-9641-eb4313551692
+
+	measure 'Duelos Ofensivos Ganados' = CALCULATE([Duelos Ofensivos],Detalle[Resultado]="Ganada")
+		formatString: 0
+		lineageTag: 253d5b0c-31c3-4203-8afd-67ed63673953
+
+	measure '% Duelos Ofensivo Ganados' = DIVIDE([Duelos Ofensivos Ganados],[Duelos Ofensivos],0)
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 6c580e02-3639-4e00-a4e4-81be61083234
+
+	partition 'Medidas Duelos-2b8389cd-88d1-4308-ba17-079f6e44fbac' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

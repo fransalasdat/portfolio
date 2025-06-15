@@ -1,0 +1,88 @@
+table Encabezado
+	lineageTag: 3275a67c-f052-4f4b-a4ae-fd6a77ae7d9e
+
+	column Fecha
+		dataType: string
+		lineageTag: 1e921a62-4432-468d-869f-9c52fd364754
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column Competición
+		dataType: string
+		lineageTag: cb356bee-f48c-4a5c-8646-daec490f95a6
+		summarizeBy: none
+		sourceColumn: Competición
+
+		annotation SummarizationSetBy = Automatic
+
+	column Temporada
+		dataType: int64
+		formatString: 0
+		lineageTag: b976fcdb-0167-4fb7-ad9e-9f12506a6adb
+		summarizeBy: sum
+		sourceColumn: Temporada
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Equipo local'
+		dataType: string
+		lineageTag: b5bee625-b367-413c-b278-712b7f4cad15
+		summarizeBy: none
+		sourceColumn: Equipo local
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Equipo visitante'
+		dataType: string
+		lineageTag: 44872459-9bb9-4287-a6f5-cc691fbdbece
+		summarizeBy: none
+		sourceColumn: Equipo visitante
+
+		annotation SummarizationSetBy = Automatic
+
+	column Resultado
+		dataType: string
+		lineageTag: 0e7b8350-1a66-4d22-be00-2d5383ff4e5d
+		summarizeBy: none
+		sourceColumn: Resultado
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'ID Partido'
+		dataType: string
+		lineageTag: 2cc8c210-b35f-4041-84bb-33b49e00801b
+		summarizeBy: none
+		sourceColumn: ID Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Encabezado-2853dcb6-b6e0-4974-ac4c-5fc1f8273348 = m
+		mode: import
+		source =
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/17o1-jRhMxVCibwr7_K7-BUpt31i_bErIPLg45L1XAUY/edit#gid=2113720906"),
+				    #"Estadísticas del proyecto_Table" = Source{[name="Estadísticas del proyecto",ItemKind="Table"]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(#"Estadísticas del proyecto_Table", each ([Column1] = "Competición" or [Column1] = "Equipo local" or [Column1] = "Equipo visitante" or [Column1] = "Fecha" or [Column1] = "Proyecto" or [Column1] = "Resultado" or [Column1] = "Temporada")),
+				    #"Removed Columns" = Table.RemoveColumns(#"Filtered Rows",{"Column3", "Column4", "Column5", "Column6", "Column7", "Column8", "Column9", "Column10", "Column11"}),
+				    #"Transposed Table" = Table.Transpose(#"Removed Columns"),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Transposed Table", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Proyecto", type text}, {"Fecha", type date}, {"Competición", type text}, {"Temporada", Int64.Type}, {"Equipo local", type text}, {"Equipo visitante", type text}, {"Resultado", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Proyecto", "Partido"}}),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Renamed Columns", "Partido", Splitter.SplitTextByEachDelimiter({"("}, QuoteStyle.Csv, false), {"Partido.1", "Partido.2"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Partido.1", type text}, {"Partido.2", type text}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Changed Type1",{"Partido.2"}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Removed Columns1",{{"Partido.1", "Partido"}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Renamed Columns1", "Fecha", "Fecha - Copy"),
+				    #"Merged Columns" = Table.CombineColumns(Table.TransformColumnTypes(#"Duplicated Column", {{"Fecha - Copy", type text}}, "es-AR"),{"Partido", "Fecha - Copy"},Combiner.CombineTextByDelimiter(" - ", QuoteStyle.None),"ID Partido"),
+				    #"Appended Query" = Table.Combine({#"Merged Columns", #"Encabezado 2"})
+				in
+				    #"Appended Query"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
