@@ -1,5 +1,5 @@
 # 📊 Informe Estadístico de Rendimiento Deportivo - Power BI Report
-Desarrollo de un Informe en formato PDF con capacidad para admitir un segmentador que engloba a múltiples jugadores que estén recibiendo los servicios de la compañía, con el propósito de analizar su rendimiento deportivo. 
+Desarrollo de un Informe en formato PDF con capacidad para admitir un segmentador que engloba a múltiples jugadores que estén recibiendo los servicios de la compañía, con el propósito de analizar su rendimiento deportivo.   
 Podrás visualizar e interactuar directamente con el Dashboard [aquí](https://app.powerbi.com/view?r=eyJrIjoiZjU2ZGE4NzUtMDVlNi00ZGI4LTlmNGEtMmYwNDFhODNiZDc4IiwidCI6Ijg1MjI2NjJhLTVkYTctNGE1Zi05ZDM0LWFmNzAzNTM3NzIyZCIsImMiOjR9)👁️ 
 
 ## 🗂 Estructura del repositorio 
