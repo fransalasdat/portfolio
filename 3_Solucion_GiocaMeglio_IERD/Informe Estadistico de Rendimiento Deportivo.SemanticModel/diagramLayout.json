@@ -1,0 +1,178 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 64.800003051757813,
+        "y": 35.200000762939453
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1155.0334220439029,
+            "y": 215.16415193768995
+          },
+          "nodeIndex": "Medidas",
+          "nodeLineageTag": "6a7d1f17-5a6c-4d70-9cf7-50b6cd436d1b",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1147.8134060135644,
+            "y": 18.362725460781832
+          },
+          "nodeIndex": "Criterio de Análisis",
+          "nodeLineageTag": "b2ba2c91-ec03-4ba5-a151-c644e9f7710a",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 1455,
+            "y": 0
+          },
+          "nodeIndex": "TB_Fechas",
+          "nodeLineageTag": "e9302ce9-131e-4efd-a0b9-fa27ca616eab",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1862.688553591692,
+            "y": 252.89366980158729
+          },
+          "nodeIndex": "TB_Jugadores",
+          "nodeLineageTag": "2fab548f-4b19-44c4-822c-1f47d1431503",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 1555.8816584048798,
+            "y": 292.08448664935833
+          },
+          "nodeIndex": "TB_Lesiones",
+          "nodeLineageTag": "f6e7ff0e-46f0-47f7-bbf6-fd8d3c6d6053",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 1773.9036621428618,
+            "y": 26.770482136102672
+          },
+          "nodeIndex": "TB_Musculos",
+          "nodeLineageTag": "d3772250-f821-419e-a8b6-aa3575c671ad",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 1023.0060003457845,
+            "y": 508.3095238095238
+          },
+          "nodeIndex": "Radares Jugador",
+          "nodeLineageTag": "6eccbc60-017d-4a91-b641-0de7086790db",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "Dim_Jugadores",
+          "nodeLineageTag": "c72e0607-ef10-463c-a0dc-5d4f5b00fa77",
+          "size": {
+            "height": 559.66666666666663,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 605.55555555555566,
+            "y": 451.30618423779976
+          },
+          "nodeIndex": "Dim_Clubes",
+          "nodeLineageTag": "53352df7-39e9-41a9-b3e1-d4210423d768",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 611.39033639215427,
+            "y": 0
+          },
+          "nodeIndex": "Dim_Calendario",
+          "nodeLineageTag": "37be50ea-7b0e-4983-858e-01131df117b9",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 327.00027275688808,
+            "y": 36.709245288542718
+          },
+          "nodeIndex": "Fact_Detalle",
+          "nodeLineageTag": "9ee4a372-313e-4625-b6e4-bb8e1c72d3cb",
+          "size": {
+            "height": 488.88888888888886,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2146.6885535916917,
+            "y": 254.15476190476193
+          },
+          "nodeIndex": "Año 2023",
+          "nodeLineageTag": "f993da46-8792-4659-9017-fbce8b583f75",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

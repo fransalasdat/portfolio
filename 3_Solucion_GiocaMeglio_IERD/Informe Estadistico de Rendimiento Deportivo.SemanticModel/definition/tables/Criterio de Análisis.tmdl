@@ -1,0 +1,56 @@
+table 'Criterio de Análisis'
+	isHidden
+	lineageTag: b2ba2c91-ec03-4ba5-a151-c644e9f7710a
+
+	column 'Criterio de Análisis'
+		isHidden
+		lineageTag: bbbedf9b-8ccf-4a78-94e3-c5601c5e6258
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Criterio de Análisis Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Criterio de Análisis Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Criterio de Análisis Fields'
+		isHidden
+		lineageTag: eafa2da3-b4a5-4a45-9ded-86d557645730
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Criterio de Análisis Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Criterio de Análisis Order'
+		isHidden
+		formatString: 0
+		lineageTag: b875c6ed-f7d0-47f2-98d1-b06dcd60653e
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Criterio de Análisis-3139c827-17ce-4c6e-b6dc-a30136610417' = calculated
+		mode: import
+		source =
+				{
+				    ("Goles", NAMEOF('Medidas Viejas'[Goles Viejo]), 0),
+				    ("Asistencias", NAMEOF('Medidas Viejas'[Asistencias viejo]), 1),
+				    ("Precision de tiro", NAMEOF('Medidas Viejas'[Precision de tiro Viejo]), 2),
+				    ("Gambetas Concretadas", NAMEOF('Medidas Viejas'[Gambetas Concretadas]), 3),
+				    ("Duelos Ganados", NAMEOF('Medidas Viejas'[Duelos Ganados Viejo]), 4),
+				    ("Precision de Pase", NAMEOF('Medidas Viejas'[Precision de Pase VIEJO]), 5),
+				    ("Precision Pases Largos", NAMEOF('Medidas Viejas'[Precision Pases Largos vIEJOS]), 6),
+				    ("Interceptaciones por Partido", NAMEOF('Medidas Viejas'[Interceptaciones por Partido VIEJO]), 7)
+				}
+
+	annotation PBI_Id = 02d0ed23ac2e4b0984b777c46484c545
+

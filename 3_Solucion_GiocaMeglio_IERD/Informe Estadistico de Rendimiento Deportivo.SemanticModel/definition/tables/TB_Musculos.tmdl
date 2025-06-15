@@ -1,0 +1,35 @@
+table TB_Musculos
+	excludeFromModelRefresh
+	lineageTag: 3fd3f26a-7d67-47ef-886c-5df7e088eba5
+
+	column ID_Mus
+		dataType: int64
+		formatString: 0
+		lineageTag: fe8ef334-db8d-4788-82fd-f8297f9734fa
+		summarizeBy: none
+		sourceColumn: ID_Mus
+
+		annotation SummarizationSetBy = Automatic
+
+	column Musculo
+		dataType: string
+		lineageTag: 6ded44ef-c824-4200-8ecf-ce09da4a39d5
+		summarizeBy: none
+		sourceColumn: Musculo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TB_Musculos-ab6d73f9-c1ff-4f47-add4-f705b3d7a6a2 = m
+		mode: import
+		source =
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1B8IhIGw-h69gm5hHT_TQRGZ7Tc4F410CQFrSEK5HcYw/edit#gid=1369918291"),
+				    Musculos_Table = Source{[name="Musculos",ItemKind="Table"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Musculos_Table, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ID_Mus", Int64.Type}, {"Muscle", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Muscle", "Musculo"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,38 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-AR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Historico","Actualidad","Dim_Jugadores","Dim_Clubes","Fact_Detalle","Medidas","Radares Jugador","TB_Fechas VIEJO","TB_Lesiones VIEJO","TB_Musculos VIEJO","TB_Jugadores VIEJO","MedidasDAX","TB_Fechas","TB_Jugadores","TB_Lesiones","TB_Musculos","Año 2023"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.144.679.0 (25.06)+ef40146207b86a826d1c72a7727a743ee37450e9
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table DateTableTemplate_e6e7fae7-560e-441b-9f67-2838f666b1b8
+ref table Dim_Jugadores
+ref table LocalDateTable_e248ed97-81d4-4caa-bcfd-fcd63d5992fe
+ref table Dim_Clubes
+ref table 'Criterio de Análisis'
+ref table Fact_Detalle
+ref table LocalDateTable_00ec37d1-9c04-4562-9300-dd76673918fb
+ref table Dim_Calendario
+ref table Medidas
+ref table LocalDateTable_6d27a166-ffe6-40ec-a3dc-7e4544495b77
+ref table LocalDateTable_4a9e07e6-ef4e-46cb-9413-040bf6eecd4b
+ref table TB_Fechas
+ref table TB_Jugadores
+ref table TB_Lesiones
+ref table LocalDateTable_71c16a75-b98b-4c84-8930-ae90034cd83f
+ref table TB_Musculos
+ref table 'Radares Jugador'
+ref table 'Año 2023'
+ref table LocalDateTable_6ddb41fb-270a-4c13-bf85-45a668265c7e
+
+ref cultureInfo en-US
+

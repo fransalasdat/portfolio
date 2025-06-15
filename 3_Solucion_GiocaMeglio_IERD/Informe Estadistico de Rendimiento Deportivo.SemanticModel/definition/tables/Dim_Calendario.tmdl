@@ -1,0 +1,51 @@
+table Dim_Calendario
+	lineageTag: 37be50ea-7b0e-4983-858e-01131df117b9
+
+	column Date
+		formatString: Long Date
+		lineageTag: d3e72fac-ce20-4e5b-ad5b-d391ded9828a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Anio = YEAR(Dim_Calendario[Date])
+		formatString: 0
+		lineageTag: 958c8e2a-3341-46d2-99d4-36911908ba27
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Es Anio Actual' = if(YEAR(TODAY())=Dim_Calendario[Anio],"SI","NO")
+		lineageTag: 0585fd32-b651-4f35-b928-5b81e067bdee
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Semestre = ```
+			
+			var 
+			_mes= MONTH(Dim_Calendario[Date])
+			return
+			if(_mes<7,"Primer Semestre","Segundo Semestre")
+			```
+		lineageTag: 6d3bb2e2-b9a6-4ca2-820e-74f7aecc4a09
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column GiocaMeglio = if(Dim_Calendario[Date]>DATE(2023,4,1),"SI","NO")
+		lineageTag: d7f4e98b-4798-44ba-a1e2-335c5c263ef2
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Calendario-dd676334-ae78-4d89-963d-f4d512785cb5 = calculated
+		mode: import
+		source = CALENDAR(MIN(Fact_Detalle[Dia]), MAX(Fact_Detalle[Dia]))
+
+	annotation PBI_Id = b56f92bf502d48529176c3fdaed4a340
+

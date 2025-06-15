@@ -1,0 +1,200 @@
+expression Historico =
+		let
+		    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1y6dSD5gB9qVejMd38f-Yt20Jegm1xr27UEW9wjDScWY/edit#gid=329251512"),
+		    Historico_Table = Source{[name="Historico",ItemKind="Table"]}[Data],
+		    #"Removed Top Rows" = Table.Skip(Historico_Table,1),
+		    #"Promoted Headers" = Table.PromoteHeaders(#"Removed Top Rows", [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Temporada", type any}, {"Fecha", type text}, {"Minutos jugados", Int64.Type}, {"Goles", Int64.Type}, {"Asistencias", Int64.Type}, {"XG", type number}, {"Totales", type any}, {"% precisión", type number}, {"Totales_1", type any}, {"% precisión_2", type number}, {"Totales_3", type any}, {"% precisión_4", type number}, {"Totales_5", type any}, {"% precisión_6", type number}, {"Totales_7", type any}, {"% ganados", type number}, {"Totales_8", type any}, {"% ganados_9", type number}, {"Interceptaciones", type number}, {"Pelotas perdidas", type any}, {"Pelotas Recuperadas", type any}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{ {"Totales", "Tiros Acertados"}, {"Totales_1", "Pases Totales"}, {"% precisión", "Precision Tiros"}, {"% precisión_2", "Precision Pases"}, {"Totales_3", "Pases Largos"}, {"% precisión_4", "Precision Pases Largos"}, {"Totales_5", "Gambetas"}, {"% precisión_6", "Precision Gambetas"}, {"Totales_7", "Duelos"}, {"% ganados", "Porcentaje Duelos Ganados"}, {"Totales_8", "Duelos Aereos"}, {"% ganados_9", "Proporcion Duelos Aereos Ganados"}, {"XG", "Goles Esperados"}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each ([Temporada] <> "")),
+		    #"Split Column by Delimiter" = Table.SplitColumn(#"Filtered Rows", "Tiros Acertados", Splitter.SplitTextByDelimiter("/", QuoteStyle.Csv), {"Tiros Acertados.1", "Tiros Acertados.2"}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Tiros Acertados.1", Int64.Type}, {"Tiros Acertados.2", Int64.Type}}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type1",{{"Tiros Acertados.1", "Tiros Acertados"}, {"Tiros Acertados.2", "Tiros Totales"}}),
+		    #"Removed Columns" = Table.RemoveColumns(#"Renamed Columns1",{"Precision Tiros"}),
+		    #"Added Custom" = Table.AddColumn(#"Removed Columns", "% Tiros Acertados", each [Tiros Acertados]/[Tiros Totales]),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Added Custom",{"Temporada", "Fecha", "Minutos jugados", "Goles", "Asistencias", "Goles Esperados", "Tiros Acertados", "Tiros Totales", "% Tiros Acertados", "Pases Totales", "Precision Pases", "Pases Largos", "Precision Pases Largos", "Gambetas", "Precision Gambetas", "Duelos", "Porcentaje Duelos Ganados", "Duelos Aereos", "Proporcion Duelos Aereos Ganados", "Interceptaciones", "Pelotas perdidas", "Pelotas Recuperadas"}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Reordered Columns",{{"% Tiros Acertados", Percentage.Type}}),
+		    #"Added Conditional Column" = Table.AddColumn(#"Changed Type2", "Detalle Pases", each if Text.Contains([Pases Totales], "/") then "Con Detalle Pases" else "Sin Detalle Pases"),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Added Conditional Column",{{"Temporada", type text}}),
+		    #"Split Column by Delimiter1" = Table.SplitColumn(#"Changed Type3", "Pases Totales", Splitter.SplitTextByDelimiter("/", QuoteStyle.Csv), {"Pases Totales.1", "Pases Totales.2"}),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"Pases Totales.1", Int64.Type}, {"Pases Totales.2", Int64.Type}}),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type4",{{"Pases Totales.1", "Pases Acertados"}, {"Pases Totales.2", "Pases Totales"}}),
+		    #"Added Custom1" = Table.AddColumn(#"Renamed Columns2", "Custom", each Value.Divide([Pases Acertados],[Pases Totales])),
+		    #"Changed Type5" = Table.TransformColumnTypes(#"Added Custom1",{{"Custom", Percentage.Type}}),
+		    #"Reordered Columns1" = Table.ReorderColumns(#"Changed Type5",{"Temporada", "Fecha", "Minutos jugados", "Goles", "Asistencias", "Goles Esperados", "Tiros Acertados", "Tiros Totales", "% Tiros Acertados", "Pases Acertados", "Pases Totales", "Custom", "Precision Pases", "Pases Largos", "Precision Pases Largos", "Gambetas", "Precision Gambetas", "Duelos", "Porcentaje Duelos Ganados", "Duelos Aereos", "Proporcion Duelos Aereos Ganados", "Interceptaciones", "Pelotas perdidas", "Pelotas Recuperadas", "Detalle Pases"}),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Reordered Columns1",{"Custom"}),
+		    #"Divided Column" = Table.TransformColumns(#"Removed Columns1", {{"Precision Pases", each _ / 100, type number}}),
+		    #"Changed Type6" = Table.TransformColumnTypes(#"Divided Column",{{"Precision Pases", Percentage.Type}}),
+		    #"Split Column by Delimiter2" = Table.SplitColumn(#"Changed Type6", "Pases Largos", Splitter.SplitTextByDelimiter("/", QuoteStyle.Csv), {"Pases Largos.1", "Pases Largos.2"}),
+		    #"Changed Type7" = Table.TransformColumnTypes(#"Split Column by Delimiter2",{{"Pases Largos.1", Int64.Type}, {"Pases Largos.2", Int64.Type}}),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Changed Type7",{{"Pases Largos.1", "Pases Largos Acertados"}, {"Pases Largos.2", "Pases Largos Totales"}}),
+		    #"Divided Column1" = Table.TransformColumns(#"Renamed Columns3", {{"Precision Pases Largos", each _ / 100, type number}}),
+		    #"Changed Type8" = Table.TransformColumnTypes(#"Divided Column1",{{"Precision Pases Largos", Percentage.Type}}),
+		    #"Split Column by Delimiter3" = Table.SplitColumn(#"Changed Type8", "Gambetas", Splitter.SplitTextByDelimiter("/", QuoteStyle.Csv), {"Gambetas.1", "Gambetas.2"}),
+		    #"Changed Type9" = Table.TransformColumnTypes(#"Split Column by Delimiter3",{{"Gambetas.1", Int64.Type}, {"Gambetas.2", Int64.Type}}),
+		    #"Renamed Columns4" = Table.RenameColumns(#"Changed Type9",{{"Gambetas.1", "Gambetas Concretadas"}, {"Gambetas.2", "Gambetas Totales"}}),
+		    #"Divided Column2" = Table.TransformColumns(#"Renamed Columns4", {{"Precision Gambetas", each _ / 100, type number}}),
+		    #"Changed Type10" = Table.TransformColumnTypes(#"Divided Column2",{{"Precision Gambetas", Percentage.Type}}),
+		    #"Split Column by Delimiter4" = Table.SplitColumn(#"Changed Type10", "Duelos", Splitter.SplitTextByDelimiter("/", QuoteStyle.Csv), {"Duelos.1", "Duelos.2"}),
+		    #"Changed Type11" = Table.TransformColumnTypes(#"Split Column by Delimiter4",{{"Duelos.1", Int64.Type}, {"Duelos.2", Int64.Type}}),
+		    #"Renamed Columns5" = Table.RenameColumns(#"Changed Type11",{{"Duelos.1", "Duelos Ganados"}, {"Duelos.2", "Duelos Totales"}}),
+		    #"Divided Column3" = Table.TransformColumns(#"Renamed Columns5", {{"Porcentaje Duelos Ganados", each _ / 100, type number}}),
+		    #"Changed Type12" = Table.TransformColumnTypes(#"Divided Column3",{{"Porcentaje Duelos Ganados", Percentage.Type}}),
+		    #"Split Column by Delimiter5" = Table.SplitColumn(#"Changed Type12", "Duelos Aereos", Splitter.SplitTextByDelimiter("/", QuoteStyle.Csv), {"Duelos Aereos.1", "Duelos Aereos.2"}),
+		    #"Changed Type13" = Table.TransformColumnTypes(#"Split Column by Delimiter5",{{"Duelos Aereos.1", Int64.Type}, {"Duelos Aereos.2", Int64.Type}}),
+		    #"Renamed Columns6" = Table.RenameColumns(#"Changed Type13",{{"Duelos Aereos.1", "Duelos Aereos Ganados"}, {"Duelos Aereos.2", "Duelos Aereos Totales"}}),
+		    #"Divided Column4" = Table.TransformColumns(#"Renamed Columns6", {{"Proporcion Duelos Aereos Ganados", each _ / 100, type number}}),
+		    #"Changed Type14" = Table.TransformColumnTypes(#"Divided Column4",{{"Proporcion Duelos Aereos Ganados", Percentage.Type}}),
+		    #"Renamed Columns7" = Table.RenameColumns(#"Changed Type14",{{"Interceptaciones", "Interceptaciones por Partido"}, {"Temporada", "Año"}})
+		in
+		    #"Renamed Columns7"
+	lineageTag: 002e54a4-0a8e-4a2c-9eed-1c3a4f0de972
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression Actualidad =
+		let
+		    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1y6dSD5gB9qVejMd38f-Yt20Jegm1xr27UEW9wjDScWY/edit#gid=329251512"),
+		    Rendimiento_Table = Source{[name="Actualidad",ItemKind="Table"]}[Data],
+		    Custom1 = Table.Skip(Rendimiento_Table,1),
+		    Custom2 = Table.PromoteHeaders(Custom1, [PromoteAllScalars=true]),
+		    #"Filtered Rows" = Table.SelectRows(Custom2, each ([Partido] <> "")),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Filtered Rows",{{"Partido", type text}, {"Fecha", type any}, {"Minutos jugados", type any}, {"Goles", Int64.Type}, {"Asistencias", Int64.Type}, {"XG", type number}, {"Totales", type any}, {"% precisión", Int64.Type}, {"Totales_1", type text}, {"% precisión_2", Int64.Type}, {"Totales_3", type text}, {"% precisión_4", type number}, {"Totales_5", type text}, {"% precisión_6", Int64.Type}, {"Totales_7", type text}, {"% ganados", Int64.Type}, {"Totales_8",type text}, {"% ganados_9", Int64.Type}, {"Interceptaciones", Int64.Type}, {"Pelotas perdidas", Int64.Type}, {"Pelotas Recuperadas", Int64.Type}}),
+		    Custom3 = Table.TransformColumnTypes(#"Changed Type",{{"Partido", type any}, {"Fecha", type text}, {"Minutos jugados", Int64.Type}, {"Goles", Int64.Type}, {"Asistencias", Int64.Type}, {"XG", type number}, {"Totales", type any}, {"% precisión", type number}, {"Totales_1", type any}, {"% precisión_2", type number}, {"Totales_3", type any}, {"% precisión_4", type number}, {"Totales_5", type any}, {"% precisión_6", type number}, {"Totales_7", type any}, {"% ganados", type number}, {"Totales_8", type any}, {"% ganados_9", type number}, {"Interceptaciones", type number}, {"Pelotas perdidas", type any}, {"Pelotas Recuperadas", type any}}),
+		    #"Replaced Errors" = Table.ReplaceErrorValues(Custom3, {{"Minutos jugados", null}}),
+		    #"Changed Type1" = Table.TransformColumnTypes(#"Replaced Errors",{{"Fecha", type date}}),
+		    #"Replaced Value" = Table.ReplaceValue(#"Changed Type1",null,0,Replacer.ReplaceValue,{"Minutos jugados", "Goles", "Asistencias", "XG"}),
+		    #"Changed Type2" = Table.TransformColumnTypes(#"Replaced Value",{{"Goles", Int64.Type}, {"Asistencias", Int64.Type}}),
+		    Custom4 = Table.RenameColumns(#"Changed Type2",{{"Totales", "Tiros Acertados"}, {"Totales_1", "Pases Totales"}, {"% precisión", "Precision Tiros"}, {"% precisión_2", "Precision Pases"}, {"Totales_3", "Pases Largos"}, {"% precisión_4", "Precision Pases Largos"}, {"Totales_5", "Gambetas"}, {"% precisión_6", "Precision Gambetas"}, {"Totales_7", "Duelos"}, {"% ganados", "Porcentaje Duelos Ganados"}, {"Totales_8", "Duelos Aereos"}, {"% ganados_9", "Proporcion Duelos Aereos Ganados"}}),
+		    #"Replaced Value1" = Table.ReplaceValue(Custom4,"","0/0",Replacer.ReplaceValue,{"Tiros Acertados"}),
+		    #"Split Column by Delimiter" = Table.SplitColumn(#"Replaced Value1", "Tiros Acertados", Splitter.SplitTextByDelimiter("/", QuoteStyle.Csv), {"Tiros Acertados.1", "Tiros Acertados.2"}),
+		    #"Changed Type3" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Tiros Acertados.1", Int64.Type}, {"Tiros Acertados.2", Int64.Type}}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Changed Type3",{{"Tiros Acertados.1", "Tiros Acertados"}, {"Tiros Acertados.2", "Tiros Efectuados"}}),
+		    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "%Tiros Precisos", each Value.Divide([Tiros Acertados],[Tiros Efectuados])),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Added Custom",{"Partido", "Fecha", "Minutos jugados", "Goles", "Asistencias", "XG", "Tiros Acertados", "Tiros Efectuados", "%Tiros Precisos", "Precision Tiros", "Pases Totales", "Precision Pases", "Pases Largos", "Precision Pases Largos", "Gambetas", "Precision Gambetas", "Duelos", "Porcentaje Duelos Ganados", "Duelos Aereos", "Proporcion Duelos Aereos Ganados", "Interceptaciones", "Pelotas perdidas", "Pelotas Recuperadas"}),
+		    #"Removed Columns" = Table.RemoveColumns(#"Reordered Columns",{"Precision Tiros"}),
+		    #"Replaced Value2" = Table.ReplaceValue(#"Removed Columns","","0/0",Replacer.ReplaceValue,{"Pases Totales"}),
+		    #"Split Column by Delimiter1" = Table.SplitColumn(#"Replaced Value2", "Pases Totales", Splitter.SplitTextByDelimiter("/", QuoteStyle.Csv), {"Pases Totales.1", "Pases Totales.2"}),
+		    #"Changed Type4" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"Pases Totales.1", Int64.Type}, {"Pases Totales.2", Int64.Type}}),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type4",{{"Pases Totales.1", "Pases Precisos"}, {"Pases Totales.2", "Pases Totales"}}),
+		    #"Added Custom1" = Table.AddColumn(#"Renamed Columns1", "% Pases Precisos", each Value.Divide([Pases Precisos],[Pases Totales])),
+		    #"Changed Type5" = Table.TransformColumnTypes(#"Added Custom1",{{"% Pases Precisos", Percentage.Type}}),
+		    #"Reordered Columns1" = Table.ReorderColumns(#"Changed Type5",{"Partido", "Fecha", "Minutos jugados", "Goles", "Asistencias", "XG", "Tiros Acertados", "Tiros Efectuados", "%Tiros Precisos", "Pases Precisos", "Pases Totales", "% Pases Precisos", "Precision Pases", "Pases Largos", "Precision Pases Largos", "Gambetas", "Precision Gambetas", "Duelos", "Porcentaje Duelos Ganados", "Duelos Aereos", "Proporcion Duelos Aereos Ganados", "Interceptaciones", "Pelotas perdidas", "Pelotas Recuperadas"}),
+		    #"Removed Columns1" = Table.RemoveColumns(#"Reordered Columns1",{"Precision Pases"}),
+		    #"Changed Type6" = Table.TransformColumnTypes(#"Removed Columns1",{{"%Tiros Precisos", Percentage.Type}}),
+		    #"Replaced Errors1" = Table.ReplaceErrorValues(#"Changed Type6", {{"%Tiros Precisos", 0}}),
+		    #"Replaced Errors2" = Table.ReplaceErrorValues(#"Replaced Errors1", {{"% Pases Precisos", 0}}),
+		    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Errors2","","0/0",Replacer.ReplaceValue,{"Pases Largos"}),
+		    #"Split Column by Delimiter2" = Table.SplitColumn(#"Replaced Value3", "Pases Largos", Splitter.SplitTextByDelimiter("/", QuoteStyle.Csv), {"Pases Largos.1", "Pases Largos.2"}),
+		    #"Changed Type7" = Table.TransformColumnTypes(#"Split Column by Delimiter2",{{"Pases Largos.1", Int64.Type}, {"Pases Largos.2", Int64.Type}}),
+		    #"Renamed Columns2" = Table.RenameColumns(#"Changed Type7",{{"Pases Largos.1", "Pases Largos Precisos"}, {"Pases Largos.2", "Pases Largos Totales"}}),
+		    #"Added Custom2" = Table.AddColumn(#"Renamed Columns2", "% Pases Largos Precisos", each Value.Divide([Pases Largos Precisos],[Pases Largos Totales])),
+		    #"Reordered Columns2" = Table.ReorderColumns(#"Added Custom2",{"Partido", "Fecha", "Minutos jugados", "Goles", "Asistencias", "XG", "Tiros Acertados", "Tiros Efectuados", "%Tiros Precisos", "Pases Precisos", "Pases Totales", "% Pases Precisos", "Pases Largos Precisos", "Pases Largos Totales", "% Pases Largos Precisos", "Precision Pases Largos", "Gambetas", "Precision Gambetas", "Duelos", "Porcentaje Duelos Ganados", "Duelos Aereos", "Proporcion Duelos Aereos Ganados", "Interceptaciones", "Pelotas perdidas", "Pelotas Recuperadas"}),
+		    #"Removed Columns2" = Table.RemoveColumns(#"Reordered Columns2",{"Precision Pases Largos"}),
+		    #"Changed Type8" = Table.TransformColumnTypes(#"Removed Columns2",{{"% Pases Largos Precisos", Percentage.Type}}),
+		    #"Replaced Errors3" = Table.ReplaceErrorValues(#"Changed Type8", {{"% Pases Largos Precisos", 0}}),
+		    #"Replaced Value4" = Table.ReplaceValue(#"Replaced Errors3","","0/0",Replacer.ReplaceValue,{"Gambetas"}),
+		    #"Split Column by Delimiter3" = Table.SplitColumn(#"Replaced Value4", "Gambetas", Splitter.SplitTextByDelimiter("/", QuoteStyle.Csv), {"Gambetas.1", "Gambetas.2"}),
+		    #"Changed Type9" = Table.TransformColumnTypes(#"Split Column by Delimiter3",{{"Gambetas.1", Int64.Type}, {"Gambetas.2", Int64.Type}}),
+		    #"Renamed Columns3" = Table.RenameColumns(#"Changed Type9",{{"Gambetas.1", "Gambetas Concretadas"}, {"Gambetas.2", "Gambetas Totales"}}),
+		    #"Added Custom3" = Table.AddColumn(#"Renamed Columns3", "% Gambetas Concretadas", each Value.Divide([Gambetas Concretadas],[Gambetas Totales])),
+		    #"Changed Type10" = Table.TransformColumnTypes(#"Added Custom3",{{"% Gambetas Concretadas", Percentage.Type}}),
+		    #"Replaced Errors4" = Table.ReplaceErrorValues(#"Changed Type10", {{"% Gambetas Concretadas", 0}}),
+		    #"Reordered Columns3" = Table.ReorderColumns(#"Replaced Errors4",{"Partido", "Fecha", "Minutos jugados", "Goles", "Asistencias", "XG", "Tiros Acertados", "Tiros Efectuados", "%Tiros Precisos", "Pases Precisos", "Pases Totales", "% Pases Precisos", "Pases Largos Precisos", "Pases Largos Totales", "% Pases Largos Precisos", "Gambetas Concretadas", "Gambetas Totales", "% Gambetas Concretadas", "Precision Gambetas", "Duelos", "Porcentaje Duelos Ganados", "Duelos Aereos", "Proporcion Duelos Aereos Ganados", "Interceptaciones", "Pelotas perdidas", "Pelotas Recuperadas"}),
+		    #"Removed Columns3" = Table.RemoveColumns(#"Reordered Columns3",{"Precision Gambetas"}),
+		    #"Replaced Value5" = Table.ReplaceValue(#"Removed Columns3","","0/0",Replacer.ReplaceValue,{"Duelos"}),
+		    #"Split Column by Delimiter4" = Table.SplitColumn(#"Replaced Value5", "Duelos", Splitter.SplitTextByDelimiter("/", QuoteStyle.Csv), {"Duelos.1", "Duelos.2"}),
+		    #"Changed Type11" = Table.TransformColumnTypes(#"Split Column by Delimiter4",{{"Duelos.1", Int64.Type}, {"Duelos.2", Int64.Type}}),
+		    #"Renamed Columns4" = Table.RenameColumns(#"Changed Type11",{{"Duelos.1", "Duelos Ganados"}, {"Duelos.2", "Duelos Totales"}}),
+		    #"Added Custom4" = Table.AddColumn(#"Renamed Columns4", "% Duelos Ganados", each Value.Divide([Duelos Ganados],[Duelos Totales])),
+		    #"Changed Type12" = Table.TransformColumnTypes(#"Added Custom4",{{"% Duelos Ganados", Percentage.Type}}),
+		    #"Replaced Errors5" = Table.ReplaceErrorValues(#"Changed Type12", {{"% Duelos Ganados", 0}}),
+		    #"Reordered Columns4" = Table.ReorderColumns(#"Replaced Errors5",{"Partido", "Fecha", "Minutos jugados", "Goles", "Asistencias", "XG", "Tiros Acertados", "Tiros Efectuados", "%Tiros Precisos", "Pases Precisos", "Pases Totales", "% Pases Precisos", "Pases Largos Precisos", "Pases Largos Totales", "% Pases Largos Precisos", "Gambetas Concretadas", "Gambetas Totales", "% Gambetas Concretadas", "Duelos Ganados", "Duelos Totales", "% Duelos Ganados", "Porcentaje Duelos Ganados", "Duelos Aereos", "Proporcion Duelos Aereos Ganados", "Interceptaciones", "Pelotas perdidas", "Pelotas Recuperadas"}),
+		    #"Removed Columns4" = Table.RemoveColumns(#"Reordered Columns4",{"Porcentaje Duelos Ganados"}),
+		    #"Replaced Value6" = Table.ReplaceValue(#"Removed Columns4","","0/0",Replacer.ReplaceValue,{"Duelos Aereos"}),
+		    #"Split Column by Delimiter5" = Table.SplitColumn(#"Replaced Value6", "Duelos Aereos", Splitter.SplitTextByDelimiter("/", QuoteStyle.Csv), {"Duelos Aereos.1", "Duelos Aereos.2"}),
+		    #"Changed Type13" = Table.TransformColumnTypes(#"Split Column by Delimiter5",{{"Duelos Aereos.1", Int64.Type}, {"Duelos Aereos.2", Int64.Type}}),
+		    #"Renamed Columns5" = Table.RenameColumns(#"Changed Type13",{{"Duelos Aereos.1", "Duelos Aereos Ganados"}, {"Duelos Aereos.2", "Duelos Aereos Totales"}}),
+		    #"Added Custom5" = Table.AddColumn(#"Renamed Columns5", "% Duelos Aereos Ganados", each [Duelos Aereos Ganados]/[Duelos Aereos Totales]),
+		    #"Changed Type14" = Table.TransformColumnTypes(#"Added Custom5",{{"% Duelos Aereos Ganados", Percentage.Type}}),
+		    #"Replaced Errors6" = Table.ReplaceErrorValues(#"Changed Type14", {{"% Duelos Aereos Ganados", 0}}),
+		    #"Reordered Columns5" = Table.ReorderColumns(#"Replaced Errors6",{"Partido", "Fecha", "Minutos jugados", "Goles", "Asistencias", "XG", "Tiros Acertados", "Tiros Efectuados", "%Tiros Precisos", "Pases Precisos", "Pases Totales", "% Pases Precisos", "Pases Largos Precisos", "Pases Largos Totales", "% Pases Largos Precisos", "Gambetas Concretadas", "Gambetas Totales", "% Gambetas Concretadas", "Duelos Ganados", "Duelos Totales", "% Duelos Ganados", "Duelos Aereos Ganados", "Duelos Aereos Totales", "% Duelos Aereos Ganados", "Proporcion Duelos Aereos Ganados", "Interceptaciones", "Pelotas perdidas", "Pelotas Recuperadas"}),
+		    #"Removed Columns5" = Table.RemoveColumns(#"Reordered Columns5",{"Proporcion Duelos Aereos Ganados"}),
+		    #"Replaced Value7" = Table.ReplaceValue(#"Removed Columns5",null,0,Replacer.ReplaceValue,{"Interceptaciones"})
+		in
+		    #"Replaced Value7"
+	lineageTag: 2c415ef8-25f8-4a83-952f-007ad4d76463
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression MedidasDAX =
+		let
+		    Origen = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Columna1 = _t]),
+		    #"Tipo cambiado" = Table.TransformColumnTypes(Origen,{{"Columna1", type text}}),
+		    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado",{"Columna1"})
+		in
+		    #"Columnas quitadas"
+	lineageTag: 4d265320-bec5-442b-975c-a32d61f3ad4e
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'TB_Fechas VIEJO' =
+		let
+		    Origen = Excel.Workbook(File.Contents("C:\Users\Usuario\Documents\Tien\Rendimiento Jugador\Informe_lesivo_de_jugadores.xlsx"), null, true),
+		    TB_Fechas_Table = Origen{[Item="TB_Fechas",Kind="Table"]}[Data],
+		    #"Tipo cambiado" = Table.TransformColumnTypes(TB_Fechas_Table,{{"Fecha", type date}, {"Año", Int64.Type}, {"Nmes", Int64.Type}, {"Mes", type text}, {"Trimestre", type text}})
+		in
+		    #"Tipo cambiado"
+	lineageTag: 0f039054-13e3-4c6f-8988-1a01764e5b23
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'TB_Lesiones VIEJO' =
+		let
+		    Origen = Excel.Workbook(File.Contents("C:\Users\Usuario\Documents\Tien\Rendimiento Jugador\Informe_lesivo_de_jugadores.xlsx"), null, true),
+		    TB_Lesiones_Table = Origen{[Item="TB_Lesiones",Kind="Table"]}[Data],
+		    #"Tipo cambiado" = Table.TransformColumnTypes(TB_Lesiones_Table,{{"ID", type text}, {"Fecha", type date}, {"Muscle", Int64.Type}, {"Lesiones", Int64.Type}, {"Paciente", type text}}),
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo cambiado",{{"Muscle", "Musculo"}})
+		in
+		    #"Columnas con nombre cambiado"
+	lineageTag: 655d832d-f6cd-4de3-a000-b1289332a429
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'TB_Musculos VIEJO' =
+		let
+		    Origen = Excel.Workbook(File.Contents("C:\Users\Usuario\Documents\Tien\Rendimiento Jugador\Informe_lesivo_de_jugadores.xlsx"), null, true),
+		    TB_Muscle_Table = Origen{[Item="TB_Muscle",Kind="Table"]}[Data],
+		    #"Tipo cambiado" = Table.TransformColumnTypes(TB_Muscle_Table,{{"ID_Mus", Int64.Type}, {"Muscle", type text}}),
+		    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo cambiado",{{"Muscle", "Musculo"}})
+		in
+		    #"Columnas con nombre cambiado"
+	lineageTag: b6fafa46-24d1-49ae-8455-744c33a28521
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression 'TB_Jugadores VIEJO' =
+		let
+		    Origen = Excel.Workbook(File.Contents("C:\Users\Usuario\Documents\Tien\Rendimiento Jugador\Informe_lesivo_de_jugadores.xlsx"), null, true),
+		    TB_Pacientes_Table = Origen{[Item="TB_Pacientes",Kind="Table"]}[Data],
+		    #"Tipo cambiado" = Table.TransformColumnTypes(TB_Pacientes_Table,{{"ID", type text}, {"Nombre", type text}})
+		in
+		    #"Tipo cambiado"
+	lineageTag: 78f15c98-2778-4258-b573-29eaf541ebb2
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

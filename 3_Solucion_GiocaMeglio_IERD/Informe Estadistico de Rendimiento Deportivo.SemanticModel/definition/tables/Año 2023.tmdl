@@ -1,0 +1,72 @@
+table 'Año 2023'
+	lineageTag: f993da46-8792-4659-9017-fbce8b583f75
+
+	column 'Marca temporal'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7f1ee2ac-6478-46f5-a807-8fdbd2b23769
+		summarizeBy: none
+		sourceColumn: Marca temporal
+
+		variation Variation
+			isDefault
+			relationship: c441b548-c6a6-4d6c-82aa-7ff2e5f62ec5
+			defaultHierarchy: LocalDateTable_6ddb41fb-270a-4c13-bf85-45a668265c7e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column SUEÑO
+		dataType: string
+		lineageTag: bb332245-5208-46ff-b8a1-b0b393394a2c
+		summarizeBy: none
+		sourceColumn: SUEÑO
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NIVEL DE FATIGA'
+		dataType: string
+		lineageTag: 917d6d90-9764-4ecf-9a97-1bc922839ea1
+		summarizeBy: none
+		sourceColumn: NIVEL DE FATIGA
+
+		annotation SummarizationSetBy = Automatic
+
+	column ESTRES
+		dataType: string
+		lineageTag: 63c42bd1-5704-424d-be5e-92fe6780d9a6
+		summarizeBy: none
+		sourceColumn: ESTRES
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DOLOR MUSCULAR'
+		dataType: string
+		lineageTag: b5009634-dc39-4745-a0e7-3324cd35256e
+		summarizeBy: none
+		sourceColumn: DOLOR MUSCULAR
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column6
+		dataType: string
+		lineageTag: 0e8d5b00-46cf-499d-a164-69f412fd1402
+		summarizeBy: none
+		sourceColumn: Column6
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Año 2023' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Usuario\Documents\Tien\Gioca Meglio\Informe Estadistico de Rendimiento Deportivo\Resultados test de wellness.xlsx"), null, true),
+				    #"Año 2023_Sheet" = Source{[Item="Año 2023",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Año 2023_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Marca temporal", type datetime}, {"SUEÑO", type text}, {"NIVEL DE FATIGA", type text}, {"ESTRES", type text}, {"DOLOR MUSCULAR", type text}, {"Column6", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

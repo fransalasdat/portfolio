@@ -1,0 +1,916 @@
+table Fact_Detalle
+	lineageTag: 9ee4a372-313e-4625-b6e4-bb8e1c72d3cb
+
+	column Local
+		dataType: string
+		lineageTag: 2399fe26-4b1d-47a7-add3-46cdbe31f704
+		summarizeBy: none
+		sourceColumn: Local
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Goles Local'
+		dataType: int64
+		formatString: 0
+		lineageTag: c693e8b6-25c4-4bde-a1ab-378d89324d4f
+		summarizeBy: sum
+		sourceColumn: Goles Local
+
+		annotation SummarizationSetBy = Automatic
+
+	column Visitante
+		dataType: string
+		lineageTag: 4c659ad6-7249-4ba1-8ca5-9886f439217b
+		summarizeBy: none
+		sourceColumn: Visitante
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Goles Visitante'
+		dataType: int64
+		formatString: 0
+		lineageTag: d5e5a14d-b9f4-4f9a-a104-b2045cc69f23
+		summarizeBy: sum
+		sourceColumn: Goles Visitante
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pais
+		dataType: string
+		lineageTag: 7cbfcea3-697b-4804-a302-e50b69cf2e26
+		summarizeBy: none
+		sourceColumn: Pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column Torneo
+		dataType: string
+		lineageTag: fc03b845-c4d5-4044-a8f9-d1ab2387cda7
+		summarizeBy: none
+		sourceColumn: Torneo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dia
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 02efd6c6-a228-450b-863e-b0aa48ea58ba
+		summarizeBy: none
+		sourceColumn: Dia
+
+		variation Variation
+			isDefault
+			relationship: d2cdc36f-8667-44fc-b714-76b92892dd32
+			defaultHierarchy: LocalDateTable_00ec37d1-9c04-4562-9300-dd76673918fb.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Posición 1'
+		dataType: string
+		lineageTag: fb800f38-26ac-4ee5-9e74-64d76f850194
+		summarizeBy: none
+		sourceColumn: Posición 1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Posición 2'
+		dataType: string
+		lineageTag: d11f03e3-a417-4d12-ae43-cda5a0938533
+		summarizeBy: none
+		sourceColumn: Posición 2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Posición 3'
+		dataType: string
+		lineageTag: a01fe677-05f6-4089-94b7-001973e4acc0
+		summarizeBy: none
+		sourceColumn: Posición 3
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Posición 4'
+		dataType: string
+		lineageTag: 4ad4e555-4325-456f-9d63-3a903237bf6a
+		summarizeBy: none
+		sourceColumn: Posición 4
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Minutos jugados'
+		dataType: int64
+		formatString: 0
+		lineageTag: f90b7e2c-2f0e-4c48-9214-79f461c3acbb
+		summarizeBy: sum
+		sourceColumn: Minutos jugados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Acciones Totales'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2dcaad83-5dcd-4c7a-b68b-bf4ee191a248
+		summarizeBy: sum
+		sourceColumn: Acciones Totales
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Acciones Logradas'
+		dataType: int64
+		formatString: 0
+		lineageTag: d6f803d7-083d-4099-a904-9ecede431fbc
+		summarizeBy: sum
+		sourceColumn: Acciones Logradas
+
+		annotation SummarizationSetBy = Automatic
+
+	column Goles
+		dataType: int64
+		formatString: 0
+		lineageTag: fd584149-433b-4981-b361-f475a9952369
+		summarizeBy: sum
+		sourceColumn: Goles
+
+		annotation SummarizationSetBy = Automatic
+
+	column Asistencias
+		dataType: int64
+		formatString: 0
+		lineageTag: 986b4258-e0d0-48cd-b9de-7bd3ba552b14
+		summarizeBy: sum
+		sourceColumn: Asistencias
+
+		annotation SummarizationSetBy = Automatic
+
+	column Tiros
+		dataType: int64
+		formatString: 0
+		lineageTag: 218f3bcf-97d6-47a9-aa68-4ffd0db90cc3
+		summarizeBy: sum
+		sourceColumn: Tiros
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tiros Logrados'
+		dataType: int64
+		formatString: 0
+		lineageTag: e416b27a-9de4-4cf9-ba28-7228f3e30793
+		summarizeBy: sum
+		sourceColumn: Tiros Logrados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Goles Esperados'
+		dataType: double
+		lineageTag: e171ec71-5d08-443d-bd0f-1b7ed4e99fc6
+		summarizeBy: sum
+		sourceColumn: Goles Esperados
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Pases
+		dataType: int64
+		formatString: 0
+		lineageTag: cc3ca25e-9736-41b4-bb64-c3e680a71cea
+		summarizeBy: sum
+		sourceColumn: Pases
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases Concretados'
+		dataType: int64
+		formatString: 0
+		lineageTag: 97ccbcff-240c-4412-9a0d-624c35693b7e
+		summarizeBy: sum
+		sourceColumn: Pases Concretados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases Largos'
+		dataType: int64
+		formatString: 0
+		lineageTag: 364ae041-65a0-49e0-a620-ca52093ee621
+		summarizeBy: sum
+		sourceColumn: Pases Largos
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases Largos Concretados'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1096b1b3-dafd-4d68-9217-e84121d6a526
+		summarizeBy: sum
+		sourceColumn: Pases Largos Concretados
+
+		annotation SummarizationSetBy = Automatic
+
+	column Centros
+		dataType: int64
+		formatString: 0
+		lineageTag: 1573abf2-192f-4c58-b4de-5c3f6c693ac6
+		summarizeBy: sum
+		sourceColumn: Centros
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Centros Precisos'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e7175a1-b3ea-4f7d-b1cd-6a2ea126cdb1
+		summarizeBy: sum
+		sourceColumn: Centros Precisos
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gambetas
+		dataType: int64
+		formatString: 0
+		lineageTag: 8bf995c6-cf40-4cbc-b8ed-c7987a853447
+		summarizeBy: sum
+		sourceColumn: Gambetas
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Gambetas Logradas'
+		dataType: int64
+		formatString: 0
+		lineageTag: f543e95a-2017-4d14-ac12-835fa60ec71b
+		summarizeBy: sum
+		sourceColumn: Gambetas Logradas
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duelos
+		dataType: int64
+		formatString: 0
+		lineageTag: e24ad8d3-4bee-45f2-b766-152f24d39835
+		summarizeBy: sum
+		sourceColumn: Duelos
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Duelos Ganados'
+		dataType: int64
+		formatString: 0
+		lineageTag: fe5b4f4b-ff05-4ab5-a5e2-7069ebec1375
+		summarizeBy: sum
+		sourceColumn: Duelos Ganados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Duelos Aereos'
+		dataType: int64
+		formatString: 0
+		lineageTag: 6afb22d0-a961-4124-8499-48196a9add1a
+		summarizeBy: sum
+		sourceColumn: Duelos Aereos
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Duelos Aereos Ganados'
+		dataType: int64
+		formatString: 0
+		lineageTag: 65485d1f-acdb-4ec9-9c2f-aa16a79cb068
+		summarizeBy: sum
+		sourceColumn: Duelos Aereos Ganados
+
+		annotation SummarizationSetBy = Automatic
+
+	column Interceptaciones
+		dataType: int64
+		formatString: 0
+		lineageTag: 42408432-d9ae-4b2d-b79c-81429896c0e5
+		summarizeBy: sum
+		sourceColumn: Interceptaciones
+
+		annotation SummarizationSetBy = Automatic
+
+	column Perdidas
+		dataType: int64
+		formatString: 0
+		lineageTag: fb2078e0-ac10-4016-9639-fcd2310ad7bf
+		summarizeBy: sum
+		sourceColumn: Perdidas
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Perdidas mitad Propia'
+		dataType: int64
+		formatString: 0
+		lineageTag: 557dab07-9fc7-4bea-acbd-e825a3bb52bd
+		summarizeBy: sum
+		sourceColumn: Perdidas mitad Propia
+
+		annotation SummarizationSetBy = Automatic
+
+	column Recuperaciones
+		dataType: int64
+		formatString: 0
+		lineageTag: f23abc29-4820-4a1f-87f6-17004ce20b40
+		summarizeBy: sum
+		sourceColumn: Recuperaciones
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Recuperaciones Ofensivas'
+		dataType: int64
+		formatString: 0
+		lineageTag: a870e705-7ce6-42e0-9ecc-672ceb971d1f
+		summarizeBy: sum
+		sourceColumn: Recuperaciones Ofensivas
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Minutos Tarjeta amarilla'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7da3943c-dd15-409d-8683-4a85f3dd3a4a
+		summarizeBy: sum
+		sourceColumn: Minutos Tarjeta amarilla
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Minutos Tarjeta roja'
+		dataType: int64
+		formatString: 0
+		lineageTag: 88da928b-1b1e-4d58-b1f0-eeee9ab6ead3
+		summarizeBy: sum
+		sourceColumn: Minutos Tarjeta roja
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tarjeta Amarilla'
+		dataType: string
+		lineageTag: bda656a8-daaa-4fa8-89cd-9a274b34b90d
+		summarizeBy: none
+		sourceColumn: Tarjeta Amarilla
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tarjeta Roja'
+		dataType: string
+		lineageTag: d83b3e66-d822-46a4-a037-faa7cacffdfc
+		summarizeBy: none
+		sourceColumn: Tarjeta Roja
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Numero Partido'
+		dataType: int64
+		formatString: 0
+		lineageTag: fe896d78-700f-4a71-a70b-eb4cd9e7f1ed
+		summarizeBy: sum
+		sourceColumn: Numero Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre Jugador'
+		dataType: string
+		lineageTag: 3b252785-32a7-47db-b0fa-07858f8fd137
+		summarizeBy: none
+		sourceColumn: Nombre Jugador
+
+		annotation SummarizationSetBy = Automatic
+
+	column Club
+		dataType: string
+		lineageTag: 6ce8a766-1264-44db-af08-bbb68fec365a
+		summarizeBy: none
+		sourceColumn: Club
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Acciones Logradas'
+		dataType: double
+		lineageTag: 8e1008bb-e772-4295-b221-9ef7dc9f02fb
+		summarizeBy: sum
+		sourceColumn: % Acciones Logradas
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '% Tiros Logrados'
+		dataType: double
+		lineageTag: 77cdd1d4-28ab-4fa9-9938-5cde3deec466
+		summarizeBy: sum
+		sourceColumn: % Tiros Logrados
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '% Pases Concretados'
+		dataType: double
+		lineageTag: a5f37a16-ebe2-49a2-84b7-90f914216a32
+		summarizeBy: sum
+		sourceColumn: % Pases Concretados
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '% Pases Largos Concretados'
+		dataType: double
+		lineageTag: 01f7c043-d889-4d3e-8f9d-b2c565871ed4
+		summarizeBy: sum
+		sourceColumn: % Pases Largos Concretados
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '% Centros Precisos'
+		dataType: double
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: e092c6a2-3f51-4897-8223-4f0c45dbc2fe
+		summarizeBy: sum
+		sourceColumn: % Centros Precisos
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Gambetas Exitosas'
+		dataType: double
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 96d323e4-f36c-4b8a-87a8-c6e88475787a
+		summarizeBy: sum
+		sourceColumn: % Gambetas Exitosas
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Duelos Ganados'
+		dataType: double
+		lineageTag: db5a853a-ab89-45d1-9eb0-e77102cf966f
+		summarizeBy: sum
+		sourceColumn: % Duelos Ganados
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '% Duelos Aereos Ganados'
+		dataType: double
+		lineageTag: d5db6f69-31b4-4e14-b7d4-d177b71cf4ae
+		summarizeBy: sum
+		sourceColumn: % Duelos Aereos Ganados
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '% Perdidas Mitad Propia'
+		dataType: double
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 0836e47a-b770-45ce-8b48-c6ac231a21a3
+		summarizeBy: sum
+		sourceColumn: % Perdidas Mitad Propia
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Recuperaciones Ofensivas'
+		dataType: double
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 17a287a8-0186-457f-bf59-b35a2cb94810
+		summarizeBy: sum
+		sourceColumn: % Recuperaciones Ofensivas
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Es Inferiores'
+		dataType: string
+		lineageTag: 92d0d3d3-fc75-4cc3-8e83-64bff175ed8c
+		summarizeBy: none
+		sourceColumn: Es Inferiores
+
+		annotation SummarizationSetBy = Automatic
+
+	column Partido
+		dataType: string
+		lineageTag: e4aa93ad-6ba3-4275-84f5-c223a80d21bb
+		summarizeBy: none
+		sourceColumn: Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Duelos Defensivos'
+		dataType: int64
+		formatString: 0
+		lineageTag: aa08c94d-901b-44fc-b8d3-2ef55e184673
+		summarizeBy: sum
+		sourceColumn: Duelos Defensivos
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Duelos Defensivos Ganados'
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c85b872-9c1c-4150-bd5c-0f65b774e155
+		summarizeBy: sum
+		sourceColumn: Duelos Defensivos Ganados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Duelos por balon perdido'
+		dataType: int64
+		formatString: 0
+		lineageTag: f374400f-e9aa-4bd8-a62f-e1bade5f3d6c
+		summarizeBy: sum
+		sourceColumn: Duelos por balon perdido
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Duelos por balon perdido ganados'
+		dataType: int64
+		formatString: 0
+		lineageTag: b117a2e4-c9aa-4192-a40e-9fe0dff57b54
+		summarizeBy: sum
+		sourceColumn: Duelos por balon perdido ganados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Entradas a ras de suelo'
+		dataType: int64
+		formatString: 0
+		lineageTag: b247c0b8-0ccb-446d-8065-01cd9beca51c
+		summarizeBy: sum
+		sourceColumn: Entradas a ras de suelo
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Entradas a ras de suelo exitosas'
+		dataType: int64
+		formatString: 0
+		lineageTag: 757990c8-00f1-412b-9639-596902a916b8
+		summarizeBy: sum
+		sourceColumn: Entradas a ras de suelo exitosas
+
+		annotation SummarizationSetBy = Automatic
+
+	column Despejes
+		dataType: int64
+		formatString: 0
+		lineageTag: f86bd505-a9ab-4dce-b526-a44d7a51b6e2
+		summarizeBy: sum
+		sourceColumn: Despejes
+
+		annotation SummarizationSetBy = Automatic
+
+	column Faltas
+		dataType: int64
+		formatString: 0
+		lineageTag: 57e0534d-e106-49b1-b886-7a66ee646fb7
+		summarizeBy: sum
+		sourceColumn: Faltas
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Asistencias a tiro'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1720bb30-597d-4089-9396-a33875957ede
+		summarizeBy: sum
+		sourceColumn: Asistencias a tiro
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Duelos Ofensivos'
+		dataType: int64
+		formatString: 0
+		lineageTag: 961131d7-e3cf-4241-b46d-dbb629e23418
+		summarizeBy: sum
+		sourceColumn: Duelos Ofensivos
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Duelos Ofensivos Ganados'
+		dataType: int64
+		formatString: 0
+		lineageTag: c18b37f8-2249-4cc7-8cc5-3c700e9e1c67
+		summarizeBy: sum
+		sourceColumn: Duelos Ofensivos Ganados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Toques en el área de Penalti'
+		dataType: int64
+		formatString: 0
+		lineageTag: 00a35581-1ca7-4fb1-a6b2-978e118793e2
+		summarizeBy: sum
+		sourceColumn: Toques en el área de Penalti
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fuera de juego'
+		dataType: int64
+		formatString: 0
+		lineageTag: 5760f3b4-d716-48c3-ad92-081ae5044f47
+		summarizeBy: sum
+		sourceColumn: Fuera de juego
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Carreras en profundidad'
+		dataType: int64
+		formatString: 0
+		lineageTag: af93ead7-f07f-4bed-8e4d-0304ec59ebf2
+		summarizeBy: sum
+		sourceColumn: Carreras en profundidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Faltas recibidas'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1f35289c-dab6-4059-b163-0b1afcc879a3
+		summarizeBy: sum
+		sourceColumn: Faltas recibidas
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases en profundidad'
+		dataType: int64
+		formatString: 0
+		lineageTag: f394ad2f-4d56-4bee-870f-2e19a0a05d9d
+		summarizeBy: sum
+		sourceColumn: Pases en profundidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases en profundidad exitosos'
+		dataType: int64
+		formatString: 0
+		lineageTag: 297a7b1e-c166-4e10-8d68-c43cf1dd510d
+		summarizeBy: sum
+		sourceColumn: Pases en profundidad exitosos
+
+		annotation SummarizationSetBy = Automatic
+
+	column xA
+		dataType: double
+		lineageTag: ec6d5598-a109-4b0a-9d61-3eaca6b1ae37
+		summarizeBy: sum
+		sourceColumn: xA
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Segundas Asistencias'
+		dataType: int64
+		formatString: 0
+		lineageTag: 8c670328-bd38-4cb6-9bda-3467117e591d
+		summarizeBy: sum
+		sourceColumn: Segundas Asistencias
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases en el último tercio'
+		dataType: int64
+		formatString: 0
+		lineageTag: 62b0c3b2-826b-4342-bb6e-f1be97b7c6b3
+		summarizeBy: sum
+		sourceColumn: Pases en el último tercio
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases en el ultimo tercio logrados'
+		dataType: int64
+		formatString: 0
+		lineageTag: 59816387-b0ac-4eaa-a64a-38614d4fa958
+		summarizeBy: sum
+		sourceColumn: Pases en el ultimo tercio logrados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases hacia el área de penalti'
+		dataType: int64
+		formatString: 0
+		lineageTag: dd7bf2c3-d697-48f8-b94c-56ef21fb5ab6
+		summarizeBy: sum
+		sourceColumn: Pases hacia el área de penalti
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases hacia el área de penalti precisos'
+		dataType: int64
+		formatString: 0
+		lineageTag: f3a515e0-9f63-4e77-ba88-c06399e9be3e
+		summarizeBy: sum
+		sourceColumn: Pases hacia el área de penalti precisos
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases recibidos'
+		dataType: int64
+		formatString: 0
+		lineageTag: bc24d3f7-5dee-4958-84ca-96a19b418979
+		summarizeBy: sum
+		sourceColumn: Pases recibidos
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases hacia adelante'
+		dataType: int64
+		formatString: 0
+		lineageTag: 826cfc43-8c4f-40d2-ac5d-1c309c1a97d5
+		summarizeBy: sum
+		sourceColumn: Pases hacia adelante
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases hacia adelante logrados'
+		dataType: int64
+		formatString: 0
+		lineageTag: 38471b2b-e7d0-4fff-ad1e-75db17121ba6
+		summarizeBy: sum
+		sourceColumn: Pases hacia adelante logrados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases hacia atrás'
+		dataType: int64
+		formatString: 0
+		lineageTag: 573b8b48-1c65-4990-9448-f87d21dd3cfa
+		summarizeBy: sum
+		sourceColumn: Pases hacia atrás
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pases hacia atrás  logrados'
+		dataType: int64
+		formatString: 0
+		lineageTag: 39541456-06cb-45c6-8bff-05ce8fa818ba
+		summarizeBy: sum
+		sourceColumn: Pases hacia atrás  logrados
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Duelos Ofensivos Ganados' = Fact_Detalle[Duelos Ofensivos Ganados]/Fact_Detalle[Duelos Ofensivos]
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 1f545714-094b-4a74-823a-c1c014000da4
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Pases en profundidad Exitosos' = DIVIDE(Fact_Detalle[Pases en profundidad exitosos],Fact_Detalle[Pases en profundidad],0)
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 315e5365-c534-462d-a30a-27085eb78bd6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Pases en el Ultimo Tercio Logrados' = DIVIDE(Fact_Detalle[Pases en el ultimo tercio logrados],Fact_Detalle[Pases en el último tercio],0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 1788eede-9ff3-48df-adba-6ea63112d7dc
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Pases hacia el area de Penalti precisos' = DIVIDE(Fact_Detalle[Pases hacia el área de penalti precisos],Fact_Detalle[Pases hacia el área de penalti],0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 5c146086-37e6-4c86-8ac7-7c670695a86f
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Pases hacia adelante logrados' = divide(Fact_Detalle[Pases hacia adelante logrados],Fact_Detalle[Pases hacia adelante],0)
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: 5ca3b955-363d-48e8-91ae-a720bfd54df0
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Pases hacia atras logrados'
+		dataType: double
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: c15dfb2e-0886-4f44-8d85-86b54f2eb017
+		summarizeBy: sum
+		sourceColumn: % Pases hacia atras logrados
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Duelos Defensivos Ganados'
+		dataType: double
+		formatString: 0.00\ %;-0.00\ %;0.00\ %
+		lineageTag: d9c87b31-0ac0-4df8-b59f-002e923a3042
+		summarizeBy: sum
+		sourceColumn: % Duelos Defensivos Ganados
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Duelos por Balon Perdido Ganados'
+		dataType: double
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 00fb90ef-4270-446d-9cc0-2ae2863c3487
+		summarizeBy: sum
+		sourceColumn: % Duelos por Balon Perdido Ganados
+
+		annotation SummarizationSetBy = Automatic
+
+	column '% Entradas a ras de suelo exitosas'
+		dataType: double
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 199dba92-ae09-41df-afc4-a68d78d724b0
+		summarizeBy: sum
+		sourceColumn: % Entradas a ras de suelo exitosas
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact_Detalle-e2a25b10-f295-4198-b545-a8a7ac886273 = m
+		mode: import
+		source =
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1L2F9Q5xG0Afb_15SufNaLdW_k1VS80KXAvaEGh4qz7w/edit?pli=1#gid=1276892927"),
+				    Detalle_Table = Source{[name="PlayerStats",ItemKind="Table"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Detalle_Table, [PromoteAllScalars=true]),
+				    #"Inserto Nombre Jugador" = Table.AddColumn(#"Promoted Headers", "Nombre Jugador", each "Alan Velasco", type text),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Inserto Nombre Jugador",{{"Partido", type text}, {"Competition", type text}, {"Date", type date}, {"Posición específica", type any}, {"Minutos jugados", Int64.Type}, {"Acciones totales / logradas", Int64.Type}, {"", Int64.Type}, {"Goles", Int64.Type}, {"Asistencias", Int64.Type}, {"Tiros / logrados ", Int64.Type}, {"_1", Int64.Type}, {"xG", type number}, {"Pases / logrados", Int64.Type}, {"_2", Int64.Type}, {"Pases largos / logrados", Int64.Type}, {"_3", Int64.Type}, {"Centros / precisos", Int64.Type}, {"_4", Int64.Type}, {"Regates / logrados", Int64.Type}, {"_5", Int64.Type}, {"Duelos / ganados", Int64.Type}, {"_6", Int64.Type}, {"Duelos aéreos / ganados", Int64.Type}, {"_7", Int64.Type}, {"Interceptaciones", Int64.Type}, {"Balones perdidos / propia mitad", Int64.Type}, {"_8", Int64.Type}, {"Balones recuperados / mitad adv.", Int64.Type}, {"_9", Int64.Type}, {"Tarjeta amarilla", Int64.Type}, {"Tarjeta roja", Int64.Type}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Changed Type", "Partido", "Partido - Copy"),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Duplicated Column", "Partido", Splitter.SplitTextByDelimiter(" - ", QuoteStyle.Csv), {"Partido.1", "Partido.2"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Partido.1", type text}, {"Partido.2", type text}}),
+				    #"Split Column by Delimiter1" = Table.SplitColumn(#"Changed Type1", "Partido.2", Splitter.SplitTextByDelimiter(":", QuoteStyle.Csv), {"Partido.2.1", "Partido.2.2"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"Partido.2.1", type text}, {"Partido.2.2", type text}}),
+				    #"Split Column by Delimiter2" = Table.SplitColumn(#"Changed Type2", "Partido.2.1", Splitter.SplitTextByEachDelimiter({" "}, QuoteStyle.Csv, true), {"Partido.2.1.1", "Partido.2.1.2"}),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Split Column by Delimiter2","Dallas","Dallas FC",Replacer.ReplaceValue,{"Partido.1"}),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Replaced Value3","Dallas","Dallas FC",Replacer.ReplaceValue,{"Partido.2.1.1"}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Replaced Value4",{{"Partido.2.1.1", type text}, {"Partido.2.1.2", Int64.Type}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type3"," *","",Replacer.ReplaceText,{"Partido.2.1.1"}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Replaced Value",{"Partido.1", "Partido.2.1.2", "Partido.2.1.1", "Partido.2.2", "Competition", "Date", "Posición específica", "Minutos jugados", "Acciones totales / logradas", "", "Goles", "Asistencias", "Tiros / logrados ", "_1", "xG", "Pases / logrados", "_2", "Pases largos / logrados", "_3", "Centros / precisos", "_4", "Regates / logrados", "_5", "Duelos / ganados", "_6", "Duelos aéreos / ganados", "_7", "Interceptaciones", "Balones perdidos / propia mitad", "_8", "Balones recuperados / mitad adv.", "_9", "Tarjeta amarilla", "Tarjeta roja"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Reordered Columns",{{"Partido.1", "Local"}, {"Partido.2.1.1", "Visitante"}, {"Partido.2.1.2", "Goles Local"}, {"Partido.2.2", "Goles Visitante"}}),
+				    #"Split Column by Delimiter3" = Table.SplitColumn(#"Renamed Columns", "Competition", Splitter.SplitTextByDelimiter(".", QuoteStyle.Csv), {"Competition.1", "Competition.2"}),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Split Column by Delimiter3",{{"Competition.1", type text}, {"Competition.2", type text}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type4",{{"Competition.1", "Pais"}, {"Competition.2", "Torneo"}, {"Date", "Dia"}, {"", "Acciones Logradas"}, {"Acciones totales / logradas", "Acciones Totales"}, {"Tiros / logrados ", "Tiros"}, {"_1", "Tiros Logrados"}, {"xG", "Goles Esperados"}, {"Pases / logrados", "Pases"}, {"_2", "Pases Concretados"}, {"Pases largos / logrados", "Pases Largos"}, {"_3", "Pases Largos Concretados"}, {"Centros / precisos", "Centros"}, {"_4", "Centros Precisos"}, {"Regates / logrados", "Gambetas"}, {"_5", "Gambetas Logradas"}, {"Duelos / ganados", "Duelos"}, {"_6", "Duelos Ganados"}, {"Duelos aéreos / ganados", "Duelos Aereos"}, {"_7", "Duelos Aereos Ganados"}, {"Balones perdidos / propia mitad", "Perdidas"}, {"_8", "Perdidas mitad Propia"}, {"Balones recuperados / mitad adv.", "Recuperaciones"}, {"_9", "Recuperaciones Ofensivas"}, {"Tarjeta amarilla", "Minutos Tarjeta amarilla"}, {"Tarjeta roja", "Minutos Tarjeta roja"}}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Renamed Columns1", "Tarjeta Amarilla", each if [Minutos Tarjeta amarilla] = 0 then "NO" else "SI"),
+				    #"Added Conditional Column1" = Table.AddColumn(#"Added Conditional Column", "Tarjeta Roja", each if [Minutos Tarjeta roja] = 0 then "NO" else "SI"),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Added Conditional Column1",{{"Posición específica", "Posición"}}),
+				    #"Split Column by Delimiter4" = Table.SplitColumn(Table.TransformColumnTypes(#"Renamed Columns2", {{"Posición", type text}}, "es-AR"), "Posición", Splitter.SplitTextByDelimiter(",", QuoteStyle.Csv), {"Posición 1", "Posición 2", "Posición 3", "Posición 4"}),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"Split Column by Delimiter4",{{"Posición 1", type text}, {"Posición 2", type text}, {"Posición 3", type text}, {"Posición 4", type text}}),
+				    #"Sorted Rows" = Table.Sort(#"Changed Type5",{{"Dia", Order.Ascending}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Sorted Rows", "Index", 1, 1, Int64.Type),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Added Index",{{"Index", "Numero Partido"}}),
+				    #"Added Conditional Column2" = Table.AddColumn(#"Renamed Columns3", "Club", each if Text.Contains([Local], "Independiente U20") then "Independiente U20" else if Text.Contains([Local], "Independiente") then "Independiente" else if Text.Contains([Local], "Dallas") then "Dallas FC" else if Text.Contains([Local], "Argentina U17") then "Argentina U17" else "Ver Visitante"),
+				    #"Renamed Columns4" = Table.RenameColumns(#"Added Conditional Column2",{{"Club", "Club Paso1"}}),
+				    #"Added Conditional Column3" = Table.AddColumn(#"Renamed Columns4", "Club", each if Text.Contains([Club Paso1], "Visitante") then [Visitante] else [Club Paso1]),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Added Conditional Column3"," *","",Replacer.ReplaceText,{"Club"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","Dallas","Dallas FC",Replacer.ReplaceValue,{"Club"}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Replaced Value2",{"Club Paso1"}),
+				    #"Replaced Value5" = Table.ReplaceValue(#"Removed Columns","(P)","",Replacer.ReplaceText,{"Goles Visitante"}),
+				    #"Replaced Value6" = Table.ReplaceValue(#"Replaced Value5","(E)","",Replacer.ReplaceText,{"Goles Visitante"}),
+				    #"Changed Type6" = Table.TransformColumnTypes(#"Replaced Value6",{{"Goles Visitante", Int64.Type}}),
+				    #"Reordered Columns1" = Table.ReorderColumns(#"Changed Type6",{"Local", "Goles Local", "Visitante", "Goles Visitante", "Pais", "Torneo", "Dia", "Posición 1", "Posición 2", "Posición 3", "Posición 4", "Minutos jugados", "Acciones Totales", "Acciones Logradas", "Goles", "Asistencias", "Tiros", "Tiros Logrados", "Goles Esperados", "Pases", "Pases Concretados", "Pases Largos", "Pases Largos Concretados", "Centros", "Centros Precisos", "Gambetas", "Gambetas Logradas", "Duelos", "Duelos Ganados", "Duelos Aereos", "Duelos Aereos Ganados", "Interceptaciones", "Perdidas", "Perdidas mitad Propia", "Recuperaciones", "Recuperaciones Ofensivas", "Tarjeta Amarilla", "Minutos Tarjeta amarilla", "Tarjeta Roja", "Minutos Tarjeta roja", "Numero Partido", "Nombre Jugador", "Club"}),
+				    #"Added Custom" = Table.AddColumn(#"Reordered Columns1", "% Acciones Logradas", each [Acciones Logradas]/[Acciones Totales]),
+				    #"Changed Type7" = Table.TransformColumnTypes(#"Added Custom",{{"% Acciones Logradas", Percentage.Type}}),
+				    #"Added Custom1" = Table.AddColumn(#"Changed Type7", "% Tiros Logrados", each [Tiros Logrados]/[Tiros]),
+				    #"Changed Type8" = Table.TransformColumnTypes(#"Added Custom1",{{"% Tiros Logrados", Percentage.Type}}),
+				    #"Added Custom2" = Table.AddColumn(#"Changed Type8", "% Pases Concretados", each [Pases Concretados]/[Pases]),
+				    #"Changed Type9" = Table.TransformColumnTypes(#"Added Custom2",{{"% Pases Concretados", Percentage.Type}}),
+				    #"Replaced Errors" = Table.ReplaceErrorValues(#"Changed Type9", {{"% Tiros Logrados", 0}}),
+				    #"Replaced Errors1" = Table.ReplaceErrorValues(#"Replaced Errors", {{"% Pases Concretados", 0}}),
+				    #"Added Custom3" = Table.AddColumn(#"Replaced Errors1", "% Pases Largos Concretados", each [Pases Largos Concretados]/[Pases Largos]),
+				    #"Changed Type10" = Table.TransformColumnTypes(#"Added Custom3",{{"% Pases Largos Concretados", Percentage.Type}}),
+				    #"Replaced Errors2" = Table.ReplaceErrorValues(#"Changed Type10", {{"% Pases Largos Concretados", 0}}),
+				    #"Added Custom4" = Table.AddColumn(#"Replaced Errors2", "% Centros Precisos", each [Centros Precisos]/[Centros]),
+				    #"Changed Type11" = Table.TransformColumnTypes(#"Added Custom4",{{"% Centros Precisos", Percentage.Type}}),
+				    #"Replaced Errors3" = Table.ReplaceErrorValues(#"Changed Type11", {{"% Centros Precisos", 0}}),
+				    #"Added Custom5" = Table.AddColumn(#"Replaced Errors3", "% Gambetas Exitosas", each [Gambetas Logradas]/[Gambetas]),
+				    #"Changed Type12" = Table.TransformColumnTypes(#"Added Custom5",{{"% Gambetas Exitosas", Percentage.Type}}),
+				    #"Added Custom6" = Table.AddColumn(#"Changed Type12", "% Duelos Ganados", each [Duelos Ganados]/[Duelos]),
+				    #"Changed Type13" = Table.TransformColumnTypes(#"Added Custom6",{{"% Duelos Ganados", Percentage.Type}}),
+				    #"Added Custom7" = Table.AddColumn(#"Changed Type13", "% Duelos Aereos Ganados", each [Duelos Aereos Ganados]/[Duelos Aereos]),
+				    #"Changed Type14" = Table.TransformColumnTypes(#"Added Custom7",{{"% Duelos Aereos Ganados", Percentage.Type}}),
+				    #"Replaced Errors4" = Table.ReplaceErrorValues(#"Changed Type14", {{"% Duelos Aereos Ganados", 0}}),
+				    #"Added Custom8" = Table.AddColumn(#"Replaced Errors4", "% Perdidas Mitad Propia", each [Perdidas mitad Propia]/[Perdidas]),
+				    #"Changed Type15" = Table.TransformColumnTypes(#"Added Custom8",{{"% Perdidas Mitad Propia", Percentage.Type}}),
+				    #"Replaced Errors5" = Table.ReplaceErrorValues(#"Changed Type15", {{"% Perdidas Mitad Propia", 0}}),
+				    #"Added Custom9" = Table.AddColumn(#"Replaced Errors5", "% Recuperaciones Ofensivas", each [Recuperaciones Ofensivas]/[Recuperaciones]),
+				    #"Changed Type16" = Table.TransformColumnTypes(#"Added Custom9",{{"% Recuperaciones Ofensivas", Percentage.Type}}),
+				    #"Replaced Errors6" = Table.ReplaceErrorValues(#"Changed Type16", {{"% Recuperaciones Ofensivas", 0}}),
+				    #"Added Conditional Column4" = Table.AddColumn(#"Replaced Errors6", "Es Inferiores", each if Text.Contains([Club], "U20") then "SI" else if Text.Contains([Club], "U17") then "SI" else "NO"),
+				    #"Renamed Columns5" = Table.RenameColumns(#"Added Conditional Column4",{{"Partido - Copy", "Partido"}, {"Duelos defensivos / ganados", "Duelos Defensivos"}, {"_10", "Duelos Defensivos Ganados"}, {"Duelos por balón perdido / ganados", "Duelos por balon perdido"}, {"_11", "Duelos por balon perdido ganados"}, {"Entradas a ras de suelo / logradas", "Entradas a ras de suelo"}, {"_12", "Entradas a ras de suelo exitosas"}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Renamed Columns5",{"Tarjetas amarillas", "Tarjetas rojas"}),
+				    #"Renamed Columns6" = Table.RenameColumns(#"Removed Columns1",{{"Duelos ofensivos / ganados", "Duelos Ofensivos"}, {"_13", "Duelos Ofensivos Ganados"}, {"Toques en el área de penalti", "Toques en el área de Penalti"}, {"_14", "Pases en profundidad exitosos"}, {"Pases en profundidad / logrados", "Pases en profundidad"}, {"Second assists", "Segundas Asistencias"}, {"_15", "Pases en el ultimo tercio logrados"}, {"Pases en el último tercio / logrados", "Pases en el último tercio"}, {"_16", "Pases hacia el área de penalti precisos"}, {"Pases hacia el área de penalti/precisos", "Pases hacia el área de penalti"}, {"_17", "Pases hacia adelante logrados"}, {"Pases hacia adelante / logrados", "Pases hacia adelante"}, {"Pases hacia atrás / logrados", "Pases hacia atrás"}, {"_18", "Pases hacia atrás  logrados"}}),
+				    #"Removed Columns2" = Table.RemoveColumns(#"Renamed Columns6",{"Goles recibidos", "xCG", "Remates en contra", "Paradas / de reflejos", "_19", "Salidas", "Cesión al arquero / logrados", "_20", "Saques de meta", "Saques de meta cortos", "Saques de meta largos"}),
+				    #"Reordered Columns2" = Table.ReorderColumns(#"Removed Columns2",{"Numero Partido","Partido", "Nombre Jugador", "Club","Local", "Goles Local", "Visitante", "Goles Visitante", "Pais", "Torneo", "Dia", "Posición 1", "Posición 2", "Posición 3", "Posición 4", "Minutos jugados", "Acciones Totales", "Acciones Logradas", "Goles", "Asistencias", "Tiros", "Tiros Logrados", "Goles Esperados", "Pases", "Pases Concretados", "Pases Largos", "Pases Largos Concretados", "Centros", "Centros Precisos", "Gambetas", "Gambetas Logradas", "Duelos", "Duelos Ganados", "Duelos Aereos", "Duelos Aereos Ganados", "Interceptaciones", "Perdidas", "Perdidas mitad Propia", "Recuperaciones", "Recuperaciones Ofensivas", "Tarjeta Amarilla", "Minutos Tarjeta amarilla", "Duelos Defensivos", "Duelos Defensivos Ganados", "Duelos por balon perdido", "Duelos por balon perdido ganados", "Entradas a ras de suelo", "Entradas a ras de suelo exitosas", "Despejes", "Faltas", "Asistencias a tiro", "Duelos Ofensivos", "Duelos Ofensivos Ganados", "Toques en el área de Penalti", "Fuera de juego", "Carreras en profundidad", "Faltas recibidas", "Pases en profundidad", "Pases en profundidad exitosos", "xA", "Segundas Asistencias", "Pases en el último tercio", "Pases en el ultimo tercio logrados", "Pases hacia el área de penalti", "Pases hacia el área de penalti precisos", "Pases recibidos", "Pases hacia adelante", "Pases hacia adelante logrados", "Pases hacia atrás", "Pases hacia atrás  logrados", "Tarjeta Roja", "Minutos Tarjeta roja", "% Acciones Logradas", "% Tiros Logrados", "% Pases Concretados", "% Pases Largos Concretados", "% Centros Precisos", "% Gambetas Exitosas", "% Duelos Ganados", "% Duelos Aereos Ganados", "% Perdidas Mitad Propia", "% Recuperaciones Ofensivas", "Es Inferiores"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Reordered Columns2", each ([Es Inferiores] = "NO")),
+				    #"Changed Type17" = Table.TransformColumnTypes(#"Filtered Rows",{{"Duelos por balon perdido ganados", Int64.Type}, {"Duelos por balon perdido", Int64.Type}, {"Duelos Defensivos", Int64.Type}, {"Duelos Defensivos Ganados", Int64.Type}, {"Tarjeta Amarilla", type text}, {"Entradas a ras de suelo", Int64.Type}, {"Entradas a ras de suelo exitosas", Int64.Type}, {"Despejes", Int64.Type}, {"Faltas", Int64.Type}, {"Asistencias a tiro", Int64.Type}, {"Duelos Ofensivos", Int64.Type}, {"Duelos Ofensivos Ganados", Int64.Type}, {"Toques en el área de Penalti", Int64.Type}, {"Fuera de juego", Int64.Type}, {"Carreras en profundidad", Int64.Type}, {"Faltas recibidas", Int64.Type}, {"Pases en profundidad", Int64.Type}, {"Pases en profundidad exitosos", Int64.Type}, {"xA", type number}, {"Segundas Asistencias", Int64.Type}, {"Pases en el último tercio", Int64.Type}, {"Pases en el ultimo tercio logrados", Int64.Type}, {"Pases hacia el área de penalti", Int64.Type}, {"Pases hacia el área de penalti precisos", Int64.Type}, {"Pases recibidos", Int64.Type}, {"Pases hacia adelante", Int64.Type}, {"Pases hacia adelante logrados", Int64.Type}, {"Pases hacia atrás", Int64.Type}, {"Pases hacia atrás  logrados", Int64.Type}, {"Tarjeta Roja", type text}, {"Es Inferiores", type text}}),
+				    #"Added Custom10" = Table.AddColumn(#"Changed Type17", "% Pases hacia atras logrados", each [Pases hacia atrás  logrados]/[Pases hacia atrás]),
+				    #"Changed Type18" = Table.TransformColumnTypes(#"Added Custom10",{{"% Pases hacia atras logrados", Percentage.Type}}),
+				    #"Replaced Errors7" = Table.ReplaceErrorValues(#"Changed Type18", {{"% Pases hacia atras logrados", 0}}),
+				    #"Added Custom11" = Table.AddColumn(#"Replaced Errors7", "% Duelos Defensivos Ganados", each [Duelos Defensivos Ganados]/[Duelos Defensivos]),
+				    #"Changed Type19" = Table.TransformColumnTypes(#"Added Custom11",{{"% Duelos Defensivos Ganados", Percentage.Type}}),
+				    #"Replaced Errors8" = Table.ReplaceErrorValues(#"Changed Type19", {{"% Duelos Defensivos Ganados", 0}}),
+				    #"Added Custom12" = Table.AddColumn(#"Replaced Errors8", "% Duelos por Balon Perdido Ganados", each [Duelos por balon perdido ganados]/[Duelos por balon perdido]),
+				    #"Changed Type20" = Table.TransformColumnTypes(#"Added Custom12",{{"% Duelos por Balon Perdido Ganados", Percentage.Type}}),
+				    #"Replaced Errors9" = Table.ReplaceErrorValues(#"Changed Type20", {{"% Duelos por Balon Perdido Ganados", 0}}),
+				    #"Added Custom13" = Table.AddColumn(#"Replaced Errors9", "% Entradas a ras de suelo exitosas", each [Entradas a ras de suelo exitosas]/[Entradas a ras de suelo]),
+				    #"Changed Type21" = Table.TransformColumnTypes(#"Added Custom13",{{"% Entradas a ras de suelo exitosas", Percentage.Type}}),
+				    #"Replaced Errors10" = Table.ReplaceErrorValues(#"Changed Type21", {{"% Entradas a ras de suelo exitosas", 0}})
+				in
+				    #"Replaced Errors10"
+
+	annotation PBI_ResultType = Table
+

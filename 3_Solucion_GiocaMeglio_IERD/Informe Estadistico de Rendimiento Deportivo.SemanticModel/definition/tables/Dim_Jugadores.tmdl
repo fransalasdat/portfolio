@@ -1,0 +1,230 @@
+table Dim_Jugadores
+	lineageTag: c72e0607-ef10-463c-a0dc-5d4f5b00fa77
+
+	measure 'Imagen Club Actual' = --RELATED()
+		formatString: 0
+		lineageTag: b428bce9-dba1-4aae-888a-b7366da87347
+
+	column 'Nombre Jugador'
+		dataType: string
+		lineageTag: 7e21229b-c451-433d-88bd-a0a66ecf451f
+		summarizeBy: none
+		sourceColumn: Nombre Jugador
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fecha de Nacimiento'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: df87b09b-54b8-41a4-80a7-9109028f934e
+		summarizeBy: none
+		sourceColumn: Fecha de Nacimiento
+
+		variation Variation
+			isDefault
+			relationship: b5e8ceaf-fad5-4ec9-b78a-d8e473522142
+			defaultHierarchy: LocalDateTable_e248ed97-81d4-4caa-bcfd-fcd63d5992fe.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Altura
+		dataType: int64
+		formatString: 0
+		lineageTag: aecd4a38-95d2-46b5-8bd2-aad69f775bd7
+		summarizeBy: sum
+		sourceColumn: Altura
+
+		annotation SummarizationSetBy = Automatic
+
+	column Peso
+		dataType: double
+		lineageTag: 9cea4d56-8a7b-469b-837c-ac3e3bf3243e
+		summarizeBy: sum
+		sourceColumn: Peso
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Iniciales
+		dataType: string
+		lineageTag: b6db58f6-4200-4b93-9aa4-b02b760b8695
+		summarizeBy: none
+		sourceColumn: Iniciales
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Club Actual'
+		dataType: string
+		lineageTag: 4177fffd-412d-4072-9749-e2d502459410
+		summarizeBy: none
+		sourceColumn: Club Actual
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Imagen Jugador'
+		dataType: string
+		lineageTag: c35ea669-8fcd-4b80-89af-c051dfeaff7b
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: Imagen Jugador
+
+		annotation SummarizationSetBy = Automatic
+
+	column Edad = ```
+			
+			VAR FechaNacimiento = Dim_Jugadores[Fecha de Nacimiento]
+			VAR FechaHoy = TODAY()
+			VAR Anios = DATEDIFF(FechaNacimiento, FechaHoy, YEAR)
+			--VAR Meses = DATEDIFF(FechaNacimiento, FechaHoy, MONTH)
+			--VAR Dias = DATEDIFF(FechaNacimiento, FechaHoy, DAY)
+			VAR FechaCumpleaniosEsteAnio = DATE(YEAR(FechaHoy), MONTH(FechaNacimiento), DAY(FechaNacimiento))
+			RETURN
+			    IF(FechaCumpleaniosEsteAnio > FechaHoy,
+			        Anios - 1 ,
+			        Anios 
+			    )  
+			
+			
+			
+			```
+		formatString: 0
+		lineageTag: bee93fc9-8e59-49e3-a4c0-4d7f15913220
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column Nacionalidad
+		dataType: string
+		lineageTag: 37f97eff-e465-4061-b03d-27c0c55a6f9d
+		summarizeBy: none
+		sourceColumn: Nacionalidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column Bandera
+		dataType: string
+		lineageTag: 360999fc-096b-48b1-bbcd-662658f602ea
+		summarizeBy: none
+		sourceColumn: Bandera
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dorsal
+		dataType: string
+		lineageTag: e7384ff1-6fcd-4304-8453-1ea3f2ff8ca7
+		summarizeBy: none
+		sourceColumn: Dorsal
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pie Habil'
+		dataType: string
+		lineageTag: daf858c1-7329-448c-bc46-512afebc1f38
+		summarizeBy: none
+		sourceColumn: Pie Habil
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Inicio Contrato'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: d4dcf02e-1d8f-4931-bd35-e492abea5b50
+		summarizeBy: none
+		sourceColumn: Inicio Contrato
+
+		variation Variation
+			isDefault
+			relationship: 8b7f8af5-e964-4fc4-966e-67886c33dcf3
+			defaultHierarchy: LocalDateTable_6d27a166-ffe6-40ec-a3dc-7e4544495b77.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Fin de Contrato'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: ebdeaf04-d239-4cc2-8611-4cd514d4817b
+		summarizeBy: none
+		sourceColumn: Fin de Contrato
+
+		variation Variation
+			isDefault
+			relationship: d63a8604-625c-41af-9d12-cb5476e6eebf
+			defaultHierarchy: LocalDateTable_4a9e07e6-ef4e-46cb-9413-040bf6eecd4b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Valuacion Transfermarket'
+		dataType: double
+		lineageTag: 49ef0786-5f68-4d8d-95e4-a45953b31a3d
+		summarizeBy: sum
+		sourceColumn: Valuacion Transfermarket
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Posicion Principal'
+		dataType: string
+		lineageTag: 87db041b-d2cf-4b75-bf9a-a392e9149f34
+		summarizeBy: none
+		sourceColumn: Posicion Principal
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Posicion Secundaria'
+		dataType: string
+		lineageTag: 88868020-e332-4ca4-90af-4ced55b0be80
+		summarizeBy: none
+		sourceColumn: Posicion Secundaria
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Posicion Terciaria'
+		dataType: string
+		lineageTag: c659dbd9-a020-4859-a2bb-3f11e8fbd114
+		summarizeBy: none
+		sourceColumn: Posicion Terciaria
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pasaporte
+		dataType: string
+		lineageTag: ca29d097-05ec-4b4f-a270-4371d993591a
+		summarizeBy: none
+		sourceColumn: Pasaporte
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Plazo Fin Contrato' = DATEDIFF(TODAY(),Dim_Jugadores[Fin de Contrato],MONTH)
+		formatString: 0
+		lineageTag: 9cb822c2-24b9-4c1d-8d49-f3777eff01b6
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Jugadores-e7564eba-09e0-4d44-81b5-8ce8d7a3feac = m
+		mode: import
+		source =
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1y6dSD5gB9qVejMd38f-Yt20Jegm1xr27UEW9wjDScWY/edit#gid=329251512"),
+				    Jugadores_Table = Source{[name="Jugadores",ItemKind="Table"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Jugadores_Table, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Nombre Jugador", type text}, {"Club Actual", type text}, {"Fecha de Nacimiento", type date}, {"Altura", type text}, {"Peso", type text}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type","cm","",Replacer.ReplaceText,{"Altura"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Replaced Value",{{"Altura", Int64.Type}}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Changed Type1","kg","",Replacer.ReplaceText,{"Peso"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Replaced Value1",{{"Peso", type number}, {"Iniciales", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type2",{{"Imagen", "Imagen Jugador"}}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Renamed Columns",{{"Inicio Contrato", type date}, {"Fin de Contrato", type date}, {"Valuacion Transfermarket", type number}})
+				in
+				    #"Changed Type3"
+
+	annotation PBI_ResultType = Table
+

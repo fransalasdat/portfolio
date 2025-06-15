@@ -11,4 +11,6 @@ Este repositorio contiene muestras del portfolio profesional en Power BI de Fran
 ![alt text](5.png)
 ![alt text](6.png)
 ### 3. Informe Estadístico de Rendimiento Deportivo con datos provenientes de WyScout:
+![alt text](7.png)
+![alt text](8.png)
 ### 4. Tablero Selección Argentina Femenina con datos provenientes desde LongoMatch.

@@ -1,0 +1,225 @@
+table 'Radares Jugador'
+	lineageTag: 6eccbc60-017d-4a91-b641-0de7086790db
+
+	column 'Numero Partido'
+		dataType: int64
+		formatString: 0
+		lineageTag: 86d63d6c-60c0-40a5-8292-5583b6d33a73
+		summarizeBy: sum
+		sourceColumn: Numero Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column Partido
+		dataType: string
+		lineageTag: ea59d33c-8131-4e52-86c9-20bcfa9ba17d
+		summarizeBy: none
+		sourceColumn: Partido
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Nombre Jugador'
+		dataType: string
+		lineageTag: 17a47410-c1d8-4272-a6c8-3567ce8edb4e
+		summarizeBy: none
+		sourceColumn: Nombre Jugador
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dia
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6db00000-1e58-409d-8bb0-31f688f44ff6
+		summarizeBy: none
+		sourceColumn: Dia
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Estadistica
+		dataType: string
+		lineageTag: ce420548-e8aa-43c0-ae29-386c86f40fae
+		summarizeBy: none
+		sourceColumn: Estadistica
+
+		annotation SummarizationSetBy = Automatic
+
+	column Valor
+		dataType: double
+		lineageTag: cb25f9e1-2095-4e01-8919-c5652f133fbe
+		summarizeBy: sum
+		sourceColumn: Valor
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Club
+		dataType: string
+		lineageTag: c9072699-bbdb-4829-ba1c-0094b2879a9f
+		summarizeBy: none
+		sourceColumn: Club
+
+		annotation SummarizationSetBy = Automatic
+
+	column Local
+		dataType: string
+		lineageTag: 28b9cb0e-3e9a-41ad-82e7-4418bb4ac168
+		summarizeBy: none
+		sourceColumn: Local
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Goles Local'
+		dataType: int64
+		formatString: 0
+		lineageTag: 779b5e19-e16d-49b8-82c6-0453072f2192
+		summarizeBy: sum
+		sourceColumn: Goles Local
+
+		annotation SummarizationSetBy = Automatic
+
+	column Visitante
+		dataType: string
+		lineageTag: 40a74602-fbf3-4c3f-abfd-b4844c391c16
+		summarizeBy: none
+		sourceColumn: Visitante
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Goles Visitante'
+		dataType: int64
+		formatString: 0
+		lineageTag: 045ff63a-9826-429c-9d2f-30156518045b
+		summarizeBy: sum
+		sourceColumn: Goles Visitante
+
+		annotation SummarizationSetBy = Automatic
+
+	column Pais
+		dataType: string
+		lineageTag: 9f6e8991-8794-4497-a2ec-326a9a0dcc8e
+		summarizeBy: none
+		sourceColumn: Pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column Torneo
+		dataType: string
+		lineageTag: aead914c-7f44-4d5e-9af1-224c1e449e3e
+		summarizeBy: none
+		sourceColumn: Torneo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Radares Jugador' = m
+		mode: import
+		source =
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1L2F9Q5xG0Afb_15SufNaLdW_k1VS80KXAvaEGh4qz7w/edit?pli=1#gid=1276892927"),
+				    Detalle_Table = Source{[name="PlayerStats",ItemKind="Table"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Detalle_Table, [PromoteAllScalars=true]),
+				    #"Inserto Nombre Jugador" = Table.AddColumn(#"Promoted Headers", "Nombre Jugador", each "Alan Velasco", type text),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Inserto Nombre Jugador",{{"Partido", type text}, {"Competition", type text}, {"Date", type date}, {"Posición específica", type any}, {"Minutos jugados", Int64.Type}, {"Acciones totales / logradas", Int64.Type}, {"", Int64.Type}, {"Goles", Int64.Type}, {"Asistencias", Int64.Type}, {"Tiros / logrados ", Int64.Type}, {"_1", Int64.Type}, {"xG", type number}, {"Pases / logrados", Int64.Type}, {"_2", Int64.Type}, {"Pases largos / logrados", Int64.Type}, {"_3", Int64.Type}, {"Centros / precisos", Int64.Type}, {"_4", Int64.Type}, {"Regates / logrados", Int64.Type}, {"_5", Int64.Type}, {"Duelos / ganados", Int64.Type}, {"_6", Int64.Type}, {"Duelos aéreos / ganados", Int64.Type}, {"_7", Int64.Type}, {"Interceptaciones", Int64.Type}, {"Balones perdidos / propia mitad", Int64.Type}, {"_8", Int64.Type}, {"Balones recuperados / mitad adv.", Int64.Type}, {"_9", Int64.Type}, {"Tarjeta amarilla", Int64.Type}, {"Tarjeta roja", Int64.Type}}),
+				    #"Duplicated Column" = Table.DuplicateColumn(#"Changed Type", "Partido", "Partido - Copy"),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Duplicated Column", "Partido", Splitter.SplitTextByDelimiter(" - ", QuoteStyle.Csv), {"Partido.1", "Partido.2"}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"Partido.1", type text}, {"Partido.2", type text}}),
+				    #"Split Column by Delimiter1" = Table.SplitColumn(#"Changed Type1", "Partido.2", Splitter.SplitTextByDelimiter(":", QuoteStyle.Csv), {"Partido.2.1", "Partido.2.2"}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Split Column by Delimiter1",{{"Partido.2.1", type text}, {"Partido.2.2", type text}}),
+				    #"Split Column by Delimiter2" = Table.SplitColumn(#"Changed Type2", "Partido.2.1", Splitter.SplitTextByEachDelimiter({" "}, QuoteStyle.Csv, true), {"Partido.2.1.1", "Partido.2.1.2"}),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Split Column by Delimiter2","Dallas","Dallas FC",Replacer.ReplaceValue,{"Partido.1"}),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Replaced Value3","Dallas","Dallas FC",Replacer.ReplaceValue,{"Partido.2.1.1"}),
+				    #"Changed Type3" = Table.TransformColumnTypes(#"Replaced Value4",{{"Partido.2.1.1", type text}, {"Partido.2.1.2", Int64.Type}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type3"," *","",Replacer.ReplaceText,{"Partido.2.1.1"}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Replaced Value",{"Partido.1", "Partido.2.1.2", "Partido.2.1.1", "Partido.2.2", "Competition", "Date", "Posición específica", "Minutos jugados", "Acciones totales / logradas", "", "Goles", "Asistencias", "Tiros / logrados ", "_1", "xG", "Pases / logrados", "_2", "Pases largos / logrados", "_3", "Centros / precisos", "_4", "Regates / logrados", "_5", "Duelos / ganados", "_6", "Duelos aéreos / ganados", "_7", "Interceptaciones", "Balones perdidos / propia mitad", "_8", "Balones recuperados / mitad adv.", "_9", "Tarjeta amarilla", "Tarjeta roja"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Reordered Columns",{{"Partido.1", "Local"}, {"Partido.2.1.1", "Visitante"}, {"Partido.2.1.2", "Goles Local"}, {"Partido.2.2", "Goles Visitante"}}),
+				    #"Split Column by Delimiter3" = Table.SplitColumn(#"Renamed Columns", "Competition", Splitter.SplitTextByDelimiter(".", QuoteStyle.Csv), {"Competition.1", "Competition.2"}),
+				    #"Changed Type4" = Table.TransformColumnTypes(#"Split Column by Delimiter3",{{"Competition.1", type text}, {"Competition.2", type text}}),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Changed Type4",{{"Competition.1", "Pais"}, {"Competition.2", "Torneo"}, {"Date", "Dia"}, {"", "Acciones Logradas"}, {"Acciones totales / logradas", "Acciones Totales"}, {"Tiros / logrados ", "Tiros"}, {"_1", "Tiros Logrados"}, {"xG", "Goles Esperados"}, {"Pases / logrados", "Pases"}, {"_2", "Pases Concretados"}, {"Pases largos / logrados", "Pases Largos"}, {"_3", "Pases Largos Concretados"}, {"Centros / precisos", "Centros"}, {"_4", "Centros Precisos"}, {"Regates / logrados", "Gambetas"}, {"_5", "Gambetas Logradas"}, {"Duelos / ganados", "Duelos"}, {"_6", "Duelos Ganados"}, {"Duelos aéreos / ganados", "Duelos Aereos"}, {"_7", "Duelos Aereos Ganados"}, {"Balones perdidos / propia mitad", "Perdidas"}, {"_8", "Perdidas mitad Propia"}, {"Balones recuperados / mitad adv.", "Recuperaciones"}, {"_9", "Recuperaciones Ofensivas"}, {"Tarjeta amarilla", "Minutos Tarjeta amarilla"}, {"Tarjeta roja", "Minutos Tarjeta roja"}}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Renamed Columns1", "Tarjeta Amarilla", each if [Minutos Tarjeta amarilla] = 0 then "NO" else "SI"),
+				    #"Added Conditional Column1" = Table.AddColumn(#"Added Conditional Column", "Tarjeta Roja", each if [Minutos Tarjeta roja] = 0 then "NO" else "SI"),
+				    #"Renamed Columns2" = Table.RenameColumns(#"Added Conditional Column1",{{"Posición específica", "Posición"}}),
+				    #"Split Column by Delimiter4" = Table.SplitColumn(Table.TransformColumnTypes(#"Renamed Columns2", {{"Posición", type text}}, "es-AR"), "Posición", Splitter.SplitTextByDelimiter(",", QuoteStyle.Csv), {"Posición 1", "Posición 2", "Posición 3", "Posición 4"}),
+				    #"Changed Type5" = Table.TransformColumnTypes(#"Split Column by Delimiter4",{{"Posición 1", type text}, {"Posición 2", type text}, {"Posición 3", type text}, {"Posición 4", type text}}),
+				    #"Sorted Rows" = Table.Sort(#"Changed Type5",{{"Dia", Order.Ascending}}),
+				    #"Added Index" = Table.AddIndexColumn(#"Sorted Rows", "Index", 1, 1, Int64.Type),
+				    #"Renamed Columns3" = Table.RenameColumns(#"Added Index",{{"Index", "Numero Partido"}}),
+				    #"Added Conditional Column2" = Table.AddColumn(#"Renamed Columns3", "Club", each if Text.Contains([Local], "Independiente U20") then "Independiente U20" else if Text.Contains([Local], "Independiente") then "Independiente" else if Text.Contains([Local], "Dallas") then "Dallas FC" else if Text.Contains([Local], "Argentina U17") then "Argentina U17" else "Ver Visitante"),
+				    #"Renamed Columns4" = Table.RenameColumns(#"Added Conditional Column2",{{"Club", "Club Paso1"}}),
+				    #"Added Conditional Column3" = Table.AddColumn(#"Renamed Columns4", "Club", each if Text.Contains([Club Paso1], "Visitante") then [Visitante] else [Club Paso1]),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Added Conditional Column3"," *","",Replacer.ReplaceText,{"Club"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1","Dallas","Dallas FC",Replacer.ReplaceValue,{"Club"}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Replaced Value2",{"Club Paso1"}),
+				    #"Replaced Value5" = Table.ReplaceValue(#"Removed Columns","(P)","",Replacer.ReplaceText,{"Goles Visitante"}),
+				    #"Replaced Value6" = Table.ReplaceValue(#"Replaced Value5","(E)","",Replacer.ReplaceText,{"Goles Visitante"}),
+				    #"Changed Type6" = Table.TransformColumnTypes(#"Replaced Value6",{{"Goles Visitante", Int64.Type}}),
+				    #"Reordered Columns1" = Table.ReorderColumns(#"Changed Type6",{"Local", "Goles Local", "Visitante", "Goles Visitante", "Pais", "Torneo", "Dia", "Posición 1", "Posición 2", "Posición 3", "Posición 4", "Minutos jugados", "Acciones Totales", "Acciones Logradas", "Goles", "Asistencias", "Tiros", "Tiros Logrados", "Goles Esperados", "Pases", "Pases Concretados", "Pases Largos", "Pases Largos Concretados", "Centros", "Centros Precisos", "Gambetas", "Gambetas Logradas", "Duelos", "Duelos Ganados", "Duelos Aereos", "Duelos Aereos Ganados", "Interceptaciones", "Perdidas", "Perdidas mitad Propia", "Recuperaciones", "Recuperaciones Ofensivas", "Tarjeta Amarilla", "Minutos Tarjeta amarilla", "Tarjeta Roja", "Minutos Tarjeta roja", "Numero Partido", "Nombre Jugador", "Club"}),
+				    #"Added Custom" = Table.AddColumn(#"Reordered Columns1", "% Acciones Logradas", each [Acciones Logradas]/[Acciones Totales]),
+				    #"Changed Type7" = Table.TransformColumnTypes(#"Added Custom",{{"% Acciones Logradas", Percentage.Type}}),
+				    #"Added Custom1" = Table.AddColumn(#"Changed Type7", "% Tiros Logrados", each [Tiros Logrados]/[Tiros]),
+				    #"Changed Type8" = Table.TransformColumnTypes(#"Added Custom1",{{"% Tiros Logrados", Percentage.Type}}),
+				    #"Added Custom2" = Table.AddColumn(#"Changed Type8", "% Pases Concretados", each [Pases Concretados]/[Pases]),
+				    #"Changed Type9" = Table.TransformColumnTypes(#"Added Custom2",{{"% Pases Concretados", Percentage.Type}}),
+				    #"Replaced Errors" = Table.ReplaceErrorValues(#"Changed Type9", {{"% Tiros Logrados", 0}}),
+				    #"Replaced Errors1" = Table.ReplaceErrorValues(#"Replaced Errors", {{"% Pases Concretados", 0}}),
+				    #"Added Custom3" = Table.AddColumn(#"Replaced Errors1", "% Pases Largos Concretados", each [Pases Largos Concretados]/[Pases Largos]),
+				    #"Changed Type10" = Table.TransformColumnTypes(#"Added Custom3",{{"% Pases Largos Concretados", Percentage.Type}}),
+				    #"Replaced Errors2" = Table.ReplaceErrorValues(#"Changed Type10", {{"% Pases Largos Concretados", 0}}),
+				    #"Added Custom4" = Table.AddColumn(#"Replaced Errors2", "% Centros Precisos", each [Centros Precisos]/[Centros]),
+				    #"Changed Type11" = Table.TransformColumnTypes(#"Added Custom4",{{"% Centros Precisos", Percentage.Type}}),
+				    #"Replaced Errors3" = Table.ReplaceErrorValues(#"Changed Type11", {{"% Centros Precisos", 0}}),
+				    #"Added Custom5" = Table.AddColumn(#"Replaced Errors3", "% Gambetas Exitosas", each [Gambetas Logradas]/[Gambetas]),
+				    #"Changed Type12" = Table.TransformColumnTypes(#"Added Custom5",{{"% Gambetas Exitosas", Percentage.Type}}),
+				    #"Added Custom6" = Table.AddColumn(#"Changed Type12", "% Duelos Ganados", each [Duelos Ganados]/[Duelos]),
+				    #"Changed Type13" = Table.TransformColumnTypes(#"Added Custom6",{{"% Duelos Ganados", Percentage.Type}}),
+				    #"Added Custom7" = Table.AddColumn(#"Changed Type13", "% Duelos Aereos Ganados", each [Duelos Aereos Ganados]/[Duelos Aereos]),
+				    #"Changed Type14" = Table.TransformColumnTypes(#"Added Custom7",{{"% Duelos Aereos Ganados", Percentage.Type}}),
+				    #"Replaced Errors4" = Table.ReplaceErrorValues(#"Changed Type14", {{"% Duelos Aereos Ganados", 0}}),
+				    #"Added Custom8" = Table.AddColumn(#"Replaced Errors4", "% Perdidas Mitad Propia", each [Perdidas mitad Propia]/[Perdidas]),
+				    #"Changed Type15" = Table.TransformColumnTypes(#"Added Custom8",{{"% Perdidas Mitad Propia", Percentage.Type}}),
+				    #"Replaced Errors5" = Table.ReplaceErrorValues(#"Changed Type15", {{"% Perdidas Mitad Propia", 0}}),
+				    #"Added Custom9" = Table.AddColumn(#"Replaced Errors5", "% Recuperaciones Ofensivas", each [Recuperaciones Ofensivas]/[Recuperaciones]),
+				    #"Changed Type16" = Table.TransformColumnTypes(#"Added Custom9",{{"% Recuperaciones Ofensivas", Percentage.Type}}),
+				    #"Replaced Errors6" = Table.ReplaceErrorValues(#"Changed Type16", {{"% Recuperaciones Ofensivas", 0}}),
+				    #"Added Conditional Column4" = Table.AddColumn(#"Replaced Errors6", "Es Inferiores", each if Text.Contains([Club], "U20") then "SI" else if Text.Contains([Club], "U17") then "SI" else "NO"),
+				    #"Renamed Columns5" = Table.RenameColumns(#"Added Conditional Column4",{{"Partido - Copy", "Partido"}, {"Duelos defensivos / ganados", "Duelos Defensivos"}, {"_10", "Duelos Defensivos Ganados"}, {"Duelos por balón perdido / ganados", "Duelos por balon perdido"}, {"_11", "Duelos por balon perdido ganados"}, {"Entradas a ras de suelo / logradas", "Entradas a ras de suelo"}, {"_12", "Entradas a ras de suelo exitosas"}}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Renamed Columns5",{"Tarjetas amarillas", "Tarjetas rojas"}),
+				    #"Renamed Columns6" = Table.RenameColumns(#"Removed Columns1",{{"Duelos ofensivos / ganados", "Duelos Ofensivos"}, {"_13", "Duelos Ofensivos Ganados"}, {"Toques en el área de penalti", "Toques en el área de Penalti"}, {"_14", "Pases en profundidad exitosos"}, {"Pases en profundidad / logrados", "Pases en profundidad"}, {"Second assists", "Segundas Asistencias"}, {"_15", "Pases en el ultimo tercio logrados"}, {"Pases en el último tercio / logrados", "Pases en el último tercio"}, {"_16", "Pases hacia el área de penalti precisos"}, {"Pases hacia el área de penalti/precisos", "Pases hacia el área de penalti"}, {"_17", "Pases hacia adelante logrados"}, {"Pases hacia adelante / logrados", "Pases hacia adelante"}, {"Pases hacia atrás / logrados", "Pases hacia atrás"}, {"_18", "Pases hacia atrás  logrados"}}),
+				    #"Removed Columns2" = Table.RemoveColumns(#"Renamed Columns6",{"Goles recibidos", "xCG", "Remates en contra", "Paradas / de reflejos", "_19", "Salidas", "Cesión al arquero / logrados", "_20", "Saques de meta", "Saques de meta cortos", "Saques de meta largos"}),
+				    #"Reordered Columns2" = Table.ReorderColumns(#"Removed Columns2",{"Numero Partido","Partido", "Nombre Jugador", "Club","Local", "Goles Local", "Visitante", "Goles Visitante", "Pais", "Torneo", "Dia", "Posición 1", "Posición 2", "Posición 3", "Posición 4", "Minutos jugados", "Acciones Totales", "Acciones Logradas", "Goles", "Asistencias", "Tiros", "Tiros Logrados", "Goles Esperados", "Pases", "Pases Concretados", "Pases Largos", "Pases Largos Concretados", "Centros", "Centros Precisos", "Gambetas", "Gambetas Logradas", "Duelos", "Duelos Ganados", "Duelos Aereos", "Duelos Aereos Ganados", "Interceptaciones", "Perdidas", "Perdidas mitad Propia", "Recuperaciones", "Recuperaciones Ofensivas", "Tarjeta Amarilla", "Minutos Tarjeta amarilla", "Duelos Defensivos", "Duelos Defensivos Ganados", "Duelos por balon perdido", "Duelos por balon perdido ganados", "Entradas a ras de suelo", "Entradas a ras de suelo exitosas", "Despejes", "Faltas", "Asistencias a tiro", "Duelos Ofensivos", "Duelos Ofensivos Ganados", "Toques en el área de Penalti", "Fuera de juego", "Carreras en profundidad", "Faltas recibidas", "Pases en profundidad", "Pases en profundidad exitosos", "xA", "Segundas Asistencias", "Pases en el último tercio", "Pases en el ultimo tercio logrados", "Pases hacia el área de penalti", "Pases hacia el área de penalti precisos", "Pases recibidos", "Pases hacia adelante", "Pases hacia adelante logrados", "Pases hacia atrás", "Pases hacia atrás  logrados", "Tarjeta Roja", "Minutos Tarjeta roja", "% Acciones Logradas", "% Tiros Logrados", "% Pases Concretados", "% Pases Largos Concretados", "% Centros Precisos", "% Gambetas Exitosas", "% Duelos Ganados", "% Duelos Aereos Ganados", "% Perdidas Mitad Propia", "% Recuperaciones Ofensivas", "Es Inferiores"}),
+				    #"Filtered Rows" = Table.SelectRows(#"Reordered Columns2", each ([Es Inferiores] = "NO")),
+				    #"Changed Type17" = Table.TransformColumnTypes(#"Filtered Rows",{{"Duelos por balon perdido ganados", Int64.Type}, {"Duelos por balon perdido", Int64.Type}, {"Duelos Defensivos", Int64.Type}, {"Duelos Defensivos Ganados", Int64.Type}, {"Tarjeta Amarilla", type text}, {"Entradas a ras de suelo", Int64.Type}, {"Entradas a ras de suelo exitosas", Int64.Type}, {"Despejes", Int64.Type}, {"Faltas", Int64.Type}, {"Asistencias a tiro", Int64.Type}, {"Duelos Ofensivos", Int64.Type}, {"Duelos Ofensivos Ganados", Int64.Type}, {"Toques en el área de Penalti", Int64.Type}, {"Fuera de juego", Int64.Type}, {"Carreras en profundidad", Int64.Type}, {"Faltas recibidas", Int64.Type}, {"Pases en profundidad", Int64.Type}, {"Pases en profundidad exitosos", Int64.Type}, {"xA", type number}, {"Segundas Asistencias", Int64.Type}, {"Pases en el último tercio", Int64.Type}, {"Pases en el ultimo tercio logrados", Int64.Type}, {"Pases hacia el área de penalti", Int64.Type}, {"Pases hacia el área de penalti precisos", Int64.Type}, {"Pases recibidos", Int64.Type}, {"Pases hacia adelante", Int64.Type}, {"Pases hacia adelante logrados", Int64.Type}, {"Pases hacia atrás", Int64.Type}, {"Pases hacia atrás  logrados", Int64.Type}, {"Tarjeta Roja", type text}, {"Es Inferiores", type text}}),
+				    #"Added Custom10" = Table.AddColumn(#"Changed Type17", "% Pases hacia atras logrados", each [Pases hacia atrás  logrados]/[Pases hacia atrás]),
+				    #"Changed Type18" = Table.TransformColumnTypes(#"Added Custom10",{{"% Pases hacia atras logrados", Percentage.Type}}),
+				    #"Replaced Errors7" = Table.ReplaceErrorValues(#"Changed Type18", {{"% Pases hacia atras logrados", 0}}),
+				    #"Added Custom11" = Table.AddColumn(#"Replaced Errors7", "% Duelos Defensivos Ganados", each [Duelos Defensivos Ganados]/[Duelos Defensivos]),
+				    #"Changed Type19" = Table.TransformColumnTypes(#"Added Custom11",{{"% Duelos Defensivos Ganados", Percentage.Type}}),
+				    #"Replaced Errors8" = Table.ReplaceErrorValues(#"Changed Type19", {{"% Duelos Defensivos Ganados", 0}}),
+				    #"Added Custom12" = Table.AddColumn(#"Replaced Errors8", "% Duelos por Balon Perdido Ganados", each [Duelos por balon perdido ganados]/[Duelos por balon perdido]),
+				    #"Changed Type20" = Table.TransformColumnTypes(#"Added Custom12",{{"% Duelos por Balon Perdido Ganados", Percentage.Type}}),
+				    #"Replaced Errors9" = Table.ReplaceErrorValues(#"Changed Type20", {{"% Duelos por Balon Perdido Ganados", 0}}),
+				    #"Added Custom13" = Table.AddColumn(#"Replaced Errors9", "% Entradas a ras de suelo exitosas", each [Entradas a ras de suelo exitosas]/[Entradas a ras de suelo]),
+				    #"Changed Type21" = Table.TransformColumnTypes(#"Added Custom13",{{"% Entradas a ras de suelo exitosas", Percentage.Type}}),
+				    #"Replaced Errors10" = Table.ReplaceErrorValues(#"Changed Type21", {{"% Entradas a ras de suelo exitosas", 0}}),
+				    #"Removed Columns3" = Table.RemoveColumns(#"Replaced Errors10",{"Posición 1", "Posición 2", "Posición 3", "Posición 4", "Minutos jugados", "Acciones Totales", "Acciones Logradas", "Goles", "Asistencias", "Tiros", "Tiros Logrados", "Goles Esperados", "Centros", "Centros Precisos", "Gambetas", "Gambetas Logradas", "Duelos", "Duelos Ganados", "Duelos Aereos", "Duelos Aereos Ganados", "Interceptaciones", "Perdidas", "Perdidas mitad Propia", "Recuperaciones", "Recuperaciones Ofensivas", "Tarjeta Amarilla", "Minutos Tarjeta amarilla", "Duelos Defensivos", "Duelos Defensivos Ganados", "Duelos por balon perdido", "Duelos por balon perdido ganados", "Entradas a ras de suelo", "Entradas a ras de suelo exitosas", "Despejes", "Faltas", "Asistencias a tiro", "Duelos Ofensivos", "Duelos Ofensivos Ganados", "Toques en el área de Penalti", "Fuera de juego", "Carreras en profundidad", "Faltas recibidas", "xA", "Segundas Asistencias", "Tarjeta Roja", "Minutos Tarjeta roja", "% Acciones Logradas", "% Tiros Logrados", "% Centros Precisos", "% Gambetas Exitosas", "% Duelos Ganados", "% Duelos Aereos Ganados", "% Perdidas Mitad Propia", "% Recuperaciones Ofensivas", "Es Inferiores", "% Duelos Defensivos Ganados", "% Duelos por Balon Perdido Ganados", "% Entradas a ras de suelo exitosas"}),
+				    #"Added Custom14" = Table.AddColumn(#"Removed Columns3", "% Pases en profundidad exitosos", each Value.Divide([Pases en profundidad exitosos],[Pases en profundidad])),
+				    #"Changed Type22" = Table.TransformColumnTypes(#"Added Custom14",{{"% Pases en profundidad exitosos", Percentage.Type}}),
+				    #"Replaced Errors11" = Table.ReplaceErrorValues(#"Changed Type22", {{"% Pases en profundidad exitosos", 0}}),
+				    #"Added Custom15" = Table.AddColumn(#"Replaced Errors11", "% Pases en el ultim tercio logrados ", each Value.Divide([Pases en el ultimo tercio logrados],[Pases en el último tercio])),
+				    #"Changed Type23" = Table.TransformColumnTypes(#"Added Custom15",{{"% Pases en el ultim tercio logrados ", Percentage.Type}}),
+				    #"Replaced Errors12" = Table.ReplaceErrorValues(#"Changed Type23", {{"% Pases en el ultim tercio logrados ", 0}}),
+				    #"Added Custom16" = Table.AddColumn(#"Replaced Errors12", "% Pases hacia el area chica precisos", each [Pases hacia el área de penalti precisos]/[Pases hacia el área de penalti]),
+				    #"Changed Type24" = Table.TransformColumnTypes(#"Added Custom16",{{"% Pases hacia el area chica precisos", Percentage.Type}}),
+				    #"Replaced Errors13" = Table.ReplaceErrorValues(#"Changed Type24", {{"% Pases hacia el area chica precisos", 0}}),
+				    #"Added Custom17" = Table.AddColumn(#"Replaced Errors13", "% Pases hacia adelante precisos", each [Pases hacia adelante logrados]/[Pases hacia adelante]),
+				    #"Changed Type25" = Table.TransformColumnTypes(#"Added Custom17",{{"% Pases hacia adelante precisos", Percentage.Type}}),
+				    #"Replaced Errors14" = Table.ReplaceErrorValues(#"Changed Type25", {{"% Pases hacia adelante precisos", 0}}),
+				    #"Removed Columns4" = Table.RemoveColumns(#"Replaced Errors14",{"Pases", "Pases Concretados", "Pases Largos", "Pases Largos Concretados", "Pases en profundidad", "Pases en profundidad exitosos", "Pases en el último tercio", "Pases en el ultimo tercio logrados", "Pases hacia el área de penalti", "Pases hacia el área de penalti precisos", "Pases recibidos", "Pases hacia adelante", "Pases hacia adelante logrados", "Pases hacia atrás", "Pases hacia atrás  logrados"}),
+				    #"Unpivoted Columns" = Table.UnpivotOtherColumns(#"Removed Columns4", {"Numero Partido", "Partido", "Nombre Jugador", "Club", "Local", "Goles Local", "Visitante", "Goles Visitante", "Pais", "Torneo", "Dia"}, "Attribute", "Value"),
+				    #"Renamed Columns7" = Table.RenameColumns(#"Unpivoted Columns",{{"Attribute", "Estadistica"}, {"Value", "Valor"}})
+				in
+				    #"Renamed Columns7"
+
+	annotation PBI_ResultType = Table
+

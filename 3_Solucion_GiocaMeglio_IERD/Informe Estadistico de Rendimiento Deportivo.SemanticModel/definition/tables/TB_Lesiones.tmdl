@@ -1,0 +1,69 @@
+table TB_Lesiones
+	excludeFromModelRefresh
+	lineageTag: b9f3850c-3088-4628-b397-043e2cdc2c46
+
+	column ID
+		dataType: string
+		lineageTag: 062bcfff-c9c4-44db-80e9-dd049d5929f0
+		summarizeBy: none
+		sourceColumn: ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: fed1588d-2366-4555-86f7-d3c05ffdcdb8
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		variation Variation
+			isDefault
+			relationship: 58f455c2-f390-4197-9f9f-55955061d48e
+			defaultHierarchy: LocalDateTable_71c16a75-b98b-4c84-8930-ae90034cd83f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Musculo
+		dataType: int64
+		formatString: 0
+		lineageTag: c59a7f26-5c03-4fa6-bfef-8492b9ffa8f2
+		summarizeBy: none
+		sourceColumn: Musculo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Lesiones
+		dataType: int64
+		formatString: 0
+		lineageTag: 5cad7ac5-e0a1-4c43-ad1e-0cc7f489cc54
+		summarizeBy: sum
+		sourceColumn: Lesiones
+
+		annotation SummarizationSetBy = Automatic
+
+	column Paciente
+		dataType: string
+		lineageTag: eeb39071-905a-478d-910a-b638f7e74ad3
+		summarizeBy: none
+		sourceColumn: Paciente
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TB_Lesiones-1487958c-29c2-4dae-856f-c7d3131b5a2f = m
+		mode: import
+		source =
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1B8IhIGw-h69gm5hHT_TQRGZ7Tc4F410CQFrSEK5HcYw/edit#gid=1369918291"),
+				    Lesiones_Table = Source{[name="Lesiones",ItemKind="Table"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Lesiones_Table, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ID", type text}, {"Fecha", type date}, {"Muscle", Int64.Type}, {"Lesiones", Int64.Type}, {"Paciente", type text}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each ([Fecha] <> null)),
+				    #"Renamed Columns" = Table.RenameColumns(#"Filtered Rows",{{"Muscle", "Musculo"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+

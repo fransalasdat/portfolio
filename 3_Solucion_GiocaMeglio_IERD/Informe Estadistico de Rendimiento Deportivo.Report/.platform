@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Informe Estadistico de Rendimiento Deportivo"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "de27ad83-e7d7-41f0-a41e-c2a2fa639cd9"
+  }
+}

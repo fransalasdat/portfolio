@@ -1,0 +1,71 @@
+relationship b5e8ceaf-fad5-4ec9-b78a-d8e473522142
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Jugadores.'Fecha de Nacimiento'
+	toColumn: LocalDateTable_e248ed97-81d4-4caa-bcfd-fcd63d5992fe.Date
+
+relationship d2cdc36f-8667-44fc-b714-76b92892dd32
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Fact_Detalle.Dia
+	toColumn: LocalDateTable_00ec37d1-9c04-4562-9300-dd76673918fb.Date
+
+relationship b226ffd9-2823-4777-b696-c10bef88b8a7
+	fromColumn: Fact_Detalle.'Nombre Jugador'
+	toColumn: Dim_Jugadores.'Nombre Jugador'
+
+relationship d7f1385a-9431-4eab-aae2-a8c6c3f4657a
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: Dim_Calendario.Date
+	toColumn: Fact_Detalle.Dia
+
+relationship 8b7f8af5-e964-4fc4-966e-67886c33dcf3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Jugadores.'Inicio Contrato'
+	toColumn: LocalDateTable_6d27a166-ffe6-40ec-a3dc-7e4544495b77.Date
+
+relationship d63a8604-625c-41af-9d12-cb5476e6eebf
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Dim_Jugadores.'Fin de Contrato'
+	toColumn: LocalDateTable_4a9e07e6-ef4e-46cb-9413-040bf6eecd4b.Date
+
+relationship 525b39b1-4843-4d6d-93c9-cc562cc8fff5
+	fromColumn: Fact_Detalle.Club
+	toColumn: Dim_Clubes.Club
+
+relationship 58f455c2-f390-4197-9f9f-55955061d48e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: TB_Lesiones.Fecha
+	toColumn: LocalDateTable_71c16a75-b98b-4c84-8930-ae90034cd83f.Date
+
+relationship 78a80f2e-bc2f-4fe1-880d-f7e91a7386ea
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: TB_Fechas.Fecha
+	toColumn: TB_Lesiones.Fecha
+
+relationship f168a24b-1bae-489e-8751-f5aeb763238b
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: TB_Musculos.ID_Mus
+	toColumn: TB_Lesiones.Musculo
+
+relationship 39070555-9624-4c89-a258-7f22485acae8
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: TB_Jugadores.ID
+	toColumn: TB_Lesiones.Paciente
+
+relationship 680050ec-0190-4f40-9083-9cf6263a4624
+	fromColumn: 'Radares Jugador'.Dia
+	toColumn: Dim_Calendario.Date
+
+relationship 58ba7420-2084-4c92-a944-7c5e101fb195
+	isActive: false
+	fromColumn: 'Radares Jugador'.Club
+	toColumn: Dim_Clubes.Club
+
+relationship c441b548-c6a6-4d6c-82aa-7ff2e5f62ec5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Año 2023'.'Marca temporal'
+	toColumn: LocalDateTable_6ddb41fb-270a-4c13-bf85-45a668265c7e.Date
+

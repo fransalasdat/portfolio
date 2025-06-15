@@ -1,0 +1,1021 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "jugadore": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Jugadores"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "jugadore": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "jugadore.nombre_jugador": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Jugadores",
+			          "ConceptualProperty": "Nombre Jugador"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "nombre jugador": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "jugadore.fecha_de_nacimiento": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Jugadores",
+			          "ConceptualProperty": "Fecha de Nacimiento"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "fecha de nacimiento": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "date": {
+			            "State": "Generated",
+			            "Weight": 0.7
+			          }
+			        }
+			      ],
+			      "SemanticType": "Time"
+			    },
+			    "jugadore.fecha_de_nacimiento.variation.date_hierarchy": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Jugadores",
+			          "VariationSource": "Fecha de Nacimiento",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Date Hierarchy"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "fecha de nacimiento date hierarchy": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "date hierarchy": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        }
+			      ],
+			      "SemanticType": "Time"
+			    },
+			    "jugadore.fecha_de_nacimiento.variation.date_hierarchy.year": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Jugadores",
+			          "VariationSource": "Fecha de Nacimiento",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Date Hierarchy",
+			          "HierarchyLevel": "Year"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "fecha de nacimiento year": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "year": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "fecha de nacimiento yr": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.771
+			          }
+			        },
+			        {
+			          "yr": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.736
+			          }
+			        }
+			      ],
+			      "SemanticType": "Time"
+			    },
+			    "jugadore.fecha_de_nacimiento.variation.date_hierarchy.quarter": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Jugadores",
+			          "VariationSource": "Fecha de Nacimiento",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Date Hierarchy",
+			          "HierarchyLevel": "Quarter"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "fecha de nacimiento quarter": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "quarter": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "fecha de nacimiento qtr": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.857
+			          }
+			        },
+			        {
+			          "qtr": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.818
+			          }
+			        }
+			      ],
+			      "SemanticType": "Time"
+			    },
+			    "jugadore.fecha_de_nacimiento.variation.date_hierarchy.month": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Jugadores",
+			          "VariationSource": "Fecha de Nacimiento",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Date Hierarchy",
+			          "HierarchyLevel": "Month"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "fecha de nacimiento month": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "month": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "fecha de nacimiento mth": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.771
+			          }
+			        },
+			        {
+			          "mth": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.736
+			          }
+			        }
+			      ],
+			      "SemanticType": "Time"
+			    },
+			    "jugadore.fecha_de_nacimiento.variation.date_hierarchy.day": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Jugadores",
+			          "VariationSource": "Fecha de Nacimiento",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Date Hierarchy",
+			          "HierarchyLevel": "Day"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "fecha de nacimiento day": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "day": {
+			            "State": "Generated"
+			          }
+			        }
+			      ],
+			      "SemanticType": "Time"
+			    },
+			    "jugadore.altura": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Jugadores",
+			          "ConceptualProperty": "Altura"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "altura": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "jugadore.peso": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Jugadores",
+			          "ConceptualProperty": "Peso"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "peso": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "jugadore.iniciale": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Jugadores",
+			          "ConceptualProperty": "Iniciales"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "iniciale": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "jugadore.club_actual": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Jugadores",
+			          "ConceptualProperty": "Club Actual"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "club actual": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "actual": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "club real": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "club existent": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "club tangible": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.727
+			          }
+			        },
+			        {
+			          "real": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.714
+			          }
+			        },
+			        {
+			          "existent": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.714
+			          }
+			        },
+			        {
+			          "tangible": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.714
+			          }
+			        },
+			        {
+			          "association actual": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        },
+			        {
+			          "nightclub actual": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        },
+			        {
+			          "alliance actual": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        },
+			        {
+			          "guild actual": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.6
+			          }
+			        }
+			      ]
+			    },
+			    "jugadore.imagen_jugador": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Jugadores",
+			          "ConceptualProperty": "Imagen Jugador"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "imagen jugador": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "clube": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Clubes"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "clube": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "clube.club": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Clubes",
+			          "ConceptualProperty": "Club"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "club": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "association": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.736
+			          }
+			        },
+			        {
+			          "nightclub": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.736
+			          }
+			        },
+			        {
+			          "alliance": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.736
+			          }
+			        },
+			        {
+			          "guild": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.736
+			          }
+			        },
+			        {
+			          "organization": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.736
+			          }
+			        },
+			        {
+			          "team": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.714
+			          }
+			        },
+			        {
+			          "union": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "OfficeThesaurus"
+			            },
+			            "Weight": 0.714
+			          }
+			        }
+			      ]
+			    },
+			    "clube.imagen_escudo": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Dim_Clubes",
+			          "ConceptualProperty": "Imagen Escudo"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "imagen escudo": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "med_basicas.goles_convertidos_totales": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Med Basicas",
+			          "ConceptualProperty": "Goles Convertidos Totales"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "med_basicas.goles_convertidos_penal": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Med Basicas",
+			          "ConceptualProperty": "Goles Convertidos Penal"
+			        }
+			      },
+			      "State": "Generated"
+			    }
+			  },
+			  "Relationships": {
+			    "jugadore_has_nombre_jugador": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_Jugadores"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "jugadore": {
+			          "Target": {
+			            "Entity": "jugadore"
+			          }
+			        },
+			        "jugadore.nombre_jugador": {
+			          "Target": {
+			            "Entity": "jugadore.nombre_jugador"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "jugadore"
+			            },
+			            "Object": {
+			              "Role": "jugadore.nombre_jugador"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "jugadore_has_fecha_de_nacimiento": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_Jugadores"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "jugadore": {
+			          "Target": {
+			            "Entity": "jugadore"
+			          }
+			        },
+			        "jugadore.fecha_de_nacimiento": {
+			          "Target": {
+			            "Entity": "jugadore.fecha_de_nacimiento"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "jugadore"
+			            },
+			            "Object": {
+			              "Role": "jugadore.fecha_de_nacimiento"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "jugadore_has_altura": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_Jugadores"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "jugadore": {
+			          "Target": {
+			            "Entity": "jugadore"
+			          }
+			        },
+			        "jugadore.altura": {
+			          "Target": {
+			            "Entity": "jugadore.altura"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "jugadore"
+			            },
+			            "Object": {
+			              "Role": "jugadore.altura"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "jugadore_has_peso": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_Jugadores"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "jugadore": {
+			          "Target": {
+			            "Entity": "jugadore"
+			          }
+			        },
+			        "jugadore.peso": {
+			          "Target": {
+			            "Entity": "jugadore.peso"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "jugadore"
+			            },
+			            "Object": {
+			              "Role": "jugadore.peso"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "jugadore_has_iniciale": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_Jugadores"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "jugadore": {
+			          "Target": {
+			            "Entity": "jugadore"
+			          }
+			        },
+			        "jugadore.iniciale": {
+			          "Target": {
+			            "Entity": "jugadore.iniciale"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "jugadore"
+			            },
+			            "Object": {
+			              "Role": "jugadore.iniciale"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "jugadore_has_club_actual": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_Jugadores"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "jugadore": {
+			          "Target": {
+			            "Entity": "jugadore"
+			          }
+			        },
+			        "jugadore.club_actual": {
+			          "Target": {
+			            "Entity": "jugadore.club_actual"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "jugadore"
+			            },
+			            "Object": {
+			              "Role": "jugadore.club_actual"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "jugadore_has_imagen_jugador": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_Jugadores"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "jugadore": {
+			          "Target": {
+			            "Entity": "jugadore"
+			          }
+			        },
+			        "jugadore.imagen_jugador": {
+			          "Target": {
+			            "Entity": "jugadore.imagen_jugador"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "jugadore"
+			            },
+			            "Object": {
+			              "Role": "jugadore.imagen_jugador"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "clube_has_club": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_Clubes"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "clube": {
+			          "Target": {
+			            "Entity": "clube"
+			          }
+			        },
+			        "clube.club": {
+			          "Target": {
+			            "Entity": "clube.club"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "clube"
+			            },
+			            "Object": {
+			              "Role": "clube.club"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "clube_has_imagen_escudo": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_Clubes"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "clube": {
+			          "Target": {
+			            "Entity": "clube"
+			          }
+			        },
+			        "clube.imagen_escudo": {
+			          "Target": {
+			            "Entity": "clube.imagen_escudo"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "clube"
+			            },
+			            "Object": {
+			              "Role": "clube.imagen_escudo"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "jugadore_fecha_de_nacimiento_has_variation_date_hierarchy": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_Jugadores"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "jugadore.fecha_de_nacimiento": {
+			          "Target": {
+			            "Entity": "jugadore.fecha_de_nacimiento"
+			          }
+			        },
+			        "jugadore.fecha_de_nacimiento.variation.date_hierarchy": {
+			          "Target": {
+			            "Entity": "jugadore.fecha_de_nacimiento.variation.date_hierarchy"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "jugadore.fecha_de_nacimiento"
+			            },
+			            "Object": {
+			              "Role": "jugadore.fecha_de_nacimiento.variation.date_hierarchy"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "jugadore_fecha_de_nacimiento_variation_date_hierarchy_has_year": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_Jugadores"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "jugadore.fecha_de_nacimiento.variation.date_hierarchy": {
+			          "Target": {
+			            "Entity": "jugadore.fecha_de_nacimiento.variation.date_hierarchy"
+			          }
+			        },
+			        "jugadore.fecha_de_nacimiento.variation.date_hierarchy.year": {
+			          "Target": {
+			            "Entity": "jugadore.fecha_de_nacimiento.variation.date_hierarchy.year"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "jugadore.fecha_de_nacimiento.variation.date_hierarchy"
+			            },
+			            "Object": {
+			              "Role": "jugadore.fecha_de_nacimiento.variation.date_hierarchy.year"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "jugadore_fecha_de_nacimiento_variation_date_hierarchy_has_quarter": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_Jugadores"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "jugadore.fecha_de_nacimiento.variation.date_hierarchy": {
+			          "Target": {
+			            "Entity": "jugadore.fecha_de_nacimiento.variation.date_hierarchy"
+			          }
+			        },
+			        "jugadore.fecha_de_nacimiento.variation.date_hierarchy.quarter": {
+			          "Target": {
+			            "Entity": "jugadore.fecha_de_nacimiento.variation.date_hierarchy.quarter"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "jugadore.fecha_de_nacimiento.variation.date_hierarchy"
+			            },
+			            "Object": {
+			              "Role": "jugadore.fecha_de_nacimiento.variation.date_hierarchy.quarter"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "jugadore_fecha_de_nacimiento_variation_date_hierarchy_has_month": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_Jugadores"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "jugadore.fecha_de_nacimiento.variation.date_hierarchy": {
+			          "Target": {
+			            "Entity": "jugadore.fecha_de_nacimiento.variation.date_hierarchy"
+			          }
+			        },
+			        "jugadore.fecha_de_nacimiento.variation.date_hierarchy.month": {
+			          "Target": {
+			            "Entity": "jugadore.fecha_de_nacimiento.variation.date_hierarchy.month"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "jugadore.fecha_de_nacimiento.variation.date_hierarchy"
+			            },
+			            "Object": {
+			              "Role": "jugadore.fecha_de_nacimiento.variation.date_hierarchy.month"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    },
+			    "jugadore_fecha_de_nacimiento_variation_date_hierarchy_has_day": {
+			      "Binding": {
+			        "ConceptualEntity": "Dim_Jugadores"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "jugadore.fecha_de_nacimiento.variation.date_hierarchy": {
+			          "Target": {
+			            "Entity": "jugadore.fecha_de_nacimiento.variation.date_hierarchy"
+			          }
+			        },
+			        "jugadore.fecha_de_nacimiento.variation.date_hierarchy.day": {
+			          "Target": {
+			            "Entity": "jugadore.fecha_de_nacimiento.variation.date_hierarchy.day"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "jugadore.fecha_de_nacimiento.variation.date_hierarchy"
+			            },
+			            "Object": {
+			              "Role": "jugadore.fecha_de_nacimiento.variation.date_hierarchy.day"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+

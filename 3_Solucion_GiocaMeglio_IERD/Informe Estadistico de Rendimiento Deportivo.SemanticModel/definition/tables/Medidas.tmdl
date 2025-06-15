@@ -1,0 +1,164 @@
+table Medidas
+	lineageTag: 6a7d1f17-5a6c-4d70-9cf7-50b6cd436d1b
+
+	measure 'Fecha Debut' = CALCULATE(MIN(Fact_Detalle[Dia]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: mmmm "de" yyyy
+		lineageTag: 3a5f29a6-99a2-4a6a-91d9-e5af5dee693a
+
+		annotation PBI_FormatHint = {"isDateTimeCustom":true}
+
+	measure 'Cantidad Partidos' = CALCULATE(COUNTROWS(Fact_Detalle),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0
+		lineageTag: 853bc1f8-d297-4407-b748-6208bdd141e2
+
+	measure 'Titulo Anio' = "Año " & CALCULATE(MAX(Dim_Calendario[Anio]),Dim_Calendario[Es Anio Actual]="SI")
+		lineageTag: c4cab12c-27a2-4965-bb6f-a80ff95ea367
+
+	measure 'Minutos Jugados' = CALCULATE(SUM(Fact_Detalle[Minutos jugados]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0
+		lineageTag: 7ea96c77-ed38-465a-8803-d6e553c589c3
+
+	measure 'Minutos Jugados por Partido' = [Minutos Jugados]/[Cantidad Partidos]
+		formatString: 0
+		lineageTag: 4788779d-684b-4e13-b11a-2ce8e9c2022c
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure Goles = CALCULATE(SUM(Fact_Detalle[Goles]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0
+		lineageTag: 2b07b4f1-0c24-4c7e-a587-f2f17440b3c8
+
+	measure Asistencias = CALCULATE(SUM(Fact_Detalle[Asistencias]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0
+		lineageTag: 6cfc801f-6f44-4368-901b-f71d230c3483
+
+	measure Remates = CALCULATE(SUM(Fact_Detalle[Tiros]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0
+		lineageTag: d9c814b9-67b9-4ac2-9997-df37f8effc6d
+
+	measure 'Remates por Partido' = [Remates]/[Cantidad Partidos]
+		formatString: 0.0
+		lineageTag: 00f11c33-e2d4-4a0d-b782-5375329683c8
+
+	measure 'Precision de Tiro' = CALCULATE(AVERAGE(Fact_Detalle[% Tiros Logrados]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 3a260648-b1ec-464a-94f0-bb54ef5424a1
+
+	measure Gambetas = CALCULATE(SUM(Fact_Detalle[Gambetas]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0
+		lineageTag: fe6696f9-2786-419d-a6a4-989c7adee59b
+
+	measure '% Gambetas Exitosas' = CALCULATE(AVERAGE(Fact_Detalle[% Gambetas Exitosas]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 2694f6b1-6f1a-497e-8f4e-2e8cc8e61402
+
+	measure 'Gambetas por Partido' = [Gambetas]/[Cantidad Partidos]
+		formatString: 0.0
+		lineageTag: 704afecf-63d5-414c-b7f9-770ad0bf4902
+
+	measure Pases = CALCULATE(SUM(Fact_Detalle[Pases]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0
+		lineageTag: 6d5e7958-52bf-4aa0-8bcc-4f72fda5ccf5
+
+	measure 'Precision de Pase' = CALCULATE(AVERAGE(Fact_Detalle[% Pases Concretados]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 96b405c5-20a6-4b08-b66b-8775bd50b49d
+
+	measure 'Pases por Partido' = [Pases]/[Cantidad Partidos]
+		formatString: 0.0
+		lineageTag: 69bfb845-d135-4d60-bac4-35853a040a85
+
+	measure 'Pases Largos' = CALCULATE(SUM(Fact_Detalle[Pases Largos]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0
+		lineageTag: 973a79ac-c24c-4766-ba56-7364551e6466
+
+	measure 'Precision Pases Largos' = CALCULATE(AVERAGE(Fact_Detalle[% Pases Largos Concretados]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: ad4e9596-a9a6-4ec4-b6f7-7623ef6eec88
+
+	measure 'Pases Largos por Partido' = [Pases Largos]/[Cantidad Partidos]
+		formatString: 0.0
+		lineageTag: 06a6831c-c297-4096-90cf-4cb672cc704b
+
+	measure Interceptaciones = CALCULATE(SUM(Fact_Detalle[Interceptaciones]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0
+		lineageTag: 4a3992b5-035e-4c8a-a2ee-2532c3d9aa40
+
+	measure 'Interceptaciones por Partido' = [Interceptaciones]/[Cantidad Partidos]
+		formatString: 0.0
+		lineageTag: 79993e0b-615c-4a95-8ccb-c67c6d036721
+
+	measure 'Duelos Ganados' = CALCULATE(SUM(Fact_Detalle[Duelos Ganados]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0
+		lineageTag: c439897d-2e50-48c7-8217-26a79d08d27f
+
+	measure '% Duelos Ganados' = CALCULATE(AVERAGE(Fact_Detalle[% Duelos Ganados]),Fact_Detalle[Es Inferiores]="NO")
+		formatString: 0.0\ %;-0.0\ %;0.0\ %
+		lineageTag: 64c06f23-c0a8-418e-b499-333b308c16a0
+
+	measure 'Duelos Ganados por Partido' = [Duelos Ganados]/[Cantidad Partidos]
+		formatString: 0.0
+		lineageTag: 16827f03-93ad-4a66-bc1f-806c3708ce4c
+
+	measure Altura = AVERAGE(Dim_Jugadores[Altura])/100 & " m"
+		lineageTag: f42bc990-4396-4734-90c0-35c23431badc
+
+	measure Edad = AVERAGE(Dim_Jugadores[Edad]) & " años"
+		lineageTag: 5987600c-94c7-4498-8c46-b8b83e00a102
+
+	measure Peso = AVERAGE(Dim_Jugadores[Peso]) & " kg"
+		lineageTag: c11f1c1d-4eb8-4c7d-9184-f95df03b5e53
+
+	measure 'Temporada Actual' = ```
+			
+			if(MONTH(TODAY())<=6,
+			
+			    YEAR(TODAY())-1
+			    &" - "&
+			    YEAR(TODAY()),
+			    
+			    YEAR(TODAY())
+			    &" - "&
+			    YEAR(TODAY())+1)
+			```
+		lineageTag: 198ead83-4695-469d-b153-3893efab9931
+
+	measure 'Titulo Actualidad' = "Informe de Rendimiento de " & SELECTEDVALUE(Dim_Jugadores[Nombre Jugador])
+		lineageTag: 0f9b63cd-86d3-4943-8704-9867d96aa1b6
+
+	measure 'Valor de Mercado' = max(Dim_Jugadores[Valuacion Transfermarket]) & " mill. €"
+		lineageTag: f4c4e88d-9b0e-415f-8d2a-3b18eb3a0e33
+
+	measure 'Duelos Defensivos Ganados' = sum(Fact_Detalle[Duelos Defensivos Ganados])/[Cantidad Partidos]
+		formatString: 0.0
+		lineageTag: b39b71af-28c4-46e0-9198-391de18687e2
+
+	measure 'Recuperaciones por Partido' = divide(SUM(Fact_Detalle[Recuperaciones Ofensivas]),[Cantidad Partidos],0)
+		formatString: 0.0
+		lineageTag: 14b8c619-ae89-4cc9-8327-7756b6b8ba23
+
+	measure 'Tiros Logrados' =
+			sum(Fact_Detalle[Tiros Logrados])
+			-- -sum(Detalle[Tiros Logrados])
+		formatString: 0
+		lineageTag: 24ec931f-5b67-4686-9190-98c71148e9fc
+
+	measure 'Tiros No Logrados' = sum(Fact_Detalle[Tiros])-[Tiros Logrados]
+		formatString: 0
+		lineageTag: 73a96a7d-5d85-4471-b663-f2e862ed6b69
+
+	measure 'Titulo Mapa Lesivo' = "Mapa Lesivo de " & SELECTEDVALUE(TB_Jugadores[Nombre])
+		lineageTag: 133356c9-d216-48f5-ac94-1c3a610f9910
+
+	partition Medidas-f667eeb0-6b09-4587-b1d8-bdd18e2adc41 = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

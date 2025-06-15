@@ -1,0 +1,59 @@
+table Dim_Clubes
+	lineageTag: 53352df7-39e9-41a9-b3e1-d4210423d768
+
+	column Club
+		dataType: string
+		lineageTag: a9cba8dd-be7f-4616-8b10-614ccf81bb4c
+		summarizeBy: none
+		sourceColumn: Club
+		sortByColumn: 'Orden Club'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Imagen Escudo'
+		dataType: string
+		lineageTag: b3fb9bbb-1c73-4f65-b134-de238670dec1
+		summarizeBy: none
+		sourceColumn: Imagen Escudo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Liga
+		dataType: string
+		lineageTag: 817ec10f-b0f4-488e-8511-57aa7268d998
+		summarizeBy: none
+		sourceColumn: Liga
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Escudo Liga'
+		dataType: string
+		lineageTag: bf7b7b64-bc60-4577-9ad8-e8cd2d7995ff
+		summarizeBy: none
+		sourceColumn: Escudo Liga
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Orden Club' = SWITCH(TRUE(),Dim_Clubes[Liga]="Liga Profesional Argentina",1,2)
+		formatString: 0
+		lineageTag: aa6cb51c-2482-4e3c-9da8-dc57647c40f6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dim_Clubes-cf34225e-c7a3-4fa7-9275-2d0481af7049 = m
+		mode: import
+		source =
+				let
+				    Source = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1y6dSD5gB9qVejMd38f-Yt20Jegm1xr27UEW9wjDScWY/edit#gid=395862599"),
+				    Clubes_Table = Source{[name="Clubes",ItemKind="Table"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Clubes_Table, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Club", type text}, {"Imagen", type text}}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"Imagen", "Imagen Escudo"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+
