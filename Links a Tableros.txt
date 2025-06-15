@@ -1,8 +1,0 @@
-1. Tablero de La Liga Española: 
-https://app.powerbi.com/view?r=eyJrIjoiYWNkZGU4MDEtNTU5Yi00OWFlLTkyODAtMzJkN2M3YmY0OTU4IiwidCI6Ijg1MjI2NjJhLTVkYTctNGE1Zi05ZDM0LWFmNzAzNTM3NzIyZCIsImMiOjR9
-
-3.  Informe Estadístico de Rendimiento Deportivo: 
-https://app.powerbi.com/view?r=eyJrIjoiZjU2ZGE4NzUtMDVlNi00ZGI4LTlmNGEtMmYwNDFhODNiZDc4IiwidCI6Ijg1MjI2NjJhLTVkYTctNGE1Zi05ZDM0LWFmNzAzNTM3NzIyZCIsImMiOjR9
-
-4. Tablero Seleccion Femenina Argentina: 
-https://app.powerbi.com/view?r=eyJrIjoiMGZmNjcyNjItOGE4NS00ZWZiLTg5MzItNzQyM2JiOWEwZGNiIiwidCI6Ijg1MjI2NjJhLTVkYTctNGE1Zi05ZDM0LWFmNzAzNTM3NzIyZCIsImMiOjR9
