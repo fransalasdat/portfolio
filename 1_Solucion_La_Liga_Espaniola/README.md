@@ -6,4 +6,4 @@ Podrás visualizar e interactuar directamente con el Dashboard [aquí](https://a
 
 El repositorio contiene:
 - [PDF](https://github.com/fransalasdat/portfolio/blob/main/1_Solucion_La_Liga_Espaniola/1.%20Solucion%20La%20Liga%20Espa%C3%B1ola.pdf) explicativo del desarrollo y análisis realizado.
-- Proyecto de modelo semántico y tablero en .pbip final entregado al cliente (disponible para desarrolladores).
+- [Proyecto](https://github.com/fransalasdat/portfolio/tree/main/1_Solucion_La_Liga_Espaniola/Proyecto_pbip) de modelo semántico y tablero en .pbip final entregado al cliente (disponible para desarrolladores).
